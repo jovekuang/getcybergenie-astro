@@ -23,7 +23,7 @@
     "assets:brand": "node scripts/generate-brand-assets.mjs",
     "test:browser": "node --test tests/browser.test.mjs",
     "audit:visual": "node scripts/visual-audit.mjs",
-    "check:types": "tsc --noEmit"
+    "check:types": "astro sync && tsc --noEmit"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
