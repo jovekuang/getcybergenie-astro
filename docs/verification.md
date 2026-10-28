@@ -40,15 +40,29 @@ All samples are within the plan's LCP 2.5s and CLS 0.1 targets. Recheck on the r
 
 ## Explicit pending items
 
-- Owner design and legal-copy review before production launch.
-- Verify/create `hello@getcybergenie.com` forwarding after a fresh Porkbun sign-in. Existing public forwarding MX/SPF were confirmed; actual alias delivery was not.
-- Authenticate the new Resend sender and configure production server bindings.
-- Verify actual CRM campaign origin allowlist and Turnstile requirement; retain the existing business/form/campaign identities.
-- Connect the approved custom domain, test controlled production delivery and enable indexing only after readiness checks pass.
+- Owner legal-copy review and separate approval before enabling indexing.
+- Independently test receipt through the newly created `hello@getcybergenie.com` forwarding alias. Its configuration and preserved MX/SPF are verified; inbox delivery through that alias has not been tested.
+- Enable indexing only after the remaining readiness checks and owner approval. Production currently sends `X-Robots-Tag: noindex, nofollow`.
 - Activate old-domain redirects only in the later approved FK Innovate transition.
 - Perform the 24/72-hour checks after actual launch; no future checks have already occurred.
 
 The hosted review preview is deliberately non-indexable and its forms are dry runs. See `launch-runbook.md` for the release sequence and rollback.
+
+## Production connection — October 28, 2026
+
+Owner-approved source commit: `f6a1056` (homepage circles removed and signal background softened). Pushed to `origin/main`; GitHub CI passed: https://github.com/jovekuang/getcybergenie-astro/actions/runs/40755241673.
+
+Production deployment with the configured bindings: https://1a6a4589.cyber-genie-marketing.pages.dev. Both `getcybergenie.com` and `www.getcybergenie.com` show **Active / SSL enabled** in the Cyber Genie Pages project and serve the updated site over HTTPS.
+
+- `npm run check`: types, 75-page build, site audit, six carousel tests and 18 API tests passed.
+- Hosted browser journeys: six passed, including pricing, mobile navigation, reduced motion, JavaScript-free fallbacks and dry-run forms.
+- Hosted runtime checks passed again after adding live production secrets, confirming previews still force dry runs.
+- Production read-only verification passed for all 75 routes, 42 query-preserving redirects, 71 sitemap URLs, root/www HTTPS and a genuine missing-page 404. Cloudflare's normal `/404.html` normalization resolves to the 404 page.
+- The two separately approved owned-address production tests were accepted. Website onboarding reached the owner inbox from the new sender, with SPF/DKIM/DMARC passing and correct Reply-To. The listing submission returned CRM acceptance and generated the existing CRM notification in the owner inbox.
+- One invalid listing test attempt was rejected by local field validation before CRM delivery; its corrected request used the same stable idempotency key. There was one accepted submission per form.
+- Production and Pages hostnames remain non-indexable. No Search Console move, old-domain redirect, app rebranding, customer communication or scheduled monitor was performed.
+
+Private screenshots, DNS snapshots, and sanitized runtime results are under ignored `outputs/qa/launch/`. Credentials are stored only in server settings, not in those artifacts or Git.
 
 ## Hosted review verification
 

@@ -2,9 +2,22 @@
 
 ## Current release boundary
 
-The new repository and an isolated Pages preview can be reviewed without changing `fkinnovate.com`, its app, its email, or the new domain's current website configuration. Review deployment forms never send email or write CRM records, even if production bindings are accidentally present.
+On October 28, 2026, the owner approved deploying `main` and connecting `getcybergenie.com`, then separately approved the `www` hostname, a domain-restricted Resend sending key, and two controlled production form tests. Both custom domains are active with SSL on **cyber-genie-marketing**. `SITE_INDEXABLE=false` remains configured. The old marketing site, app identity, email, and old-domain redirects were not changed.
 
-Do not connect `getcybergenie.com`, enable indexing, deploy the main branch, or activate old-domain redirects until the owner approves the design and the production delivery checks below are complete. Existing terms/privacy source remains draft legal copy requiring owner review.
+Review deployment forms never send email or write CRM records, even with production bindings present. Enabling indexing and activating old-domain redirects still require their separate approvals and readiness checks. Existing terms/privacy source remains draft legal copy requiring owner review.
+
+### Verified production setup
+
+- Registrar remains Porkbun. Authoritative DNS now uses `derek.ns.cloudflare.com` and `hattie.ns.cloudflare.com` on Cloudflare's Free plan.
+- The existing forwarding MX records, root SPF, wildcard target and ACME TXT records were preserved. Root and `www` now point to the new Pages project.
+- Porkbun forwarding alias `hello@getcybergenie.com` → `jove@fkcapital.xyz` was created. A separate receiving test of that alias remains outstanding.
+- Resend verified `getcybergenie.com`. Its DKIM TXT, `rsend` / `send` DNS-only CNAME records, and monitoring DMARC record were added to both DNS zones before cutover. Receiving in Resend remains disabled.
+- A sending-only Resend key restricted to `getcybergenie.com` is stored in encrypted Pages production settings. No key was committed. Its temporary transfer file was removed.
+- Website onboarding delivered to the owner inbox with SPF, DKIM and DMARC passing, and the submitter's Reply-To preserved.
+- The existing Realtor Listing Song & Video CRM source and token were reused. The source was active with no origin allowlist; a deliberately invalid, non-writing probe from the new origin passed origin/bot checks. No allowlist or bot protection was disabled. The controlled production submission was accepted and its existing CRM notification reached the owner inbox.
+- No manifest or app/backend identity migration was necessary for that existing manual CRM source.
+
+See `verification.md` for the release checks. For a later deployment, retain the configured production bindings and keep the preview protections in place.
 
 ## Production configuration
 
@@ -33,7 +46,7 @@ Public DNS observed October 28, 2026:
 - MX priority 10 `fwd1.porkbun.com`; priority 20 `fwd2.porkbun.com`.
 - Root SPF: `v=spf1 include:_spf.porkbun.com ~all`.
 
-These records prove forwarding infrastructure is present, not that the `hello` alias exists or delivers. Porkbun's account session expired during the implementation check; a fresh sign-in is needed to verify or create `hello@getcybergenie.com` -> `jove@fkcapital.xyz`.
+This was the pre-cutover DNS snapshot. The alias was subsequently created and the complete zone copied as recorded above; alias inbox delivery still needs its own receiving test.
 
 Before launch:
 

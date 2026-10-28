@@ -4,6 +4,8 @@ The complete Astro marketing site for **Cyber Genie**, at **https://getcybergeni
 
 Review preview: https://cyber-genie-v1.cyber-genie-marketing.pages.dev/
 
+Production: https://getcybergenie.com/ (also available at https://www.getcybergenie.com/). Connected October 28, 2026, after owner approval. Production form delivery is configured and tested; search indexing remains disabled pending the separate indexing release. Pages hostnames always remain non-indexable and use dry-run forms.
+
 ## Development
 
 Use Node >=22.12 and the committed lockfile.
