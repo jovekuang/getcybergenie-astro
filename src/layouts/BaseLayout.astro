@@ -1,0 +1,55 @@
+---
+import MotionPreferences from "@/components/MotionPreferences.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import SEO from "@/components/SEO.astro";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
+import "@fontsource/inter/600.css";
+import "@fontsource/inter/700.css";
+import "@fontsource/inter/800.css";
+import "@fontsource/manrope/600.css";
+import "@fontsource/manrope/700.css";
+import "@fontsource/manrope/800.css";
+import "@/styles.css";
+import "@/styles/cyber-genie.css";
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  image?: string;
+  imageAlt?: string;
+  type?: "website" | "article";
+  robots?: string;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const { title, description, canonical, image, imageAlt, type, robots, jsonLd } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <script is:inline>document.documentElement.classList.replace("no-js", "js");</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <SEO title={title} description={description} canonical={canonical} image={image} imageAlt={imageAlt} type={type} robots={robots} jsonLd={jsonLd} />
+  </head>
+  <body data-page={Astro.url.pathname === "/" ? "home" : "interior"}>
+    <div class="site-shell">
+      <Header />
+      <a class="skip-link" href="#main-content">Skip to content</a>
+      <main id="main-content">
+        <slot />
+      </main>
+      <Footer />
+      <MotionPreferences />
+    </div>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+---
+import { brand } from "@/data/brand";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { blogPosts } from "@/data/blogData";
+import { createBreadcrumbSchema } from "@/data/site";
+import { staticSeo } from "@/data/seo";
+import { Image } from "astro:assets";
+
+const posts = [...blogPosts].sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
+
+const blogSchema = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  name: "Cyber Genie Blog",
+  url: `${brand.origin}/blog/`,
+  description: "Practical writing on turning business processes into better websites, useful software, and managed customer workflows.",
+};
+---
+
+<BaseLayout
+  title={staticSeo.blog.title}
+  description={staticSeo.blog.description}
+  canonical="/blog/"
+  jsonLd={[
+    blogSchema,
+    createBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "Blog", path: "/blog/" },
+    ]),
+  ]}
+>
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Blog</p>
+      <h1 class="page-title">
+        <span class="headline-sentence headline-sentence-neutral">Build around the process.</span>
+        <span class="headline-sentence">Not another dashboard.</span>
+      </h1>
+      <p class="lead">Practical ideas about better websites, useful software, and customer workflows that fit how the business already works.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container blog-grid">
+      {posts.map((post) => (
+        <a class="card media-card blog-card" href={`/blog/${post.slug}/`}>
+          <Image src={post.image} alt={post.title} widths={[480, 760, 1100]} sizes="(max-width: 760px) 100vw, 33vw" loading="lazy" />
+          <div class="blog-card-body">
+            <p class="eyebrow">{post.category}</p>
+            <h2>{post.title}</h2>
+            <p>{post.excerpt}</p>
+            <p style="font-size: 14px;">{post.date} · {post.readTime}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

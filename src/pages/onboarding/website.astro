@@ -1,0 +1,467 @@
+---
+import Genie from "@/components/Genie.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { createBreadcrumbSchema } from "@/data/site";
+import {
+  capabilityOptions,
+  materialOptions,
+  outcomeOptions,
+  pageCountOptions,
+  visualDirectionOptions,
+} from "@/data/websiteOnboarding";
+---
+
+<BaseLayout
+  title="Website & Web Application Onboarding | Cyber Genie"
+  description="Tell Cyber Genie about your business, current website or application, goals, user access, integrations, and technical requirements."
+  canonical="/onboarding/website/"
+  robots="noindex, follow"
+  jsonLd={createBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Website & Web Application Onboarding", path: "/onboarding/website/" },
+  ])}
+>
+  <section class="onboarding-shell">
+    <div class="container onboarding-layout">
+      <aside class="onboarding-intro">
+        <a class="onboarding-back-link" href="/pricing/"><span aria-hidden="true">←</span> Back to pricing</a>
+        <p class="onboarding-kicker">Website &amp; web application onboarding</p>
+        <h1>Tell us what your website or application needs to do.</h1>
+        <p>
+          Share your goals, business details, and what should work better. We will review the requirements and handle the
+          design, technical setup, and implementation within your selected plan.
+        </p>
+        <div class="onboarding-plan-context" data-plan-context hidden>
+          <span>Selected service</span>
+          <strong data-plan-label></strong>
+        </div>
+      </aside>
+
+      <div class="onboarding-panel">
+        <div class="onboarding-progress" aria-label="Onboarding progress">
+          <div class="onboarding-progress-copy">
+            <span data-step-label>Step 1 of 7</span>
+            <span data-step-name>About you</span>
+          </div>
+          <div class="onboarding-progress-track" aria-hidden="true">
+            <span data-progress-bar></span>
+          </div>
+        </div>
+
+        <noscript><style>form { display: none !important; }</style><p class="no-script-note">This guided form needs JavaScript. Email <a href="mailto:hello@getcybergenie.com">hello@getcybergenie.com</a> with your project details and we’ll help you get started.</p></noscript>
+        <form id="website-onboarding-form" method="post" novalidate>
+          <input type="hidden" name="plan" value="" />
+          <input type="hidden" name="originatingPage" value="" />
+          <input type="hidden" name="startedAt" value="" />
+          <div class="onboarding-honeypot" aria-hidden="true">
+            <label for="company-website-confirmation">Leave this field empty</label>
+            <input id="company-website-confirmation" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <div class="onboarding-status" data-form-status role="status" aria-live="polite" hidden></div>
+
+          <fieldset class="onboarding-step" data-step data-step-name="About you">
+            <legend>First, who should we follow up with?</legend>
+            <p class="onboarding-step-intro">We will use these details only to review and respond to your request.</p>
+            <div class="onboarding-field-grid two-column">
+              <div class="form-field">
+                <label for="first-name">First name</label>
+                <input id="first-name" name="firstName" type="text" autocomplete="given-name" required maxlength="80" />
+              </div>
+              <div class="form-field">
+                <label for="last-name">Last name</label>
+                <input id="last-name" name="lastName" type="text" autocomplete="family-name" required maxlength="80" />
+              </div>
+              <div class="form-field">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" autocomplete="email" required maxlength="160" />
+              </div>
+              <div class="form-field">
+                <label for="phone">Phone <span>Optional</span></label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="40" />
+              </div>
+              <div class="form-field full-width">
+                <label for="company">Business or organization name</label>
+                <input id="company" name="company" type="text" autocomplete="organization" required maxlength="160" />
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="onboarding-step" data-step data-step-name="Current website" hidden>
+            <legend>Do you already have a website?</legend>
+            <p class="onboarding-step-intro">If you do, we can learn the basics from what is already online.</p>
+            <div class="choice-grid two-column" data-required-group="hasWebsite">
+              <label class="choice-card">
+                <input type="radio" name="hasWebsite" value="yes" />
+                <span><strong>Yes</strong><small>I have a website to review</small></span>
+              </label>
+              <label class="choice-card">
+                <input type="radio" name="hasWebsite" value="no" />
+                <span><strong>No</strong><small>I am starting without one</small></span>
+              </label>
+            </div>
+            <div class="conditional-block" data-existing-website hidden>
+              <div class="form-field">
+                <label for="website-url">Current website URL</label>
+                <input id="website-url" name="websiteUrl" type="url" inputmode="url" maxlength="300" placeholder="https://example.com" />
+              </div>
+            </div>
+            <div class="conditional-block" data-new-website hidden>
+              <div class="form-field">
+                <label for="business-description">What does the business do, whom does it serve, and where does it operate?</label>
+                <textarea id="business-description" name="businessDescription" rows="5" maxlength="1800"></textarea>
+              </div>
+              <div class="form-field">
+                <label for="estimated-pages">How many website pages do you expect to need?</label>
+                <select id="estimated-pages" name="estimatedPages">
+                  <option value="">Choose one</option>
+                  {pageCountOptions.map((option) => <option value={option.value}>{option.label}</option>)}
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="onboarding-step" data-step data-step-name="Website goals" hidden>
+            <legend>What should the website help your business accomplish?</legend>
+            <p class="onboarding-step-intro">Choose every outcome that matters. You can refine the priorities with us later.</p>
+            <div class="choice-grid" data-required-group="outcomes">
+              {outcomeOptions.map((option) => (
+                <label class="choice-card compact-choice">
+                  <input type="checkbox" name="outcomes" value={option.value} />
+                  <span>{option.label}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <fieldset class="onboarding-step" data-step data-step-name="What you have" hidden>
+            <legend>What materials do you already have?</legend>
+            <p class="onboarding-step-intro">It is completely fine to start without finished brand or content assets.</p>
+            <div class="choice-grid" data-required-group="materials">
+              {materialOptions.map((option) => (
+                <label class="choice-card compact-choice">
+                  <input type="checkbox" name="materials" value={option.value} />
+                  <span>{option.label}</span>
+                </label>
+              ))}
+            </div>
+            <div class="conditional-block" data-social-urls hidden>
+              <div class="form-field">
+                <label for="social-urls">Social profile URLs <span>One per line</span></label>
+                <textarea id="social-urls" name="socialUrls" rows="4" maxlength="1800" placeholder="https://instagram.com/yourbusiness"></textarea>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="onboarding-step" data-step data-step-name="Capabilities" hidden>
+            <legend>What should people be able to do on the website or application?</legend>
+            <p class="onboarding-step-intro">Choose likely needs. We will determine the simplest reliable way to support them.</p>
+            <div class="choice-grid" data-required-group="capabilities">
+              {capabilityOptions.map((option) => (
+                <label class="choice-card compact-choice">
+                  <input type="checkbox" name="capabilities" value={option.value} />
+                  <span>{option.label}</span>
+                </label>
+              ))}
+            </div>
+            <div class="conditional-block application-fit-note" data-application-details hidden>
+              <p><strong>This may fit Evolving Web Application or Technology Partner.</strong> Tell us who would use it, what they need to accomplish, and which other business tools are involved. We will recommend the right scope after review.</p>
+              <div class="form-field">
+                <label for="application-details">Workflow or integration details</label>
+                <textarea id="application-details" name="applicationDetails" rows="5" maxlength="1800"></textarea>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="onboarding-step" data-step data-step-name="Visual direction" hidden>
+            <legend>Which visual directions feel closest to your business?</legend>
+            <p class="onboarding-step-intro">Choose up to two. This gives us a starting point, not a rigid template.</p>
+            <div class="choice-grid" data-required-group="visualDirections" data-max-choices="2">
+              {visualDirectionOptions.map((option) => (
+                <label class="choice-card compact-choice">
+                  <input type="checkbox" name="visualDirections" value={option.value} />
+                  <span>{option.label}</span>
+                </label>
+              ))}
+            </div>
+            <p class="choice-count" data-visual-count>0 of 2 selected</p>
+          </fieldset>
+
+          <fieldset class="onboarding-step" data-step data-step-name="Final details" hidden>
+            <legend>Anything else we should know before reviewing the project?</legend>
+            <p class="onboarding-step-intro">These final details are optional, but useful when timing or context matters.</p>
+            <div class="onboarding-field-grid">
+              <div class="form-field">
+                <label for="timeline">Target date, event, or priority <span>Optional</span></label>
+                <input id="timeline" name="timeline" type="text" maxlength="300" placeholder="For example: opening a new location in October" />
+              </div>
+              <div class="form-field">
+                <label for="notes">Additional notes <span>Optional</span></label>
+                <textarea id="notes" name="notes" rows="5" maxlength="2400"></textarea>
+              </div>
+            </div>
+            <p class="form-privacy-note">By submitting, you authorize Cyber Genie to use the contact, business, website, project, and technical requirements you provide to evaluate and deliver the requested service and respond to you. Submitting this form is an inquiry, not an order. See our <a href="/privacy/">privacy policy</a>.</p>
+          </fieldset>
+
+          <div class="onboarding-error-summary" data-error-summary role="alert" tabindex="-1" hidden></div>
+          <div class="onboarding-actions">
+            <button class="button button-secondary" type="button" data-previous hidden>Back</button>
+            <button class="button button-primary" type="button" data-next>Continue</button>
+            <button class="button button-primary" type="submit" data-submit hidden>Submit for review</button>
+          </div>
+        </form>
+
+        <div class="onboarding-success" data-success-state hidden tabindex="-1">
+          <Genie class="onboarding-genie" />
+          <h2>Thank you. We have your project details.</h2>
+          <p>We will review your answers and follow up at the email address you provided with the next onboarding step.</p>
+          <a class="button button-secondary" href="/">Return to Cyber Genie</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import { applicationCapabilityValues, normalizeWebsitePlan, websitePlanLabels } from "@/data/websiteOnboarding";
+
+  const form = document.querySelector<HTMLFormElement>("#website-onboarding-form");
+
+  if (form) {
+    const steps = Array.from(form.querySelectorAll<HTMLElement>("[data-step]"));
+    const previousButton = form.querySelector<HTMLButtonElement>("[data-previous]");
+    const nextButton = form.querySelector<HTMLButtonElement>("[data-next]");
+    const submitButton = form.querySelector<HTMLButtonElement>("[data-submit]");
+    const status = form.querySelector<HTMLElement>("[data-form-status]");
+    const errorSummary = form.querySelector<HTMLElement>("[data-error-summary]");
+    const successState = document.querySelector<HTMLElement>("[data-success-state]");
+    const stepLabel = document.querySelector<HTMLElement>("[data-step-label]");
+    const stepName = document.querySelector<HTMLElement>("[data-step-name]");
+    const progressBar = document.querySelector<HTMLElement>("[data-progress-bar]");
+    const visualCount = form.querySelector<HTMLElement>("[data-visual-count]");
+    let currentStep = 0;
+
+    const plan = normalizeWebsitePlan(new URLSearchParams(window.location.search).get("plan"));
+    const planInput = form.elements.namedItem("plan") as HTMLInputElement;
+    planInput.value = plan ?? "";
+    (form.elements.namedItem("originatingPage") as HTMLInputElement).value = document.referrer || window.location.href;
+    (form.elements.namedItem("startedAt") as HTMLInputElement).value = String(Date.now());
+
+    if (plan) {
+      const planContext = document.querySelector<HTMLElement>("[data-plan-context]");
+      const planLabel = document.querySelector<HTMLElement>("[data-plan-label]");
+      if (planContext && planLabel) {
+        planLabel.textContent = websitePlanLabels[plan];
+        planContext.hidden = false;
+      }
+    }
+
+    const selectedValues = (name: string) =>
+      Array.from(form.querySelectorAll<HTMLInputElement>(`input[name="${name}"]:checked`)).map((input) => input.value);
+
+    const setConditionalFields = () => {
+      const hasWebsite = form.querySelector<HTMLInputElement>('input[name="hasWebsite"]:checked')?.value;
+      const existingBlock = form.querySelector<HTMLElement>("[data-existing-website]");
+      const newBlock = form.querySelector<HTMLElement>("[data-new-website]");
+      if (existingBlock) existingBlock.hidden = hasWebsite !== "yes";
+      if (newBlock) newBlock.hidden = hasWebsite !== "no";
+
+      const materials = selectedValues("materials");
+      const socialBlock = form.querySelector<HTMLElement>("[data-social-urls]");
+      if (socialBlock) socialBlock.hidden = !materials.includes("social-media-profiles");
+
+      const capabilities = selectedValues("capabilities");
+      const applicationBlock = form.querySelector<HTMLElement>("[data-application-details]");
+      if (applicationBlock) {
+        applicationBlock.hidden = !applicationCapabilityValues.some((value) => capabilities.includes(value));
+      }
+
+      const selectedVisuals = selectedValues("visualDirections");
+      if (visualCount) visualCount.textContent = `${selectedVisuals.length} of 2 selected`;
+      form.querySelectorAll<HTMLInputElement>('input[name="visualDirections"]:not(:checked)').forEach((input) => {
+        input.disabled = selectedVisuals.length >= 2;
+      });
+    };
+
+    const clearErrors = () => {
+      form.querySelectorAll<HTMLElement>(".field-error").forEach((node) => node.remove());
+      form.querySelectorAll<HTMLElement>("[aria-invalid='true']").forEach((node) => node.removeAttribute("aria-invalid"));
+      if (errorSummary) {
+        errorSummary.hidden = true;
+        errorSummary.textContent = "";
+      }
+    };
+
+    const addError = (element: HTMLElement | null, message: string) => {
+      if (!element) return;
+      element.setAttribute("aria-invalid", "true");
+      const error = document.createElement("p");
+      error.className = "field-error";
+      error.textContent = message;
+      const container = element.closest(".form-field, [data-required-group]") ?? element.parentElement;
+      container?.append(error);
+    };
+
+    const validateStep = (index: number) => {
+      clearErrors();
+      const step = steps[index];
+      const messages: string[] = [];
+
+      step.querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>("input[required], textarea[required], select[required]").forEach((field) => {
+        if (!field.value.trim() || !field.checkValidity()) {
+          const label = step.querySelector<HTMLLabelElement>(`label[for="${field.id}"]`)?.textContent?.trim() ?? "This field";
+          const message = field.type === "email" ? "Enter a valid email address." : `${label.replace("Optional", "").trim()} is required.`;
+          addError(field, message);
+          messages.push(message);
+        }
+      });
+
+      step.querySelectorAll<HTMLElement>("[data-required-group]").forEach((group) => {
+        const name = group.dataset.requiredGroup ?? "";
+        if (selectedValues(name).length === 0) {
+          const message = "Choose at least one option.";
+          addError(group, message);
+          messages.push(message);
+        }
+      });
+
+      if (index === 1) {
+        const hasWebsite = form.querySelector<HTMLInputElement>('input[name="hasWebsite"]:checked')?.value;
+        const websiteUrl = form.elements.namedItem("websiteUrl") as HTMLInputElement;
+        const businessDescription = form.elements.namedItem("businessDescription") as HTMLTextAreaElement;
+        const estimatedPages = form.elements.namedItem("estimatedPages") as HTMLSelectElement;
+        if (hasWebsite === "yes" && (!websiteUrl.value.trim() || !websiteUrl.checkValidity())) {
+          addError(websiteUrl, "Enter the current website URL, including https://.");
+          messages.push("Enter the current website URL.");
+        }
+        if (hasWebsite === "no" && !businessDescription.value.trim()) {
+          addError(businessDescription, "Describe what the business does, whom it serves, and where it operates.");
+          messages.push("Describe the business.");
+        }
+        if (hasWebsite === "no" && !estimatedPages.value) {
+          addError(estimatedPages, "Choose an estimated page count.");
+          messages.push("Choose an estimated page count.");
+        }
+      }
+
+      if (index === 3 && selectedValues("materials").includes("social-media-profiles")) {
+        const socialUrls = form.elements.namedItem("socialUrls") as HTMLTextAreaElement;
+        if (!socialUrls.value.trim()) {
+          addError(socialUrls, "Add at least one social profile URL.");
+          messages.push("Add at least one social profile URL.");
+        }
+      }
+
+      if (index === 4 && applicationCapabilityValues.some((value) => selectedValues("capabilities").includes(value))) {
+        const applicationDetails = form.elements.namedItem("applicationDetails") as HTMLTextAreaElement;
+        if (!applicationDetails.value.trim()) {
+          addError(applicationDetails, "Tell us who would use this capability and what they need to accomplish.");
+          messages.push("Describe the application or integration need.");
+        }
+      }
+
+      if (messages.length > 0) {
+        if (errorSummary) {
+          errorSummary.textContent = "Please complete the highlighted fields before continuing.";
+          errorSummary.hidden = false;
+          errorSummary.focus();
+        }
+        return false;
+      }
+      return true;
+    };
+
+    const showStep = (index: number) => {
+      currentStep = index;
+      steps.forEach((step, stepIndex) => { step.hidden = stepIndex !== currentStep; });
+      if (previousButton) previousButton.hidden = currentStep === 0;
+      if (nextButton) nextButton.hidden = currentStep === steps.length - 1;
+      if (submitButton) submitButton.hidden = currentStep !== steps.length - 1;
+      if (stepLabel) stepLabel.textContent = `Step ${currentStep + 1} of ${steps.length}`;
+      if (stepName) stepName.textContent = steps[currentStep].dataset.stepName ?? "";
+      if (progressBar) progressBar.style.width = `${((currentStep + 1) / steps.length) * 100}%`;
+      clearErrors();
+      steps[currentStep].querySelector<HTMLElement>("legend, input, textarea, select")?.focus({ preventScroll: true });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    form.addEventListener("change", setConditionalFields);
+    nextButton?.addEventListener("click", () => {
+      if (validateStep(currentStep)) showStep(Math.min(currentStep + 1, steps.length - 1));
+    });
+    previousButton?.addEventListener("click", () => showStep(Math.max(currentStep - 1, 0)));
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!validateStep(currentStep) || !submitButton) return;
+
+      submitButton.disabled = true;
+      submitButton.textContent = "Submitting...";
+      if (status) {
+        status.textContent = "Submitting your website details.";
+        status.hidden = false;
+      }
+
+      const formData = new FormData(form);
+      const payload = {
+        firstName: formData.get("firstName"),
+        lastName: formData.get("lastName"),
+        email: formData.get("email"),
+        phone: formData.get("phone"),
+        company: formData.get("company"),
+        hasWebsite: formData.get("hasWebsite"),
+        websiteUrl: formData.get("websiteUrl"),
+        businessDescription: formData.get("businessDescription"),
+        estimatedPages: formData.get("estimatedPages"),
+        outcomes: formData.getAll("outcomes"),
+        materials: formData.getAll("materials"),
+        socialUrls: formData.get("socialUrls"),
+        capabilities: formData.getAll("capabilities"),
+        applicationDetails: formData.get("applicationDetails"),
+        visualDirections: formData.getAll("visualDirections"),
+        timeline: formData.get("timeline"),
+        notes: formData.get("notes"),
+        plan: formData.get("plan"),
+        originatingPage: formData.get("originatingPage"),
+        startedAt: formData.get("startedAt"),
+        website: formData.get("website"),
+      };
+
+      try {
+        const response = await fetch("/api/website-onboarding", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(result.message || "We could not submit the form. Please try again.");
+
+        form.hidden = true;
+        document.querySelector<HTMLElement>(".onboarding-progress")?.setAttribute("hidden", "");
+        if (successState) {
+          if (result.dryRun) {
+            const heading = successState.querySelector("h2");
+            const message = successState.querySelector("p");
+            if (heading) heading.textContent = "Preview complete. No request was sent.";
+            if (message) message.textContent = "This preview validated your form without sending email or creating a customer record.";
+          }
+          successState.hidden = false;
+          successState.focus();
+        }
+      } catch (error) {
+        if (status) {
+          status.classList.add("is-error");
+          status.textContent = error instanceof Error ? error.message : "We could not submit the form. Please try again.";
+          status.hidden = false;
+          status.focus();
+        }
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "Submit for review";
+      }
+    });
+
+    setConditionalFields();
+    showStep(0);
+  }
+</script>

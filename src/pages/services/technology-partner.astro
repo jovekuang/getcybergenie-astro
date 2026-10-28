@@ -1,0 +1,213 @@
+---
+import CustomerOsInclusion from "@/components/CustomerOsInclusion.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ServiceFaqSection from "@/components/ServiceFaqSection.astro";
+import SignalField from "@/components/SignalField.astro";
+import { createBreadcrumbSchema, createFaqSchema, createServiceSchema } from "@/data/site";
+import { planSeo } from "@/data/seo";
+import {
+  membershipPlanBySlug,
+  membershipTerms,
+  technologyPartnerFaqs,
+  technologyPartnerOffer,
+  technologyPartnerScopeNotes,
+} from "@/data/solutions";
+
+const plan = membershipPlanBySlug("technology-partner");
+const seo = planSeo[plan.slug];
+const pagePath = "/services/technology-partner/";
+const pageDescription =
+  "Ongoing process and technology management for owner-operated businesses, including platform administration, integrations, automation, and light custom software for $499 billed monthly.";
+---
+
+<BaseLayout
+  title={seo.title}
+  description={seo.description}
+  canonical={pagePath}
+  image={seo.image}
+  imageAlt={seo.imageAlt}
+  jsonLd={[
+    createServiceSchema({
+      name: plan.name,
+      description: pageDescription,
+      serviceType: "Small business process and technology management",
+      path: pagePath,
+    }),
+    createBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: plan.name, path: pagePath },
+    ]),
+    createFaqSchema(technologyPartnerFaqs),
+  ]}
+>
+  <section class="hero technology-partner-hero">
+    <div class="technology-hero-signal" aria-hidden="true">
+      <SignalField variant="accent" />
+    </div>
+    <div class="container hero-grid membership-hero-grid">
+      <div>
+        <p class="eyebrow">Technology Partner</p>
+        <h1 class="page-title">
+          <span class="headline-sentence headline-sentence-neutral">Your tools work.</span>
+          <span class="headline-sentence">They just don&rsquo;t work together.</span>
+        </h1>
+        <p class="lead">{technologyPartnerOffer.description}</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href={plan.ctaHref}>{plan.cta}</a>
+          <a class="button button-secondary" href="#first-15-days">See the first 15 days</a>
+        </div>
+      </div>
+      <div class="membership-price-panel technology-price-panel">
+        <h2>{plan.name}</h2>
+        <p class="price">{plan.monthlyEquivalent}</p>
+        <p class="billing-price">{plan.billingPrice} {plan.billingDetail}</p>
+        <p>{plan.commitment}</p>
+        <p class="plan-guarantee">{plan.guarantee}</p>
+        <ul class="check-list compact-check-list">
+          <li>Initial process map and 90-day roadmap</li>
+          <li>Agreed platform administration</li>
+          <li>One active improvement priority</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section technology-disconnect" id="process-and-technology-mapping">
+    <div class="container technology-disconnect-layout">
+      <div>
+        <p class="eyebrow">The real problem</p>
+        <h2 class="section-title">{technologyPartnerOffer.supportingHeadline}</h2>
+      </div>
+      <div class="technology-disconnect-copy">
+        <p class="lead">
+          Useful tools still leave the owner moving information and checking handoffs. We connect the process behind them.
+        </p>
+        <p>
+          We can use Customer OS or improve the purpose-built platforms you already rely on.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" aria-labelledby="technology-outcomes-title">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">One connected customer journey</p>
+        <h2 id="technology-outcomes-title">Map the process. Connect the technology.</h2>
+      </div>
+      <div class="technology-outcome-grid">
+        {technologyPartnerOffer.outcomes.map((outcome, index) => (
+          <article class="technology-outcome">
+            <span class="technology-outcome-number">0{index + 1}</span>
+            <h3>{outcome.title}</h3>
+            <p>{outcome.description}</p>
+            <ul>
+              {outcome.responsibilities.map((responsibility) => <li>{responsibility}</li>)}
+            </ul>
+            <details class="technology-stack">
+              <summary>Example platforms</summary>
+              <p>{outcome.technologies}</p>
+            </details>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="first-15-days">
+    <div class="container technology-roadmap-layout">
+      <div class="technology-roadmap-intro">
+        <p class="eyebrow">Your first 15 days</p>
+        <h2 class="section-title">A useful roadmap before the guarantee ends.</h2>
+        <p class="lead">{technologyPartnerOffer.roadmapPromise}</p>
+        <p>
+          Missing access or information is documented in the roadmap rather than used as a reason to withhold the
+          initial deliverable.
+        </p>
+      </div>
+      <ol class="technology-roadmap-list">
+        {technologyPartnerOffer.onboardingDeliverables.map((deliverable, index) => (
+          <li><span>{String(index + 1).padStart(2, "0")}</span><p>{deliverable}</p></li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section signal-assurance-band technology-ownership-band">
+    <div class="container technology-ownership-layout">
+      <div>
+        <p class="signal-kicker">Ongoing ownership</p>
+        <h2>One partner keeps the next improvement moving.</h2>
+        <p>
+          We keep the roadmap current and deliver the next agreed improvement.
+        </p>
+      </div>
+      <ul class="technology-ownership-list">
+        {technologyPartnerOffer.ongoingOwnership.map((item, index) => (
+          <li><span>0{index + 1}</span><strong>{item}</strong></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="technology-examples-title">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">Example collaborations</p>
+        <h2 id="technology-examples-title">What working together can look like.</h2>
+        <p>These examples show the relationship, not a promise that every listed activity is bundled automatically.</p>
+      </div>
+      <div class="technology-example-grid">
+        {technologyPartnerOffer.examples.map((example) => (
+          <article class="technology-example">
+            <h3>{example.name}</h3>
+            <p class="lead">{example.summary}</p>
+            <ul>
+              {example.stages.map((stage) => <li>{stage}</li>)}
+            </ul>
+            <p class="technology-example-note">{example.note}</p>
+          </article>
+        ))}
+      </div>
+      <p class="technology-example-disclaimer">
+        Advertising spend, software subscriptions, transaction fees, and higher-volume recurring content production
+        are separate. Social publishing beyond the active queue can be delivered through Social Media Management.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container technology-scope-layout">
+      <div>
+        <p class="eyebrow">A focused managed service</p>
+        <h2 class="section-title">Clear ownership. Clear boundaries.</h2>
+        <p class="lead">{plan.bestFor}</p>
+        <p>{membershipTerms.sharedManagedQueue}</p>
+      </div>
+      <div>
+        <ul class="check-list technology-scope-list">
+          {technologyPartnerScopeNotes.map((note) => <li>{note}</li>)}
+        </ul>
+      </div>
+    </div>
+    <div class="container"><CustomerOsInclusion compact /></div>
+  </section>
+
+  <ServiceFaqSection
+    title="Technology Partner Questions"
+    intro="How the first roadmap, ongoing ownership, existing platforms, and custom work fit together."
+    items={technologyPartnerFaqs}
+  />
+
+  <section class="section section-alt">
+    <div class="container cta-band">
+      <div>
+        <h2>Your tools can work like a system.</h2>
+        <p>Start with the customer journey or an operational bottleneck.</p>
+      </div>
+      <div class="hero-actions">
+        <a class="button button-primary" href={plan.ctaHref}>{plan.cta}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

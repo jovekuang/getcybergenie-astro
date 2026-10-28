@@ -1,0 +1,150 @@
+---
+import Genie from "@/components/Genie.astro";
+import { outcomeCategories, solutionItemsByCategory } from "@/data/solutions";
+import { voiceIndustries } from "@/data/voiceIndustries";
+import { brand } from "@/data/brand";
+import { appUrl } from "@/data/site";
+---
+
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/" aria-label={`${brand.name} home`}>
+      <Genie class="brand-symbol" />
+      <span class="brand-name">{brand.name}</span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label="Open navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div class="nav-menu" id="site-navigation">
+      <nav class="nav-links" aria-label="Main navigation">
+        <div class="nav-dropdown nav-what-we-do">
+          <a class="nav-dropdown-trigger" href="/solutions/" aria-haspopup="true">What We Do</a>
+          <div class="nav-dropdown-menu nav-dropdown-menu-wide" aria-label="What we do menu">
+            <a class="nav-dropdown-feature" href="/services/technology-partner/">
+              <span>Technology Partner</span>
+              <small>Processes and technology, mapped and managed as one</small>
+            </a>
+            <div class="nav-dropdown-columns">
+              {outcomeCategories.map((category) => (
+                <div>
+                  <a class="nav-dropdown-column-title" href={`/solutions/${category.slug}/`}>{category.name}</a>
+                  {solutionItemsByCategory(category.slug).map((item) => (
+                    <a href={`/solutions/${category.slug}/${item.slug}/`}>{item.title}</a>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div class="nav-dropdown">
+          <a class="nav-dropdown-trigger" href="/industries/" aria-haspopup="true">Industries</a>
+          <div class="nav-dropdown-menu" aria-label="Industry pages">
+            <a class="nav-dropdown-feature" href="/industries/">
+              <span>All Industries</span>
+              <small>See how the journey changes by business type</small>
+            </a>
+            <div class="nav-dropdown-grid">
+              {voiceIndustries.map((industry) => (
+                <a href={`/industries/${industry.slug}/`}>{industry.name}</a>
+              ))}
+            </div>
+          </div>
+        </div>
+        <a href="/pricing/">Pricing</a>
+        <a href="/blog/">Insights</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="nav-sign-in" href={`${appUrl}/login`} aria-describedby="portal-continuity">Sign in</a>
+        <span id="portal-continuity" class="sr-only">Your existing FK Innovate account still works.</span>
+        <a class="button button-primary nav-cta" href={`${appUrl}/login`}>Get Started</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  (() => {
+    const header = document.querySelector(".site-header");
+    const toggle = header?.querySelector(".nav-toggle");
+    const menu = header?.querySelector(".nav-menu");
+    if (!header || !toggle || !menu) return;
+
+    const focusableSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    const isMobile = () => window.innerWidth <= 860;
+    const dropdowns = [...header.querySelectorAll(".nav-dropdown")];
+
+    const updateHeaderState = () => {
+      header.classList.toggle("is-scrolled", window.scrollY > 8);
+    };
+
+    const closeNavigation = (restoreFocus = false) => {
+      header.classList.remove("is-nav-open");
+      document.body.classList.remove("is-nav-open");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Open navigation");
+      if (restoreFocus) toggle.focus();
+    };
+
+    updateHeaderState();
+    window.addEventListener("scroll", updateHeaderState, { passive: true });
+
+    toggle.addEventListener("click", () => {
+      const isOpen = header.classList.toggle("is-nav-open");
+      document.body.classList.toggle("is-nav-open", isOpen);
+      toggle.setAttribute("aria-expanded", String(isOpen));
+      toggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+      if (isOpen) menu.querySelector(focusableSelector)?.focus();
+    });
+
+    dropdowns.forEach((dropdown) => {
+      let closeTimer;
+
+      const openDropdown = () => {
+        window.clearTimeout(closeTimer);
+        if (!isMobile()) dropdown.classList.add("is-open");
+      };
+
+      const scheduleClose = () => {
+        window.clearTimeout(closeTimer);
+        closeTimer = window.setTimeout(() => dropdown.classList.remove("is-open"), 320);
+      };
+
+      dropdown.addEventListener("mouseenter", openDropdown);
+      dropdown.addEventListener("mouseleave", scheduleClose);
+      dropdown.addEventListener("focusin", openDropdown);
+      dropdown.addEventListener("focusout", (event) => {
+        if (!dropdown.contains(event.relatedTarget)) scheduleClose();
+      });
+    });
+
+    menu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => closeNavigation());
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && header.classList.contains("is-nav-open")) {
+        closeNavigation(true);
+        return;
+      }
+
+      if (event.key !== "Tab" || !isMobile() || !header.classList.contains("is-nav-open")) return;
+      const focusable = [toggle, ...menu.querySelectorAll(focusableSelector)];
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      if (!isMobile()) closeNavigation();
+      dropdowns.forEach((dropdown) => dropdown.classList.remove("is-open"));
+    });
+  })();
+</script>

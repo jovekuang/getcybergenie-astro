@@ -1,0 +1,173 @@
+---
+import { Picture } from "astro:assets";
+import { sampleWork } from "@/data/sampleWork";
+
+const carouselWork = [...sampleWork, ...sampleWork, ...sampleWork];
+---
+
+<div class="work-carousel" data-work-carousel>
+  <div class="work-carousel-viewport" data-carousel-viewport>
+    <div class="work-carousel-track" data-carousel-track>
+      {carouselWork.map((work, index) => {
+        const copy = Math.floor(index / sampleWork.length);
+        const workIndex = index % sampleWork.length;
+
+        return (
+          <a
+            class="card media-card sample-card"
+            href={work.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-work-card
+            data-work-index={workIndex}
+            data-work-copy={copy}
+            aria-hidden={copy === 1 && workIndex < 3 ? "false" : "true"}
+            tabindex={copy === 1 && workIndex < 3 ? undefined : -1}
+          >
+            <Picture
+              src={work.image}
+              alt={`${work.name} website preview`}
+              widths={[420, 640, 840]}
+              sizes="(max-width: 860px) calc(100vw - 32px), 33vw"
+              formats={["avif", "webp"]}
+              fallbackFormat="webp"
+              loading="lazy"
+            />
+            <div class="sample-card-body">
+              <h2>{work.name}</h2>
+              <p>{work.description}</p>
+            </div>
+          </a>
+        );
+      })}
+    </div>
+  </div>
+  <div class="work-carousel-controls" aria-label="Selected work carousel controls">
+    <button class="carousel-arrow" type="button" data-carousel-previous aria-label="Show previous projects" title="Previous projects">&#8249;</button>
+    <div class="carousel-dots" aria-label="Choose a starting project">
+      {sampleWork.map((work, index) => (
+        <button
+          class:list={["carousel-dot", { "is-active": index === 0 }]}
+          type="button"
+          data-carousel-dot={index}
+          aria-label={`Start with ${work.name}`}
+          aria-current={index === 0 ? "true" : undefined}
+        ></button>
+      ))}
+    </div>
+    <button class="carousel-arrow" type="button" data-carousel-next aria-label="Show next projects" title="Next projects">&#8250;</button>
+  </div>
+</div>
+
+<script>
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const mobileCarousel = window.matchMedia("(max-width: 860px)");
+
+  document.querySelectorAll<HTMLElement>("[data-work-carousel]").forEach((carousel) => {
+    const cards = Array.from(carousel.querySelectorAll<HTMLAnchorElement>("[data-work-card]"));
+    const dots = Array.from(carousel.querySelectorAll<HTMLButtonElement>("[data-carousel-dot]"));
+    const viewport = carousel.querySelector<HTMLElement>("[data-carousel-viewport]");
+    const track = carousel.querySelector<HTMLElement>("[data-carousel-track]");
+    const previous = carousel.querySelector<HTMLButtonElement>("[data-carousel-previous]");
+    const next = carousel.querySelector<HTMLButtonElement>("[data-carousel-next]");
+    const itemCount = dots.length;
+    let startIndex = 0;
+    let physicalIndex = itemCount;
+    let rotationTimer: number | undefined;
+
+    const updateAccessibility = () => {
+      const visibleCount = mobileCarousel.matches ? 1 : 3;
+
+      cards.forEach((card, index) => {
+        const isCurrent = index >= physicalIndex && index < physicalIndex + visibleCount;
+        card.setAttribute("aria-hidden", String(!isCurrent));
+        card.tabIndex = isCurrent ? 0 : -1;
+      });
+    };
+
+    const updateDots = () => {
+      dots.forEach((dot, index) => {
+        const isActive = index === startIndex;
+        dot.classList.toggle("is-active", isActive);
+        if (isActive) dot.setAttribute("aria-current", "true");
+        else dot.removeAttribute("aria-current");
+      });
+    };
+
+    const positionTrack = (animate = true) => {
+      if (!track || !cards[physicalIndex]) return;
+
+      if (!animate || reducedMotion.matches) track.classList.add("is-resetting");
+      track.style.transform = `translate3d(${-cards[physicalIndex].offsetLeft}px, 0, 0)`;
+
+      if (!animate || reducedMotion.matches) {
+        track.getBoundingClientRect();
+        track.classList.remove("is-resetting");
+      }
+    };
+
+    const normalizeTrack = () => {
+      physicalIndex = itemCount + startIndex;
+      positionTrack(false);
+      updateAccessibility();
+    };
+
+    const move = (amount: number) => {
+      physicalIndex += amount;
+      startIndex = (startIndex + amount + itemCount) % itemCount;
+      updateDots();
+      updateAccessibility();
+      positionTrack();
+    };
+
+    const stopRotation = () => {
+      if (rotationTimer !== undefined) window.clearInterval(rotationTimer);
+      rotationTimer = undefined;
+    };
+
+    const startRotation = () => {
+      stopRotation();
+      if (!reducedMotion.matches) rotationTimer = window.setInterval(() => move(1), 5000);
+    };
+
+    previous?.addEventListener("click", () => {
+      move(-1);
+      startRotation();
+    });
+    next?.addEventListener("click", () => {
+      move(1);
+      startRotation();
+    });
+    dots.forEach((dot, index) => dot.addEventListener("click", () => {
+      let distance = index - startIndex;
+      if (distance > itemCount / 2) distance -= itemCount;
+      if (distance < -itemCount / 2) distance += itemCount;
+
+      physicalIndex += distance;
+      startIndex = index;
+      updateDots();
+      updateAccessibility();
+      positionTrack();
+      startRotation();
+    }));
+
+    track?.addEventListener("transitionend", (event) => {
+      if (event.propertyName === "transform") normalizeTrack();
+    });
+
+    carousel.addEventListener("mouseenter", stopRotation);
+    carousel.addEventListener("mouseleave", startRotation);
+    carousel.addEventListener("focusin", stopRotation);
+    carousel.addEventListener("focusout", (event) => {
+      if (!carousel.contains(event.relatedTarget as Node | null)) startRotation();
+    });
+    mobileCarousel.addEventListener("change", normalizeTrack);
+    reducedMotion.addEventListener("change", startRotation);
+    window.addEventListener("resize", normalizeTrack);
+
+    if (!viewport || !track || itemCount === 0) return;
+    updateDots();
+    normalizeTrack();
+    startRotation();
+  });
+</script>

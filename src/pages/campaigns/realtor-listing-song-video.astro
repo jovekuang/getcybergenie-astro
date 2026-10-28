@@ -1,0 +1,1381 @@
+---
+import { brand } from "@/data/brand";
+import { getImage, Image } from "astro:assets";
+import heroImage from "@/assets/realtor-listing-song-video-hero.jpg";
+import reelPosterImage from "@/assets/realtor-listing-reel-poster.jpg";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { absoluteSiteUrl, createBreadcrumbSchema } from "@/data/site";
+
+const campaignPath = "/campaigns/realtor-listing-song-video/";
+const campaignTitle = "Custom Property Listing Song & Video for Realtors | Cyber Genie";
+const campaignDescription =
+  "Give your property listing its own custom song, full-length 1080p video, and 60-second vertical Reel for $500.";
+const youtubeEmbedUrl =
+  "https://www.youtube-nocookie.com/embed/JkMBX868x60?autoplay=1&rel=0";
+const reelEmbedUrl =
+  "https://www.youtube-nocookie.com/embed/-iSQ3Md2Xcw?autoplay=1&rel=0";
+const youtubePosterImage = await getImage({
+  src: heroImage,
+  width: 960,
+  format: "webp",
+  quality: 72,
+});
+const youtubePoster = `
+  <style>
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; background: #050607; }
+    a { position: relative; display: block; width: 100%; height: 100%; overflow: hidden; color: #fff; }
+    img { width: 100%; height: 100%; object-fit: cover; }
+    span { position: absolute; top: 50%; left: 50%; width: 68px; height: 68px; border: 1px solid rgba(255,255,255,.82); border-radius: 50%; background: rgba(8,10,12,.72); transform: translate(-50%,-50%); }
+    span::after { content: ''; position: absolute; top: 50%; left: 54%; border-top: 9px solid transparent; border-bottom: 9px solid transparent; border-left: 15px solid #fff; transform: translate(-50%,-50%); }
+  </style>
+  <a href="${youtubeEmbedUrl}" aria-label="Play Where the Light Comes Home">
+    <img src="${youtubePosterImage.src}" alt="Where the Light Comes Home: 2865 Longspur Way" />
+    <span></span>
+  </a>`;
+const reelPosterImageOptimized = await getImage({
+  src: reelPosterImage,
+  width: 540,
+  format: "webp",
+  quality: 78,
+});
+const reelPoster = `
+  <style>
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; background: #050607; }
+    a { position: relative; display: block; width: 100%; height: 100%; overflow: hidden; color: #fff; }
+    img { width: 100%; height: 100%; object-fit: cover; }
+    span { position: absolute; top: 50%; left: 50%; width: 54px; height: 54px; border: 1px solid rgba(255,255,255,.82); border-radius: 50%; background: rgba(8,10,12,.72); transform: translate(-50%,-50%); }
+    span::after { content: ''; position: absolute; top: 50%; left: 54%; border-top: 7px solid transparent; border-bottom: 7px solid transparent; border-left: 12px solid #fff; transform: translate(-50%,-50%); }
+  </style>
+  <a href="${reelEmbedUrl}" aria-label="Play the 60-second Where the Light Comes Home Reel">
+    <img src="${reelPosterImageOptimized.src}" alt="Where the Light Comes Home social Reel" />
+    <span></span>
+  </a>`;
+
+const deliverables = [
+  {
+    number: "01",
+    label: "Custom song",
+    title: "A sound built for the listing.",
+    copy: "Choose the musical style. We create an original song around the property and the feeling you want buyers to remember.",
+    format: "Style of your choice",
+    visual: "song",
+  },
+  {
+    number: "02",
+    label: "Listing film",
+    title: "The complete property story.",
+    copy: "A full-length video shaped around the custom song and your listing, delivered in crisp 1080p widescreen.",
+    format: "1080p / 16:9",
+    visual: "film",
+  },
+  {
+    number: "03",
+    label: "Social Reel",
+    title: "Ready for the vertical feed.",
+    copy: "A focused 60-second cut formatted for Instagram, so the listing has a second life in short-form social.",
+    format: "60 sec / 9:16",
+    visual: "reel",
+  },
+] as const;
+
+const process = [
+  {
+    number: "01",
+    title: "Share the listing",
+    copy: "Send the property details, media, and the story worth bringing forward.",
+  },
+  {
+    number: "02",
+    title: "Choose the sound",
+    copy: "Point us toward the style and mood that fit the home and your marketing.",
+  },
+  {
+    number: "03",
+    title: "Launch both formats",
+    copy: "Receive the full-length listing film and the vertical Reel, ready to share.",
+  },
+];
+
+const jsonLd = [
+  createBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Realtor Listing Song & Video", path: campaignPath },
+  ]),
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Realtor Listing Song & Video Package",
+    description: campaignDescription,
+    serviceType: "Property listing music and video production",
+    provider: { "@id": `${brand.origin}/#organization` },
+    audience: {
+      "@type": "BusinessAudience",
+      audienceType: "Real estate agents and Realtors",
+    },
+    areaServed: "United States",
+    url: absoluteSiteUrl(campaignPath),
+    image: new URL(heroImage.src, Astro.site ?? brand.origin).toString(),
+    offers: {
+      "@type": "Offer",
+      price: "500",
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+      url: absoluteSiteUrl(campaignPath),
+    },
+  },
+];
+---
+
+<BaseLayout
+  title={campaignTitle}
+  description={campaignDescription}
+  canonical={campaignPath}
+  image={heroImage.src}
+  imageAlt="Where the Light Comes Home property listing film by Cyber Genie"
+  jsonLd={jsonLd}
+>
+  <section class="listing-campaign-hero">
+    <div class="listing-campaign-hero-art" aria-hidden="true">
+      <svg viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <filter id="campaign-pulse-glow" x="-200%" y="-200%" width="500%" height="500%">
+            <feGaussianBlur stdDeviation="7" result="blur"></feGaussianBlur>
+            <feMerge>
+              <feMergeNode in="blur"></feMergeNode>
+              <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+          </filter>
+        </defs>
+        <g class="campaign-hero-grid-lines">
+          {Array.from({ length: 9 }, (_, index) => (
+            <line
+              x1={120 + index * 120}
+              y1="80"
+              x2={120 + index * 120}
+              y2="640"
+              fill="none"
+              stroke="rgba(255, 255, 255, 0.065)"
+              stroke-width="1"
+              stroke-dasharray="2 10"
+            ></line>
+          ))}
+          {Array.from({ length: 5 }, (_, index) => (
+            <line
+              x1="70"
+              y1={120 + index * 120}
+              x2="1150"
+              y2={120 + index * 120}
+              fill="none"
+              stroke="rgba(255, 255, 255, 0.065)"
+              stroke-width="1"
+              stroke-dasharray="2 10"
+            ></line>
+          ))}
+        </g>
+        <g class="campaign-hero-format-frames">
+          <rect
+            class="campaign-hero-frame-landscape"
+            x="580"
+            y="225"
+            width="480"
+            height="270"
+            rx="6"
+            fill="none"
+            stroke="rgba(155, 162, 255, 0.31)"
+            stroke-width="1.2"
+          ></rect>
+          <rect
+            class="campaign-hero-frame-portrait"
+            x="745"
+            y="226"
+            width="150"
+            height="267"
+            rx="6"
+            fill="none"
+            stroke="rgba(255, 255, 255, 0.25)"
+            stroke-width="1.2"
+          ></rect>
+          <line
+            x1="580"
+            y1="360"
+            x2="1060"
+            y2="360"
+            stroke="rgba(155, 162, 255, 0.31)"
+            stroke-width="1.2"
+          ></line>
+          <line
+            x1="820"
+            y1="225"
+            x2="820"
+            y2="495"
+            stroke="rgba(155, 162, 255, 0.31)"
+            stroke-width="1.2"
+          ></line>
+        </g>
+        <g class="campaign-hero-waveform">
+          {Array.from({ length: 11 }, (_, index) => {
+            const distance = Math.abs(index - 5);
+            const height = 104 - distance * 14;
+            return (
+              <line
+                x1={410 + index * 13}
+                y1={360 - height / 2}
+                x2={410 + index * 13}
+                y2={360 + height / 2}
+                stroke="rgba(255, 255, 255, 0.46)"
+                stroke-width="2"
+              ></line>
+            );
+          })}
+        </g>
+        <g class="campaign-hero-signal-tracks">
+          <path
+            d="M 90 360 C 300 360 390 240 560 240 C 720 240 760 210 1110 210"
+            fill="none"
+            stroke="rgba(125, 136, 255, 0.58)"
+            stroke-width="1.8"
+          ></path>
+          <path
+            d="M 90 360 C 300 360 400 360 560 360 C 740 360 790 360 1110 360"
+            fill="none"
+            stroke="rgba(255, 255, 255, 0.48)"
+            stroke-width="1.8"
+          ></path>
+          <path
+            d="M 90 360 C 300 360 390 480 560 480 C 720 480 760 510 1110 510"
+            fill="none"
+            stroke="rgba(125, 136, 255, 0.58)"
+            stroke-width="1.8"
+          ></path>
+        </g>
+        <g class="campaign-hero-pulses">
+          <circle r="5" fill="#ffffff" stroke="#7d88ff" stroke-width="2" filter="url(#campaign-pulse-glow)">
+            <animate attributeName="r" values="4;7;4" dur="1.4s" repeatCount="indefinite"></animate>
+            <animateMotion
+              dur="5.8s"
+              repeatCount="indefinite"
+              path="M 90 360 C 300 360 390 240 560 240 C 720 240 760 210 1110 210"
+            ></animateMotion>
+          </circle>
+          <circle r="5" fill="#ffffff" stroke="#7d88ff" stroke-width="2" filter="url(#campaign-pulse-glow)">
+            <animate attributeName="r" values="4;7;4" dur="1.4s" begin="-0.46s" repeatCount="indefinite"></animate>
+            <animateMotion
+              begin="-1.9s"
+              dur="5.8s"
+              repeatCount="indefinite"
+              path="M 90 360 C 300 360 400 360 560 360 C 740 360 790 360 1110 360"
+            ></animateMotion>
+          </circle>
+          <circle r="5" fill="#ffffff" stroke="#7d88ff" stroke-width="2" filter="url(#campaign-pulse-glow)">
+            <animate attributeName="r" values="4;7;4" dur="1.4s" begin="-0.92s" repeatCount="indefinite"></animate>
+            <animateMotion
+              begin="-3.8s"
+              dur="5.8s"
+              repeatCount="indefinite"
+              path="M 90 360 C 300 360 390 480 560 480 C 720 480 760 510 1110 510"
+            ></animateMotion>
+          </circle>
+        </g>
+      </svg>
+    </div>
+    <div class="container listing-campaign-hero-inner">
+      <div class="listing-campaign-hero-copy">
+        <p class="campaign-kicker">Made for Realtors</p>
+        <h1>Give your listing a soundtrack buyers remember.</h1>
+        <p class="campaign-lead">
+          One custom song and two ready-to-share property videos, created as a polished package for your listing.
+        </p>
+        <div class="campaign-offer-row">
+          <p class="campaign-price"><span>$</span>500</p>
+          <p>per listing<br />package</p>
+        </div>
+        <div class="campaign-actions">
+          <a class="button campaign-button-primary" href="#listing-package-form">Create My Listing Package</a>
+          <a class="campaign-text-link" href="#example">Watch the example <span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+    </div>
+    <div class="campaign-soundline" aria-hidden="true">
+      {Array.from({ length: 28 }, (_, index) => (
+        <span style={`--bar: ${index}; --bar-height: ${8 + (index % 7) * 5}px`}></span>
+      ))}
+    </div>
+  </section>
+
+  <section class="campaign-deliverables" aria-labelledby="deliverables-title">
+    <div class="container">
+      <div class="campaign-section-heading">
+        <p class="campaign-kicker campaign-kicker-dark">One listing. One original campaign.</p>
+        <h2 id="deliverables-title">Everything you need to make the property feel like an event.</h2>
+      </div>
+      <div class="deliverable-grid">
+        {deliverables.map((item) => (
+          <article class="deliverable">
+            <div
+              class={`deliverable-visual deliverable-visual-${item.visual}`}
+              aria-hidden={item.visual === "reel" ? undefined : "true"}
+            >
+              {item.visual === "song" && (
+                <div class="waveform">
+                  {Array.from({ length: 19 }, (_, index) => (
+                    <span style={`--wave: ${index}; --wave-height: ${18 + (index % 6) * 14}px`}></span>
+                  ))}
+                </div>
+              )}
+              {item.visual === "film" && (
+                <div class="film-still">
+                  <Image
+                    src={heroImage}
+                    alt=""
+                    width={720}
+                    format="webp"
+                    quality={72}
+                    loading="lazy"
+                  />
+                  <span class="play-mark"></span>
+                </div>
+              )}
+              {item.visual === "reel" && (
+                <div class="reel-still">
+                  <iframe
+                    src={reelEmbedUrl}
+                    srcdoc={reelPoster}
+                    title="Where the Light Comes Home: 60-second vertical Reel"
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+              )}
+            </div>
+            <div class="deliverable-copy">
+              <div class="deliverable-meta">
+                <span>{item.number}</span>
+                <span>{item.label}</span>
+              </div>
+              <h3>{item.title}</h3>
+              <p>{item.copy}</p>
+              <strong>{item.format}</strong>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="campaign-example" id="example" aria-labelledby="example-title">
+    <div class="container campaign-example-grid">
+      <div class="campaign-example-copy">
+        <p class="campaign-kicker">Previous work</p>
+        <h2 id="example-title">See the full-length format in action.</h2>
+        <p>
+          “Where the Light Comes Home” pairs an original song with a complete property story for 2865 Longspur Way.
+        </p>
+        <a href="https://youtu.be/JkMBX868x60">Open on YouTube <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="campaign-video-frame">
+        <iframe
+          src={youtubeEmbedUrl}
+          srcdoc={youtubePoster}
+          title="Where the Light Comes Home: 2865 Longspur Way"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section class="campaign-process" aria-labelledby="process-title">
+    <div class="container">
+      <div class="campaign-section-heading campaign-section-heading-compact">
+        <p class="campaign-kicker campaign-kicker-dark">A simple production path</p>
+        <h2 id="process-title">From listing details to a campaign with its own rhythm.</h2>
+      </div>
+      <div class="campaign-process-grid">
+        {process.map((step) => (
+          <article>
+            <span>{step.number}</span>
+            <h3>{step.title}</h3>
+            <p>{step.copy}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="campaign-inquiry" id="listing-package-form" aria-labelledby="listing-package-form-title">
+    <div class="container campaign-inquiry-layout">
+      <div class="campaign-inquiry-copy">
+        <p class="campaign-kicker">Your next listing</p>
+        <h2 id="listing-package-form-title">Give us the address. We’ll start with the sound.</h2>
+        <p>Share the listing and your preferred musical direction. We’ll follow up to confirm the creative brief.</p>
+        <div class="campaign-inquiry-price">
+          <strong>$500</strong>
+          <span>Custom song<br />Full-length video<br />60-second Reel</span>
+        </div>
+      </div>
+
+      <div class="campaign-form-shell">
+        <noscript><style>form { display: none !important; }</style><p class="no-script-note">This guided form needs JavaScript. Email <a href="mailto:hello@getcybergenie.com">hello@getcybergenie.com</a> with your project details and we’ll help you get started.</p></noscript>
+        <form id="realtor-listing-package-form" method="post" novalidate>
+          <input type="hidden" name="originatingPage" value="" />
+          <input type="hidden" name="startedAt" value="" />
+          <input type="hidden" name="idempotencyKey" value="" />
+          <div class="campaign-honeypot" aria-hidden="true">
+            <label for="listing-company-website">Leave this field empty</label>
+            <input id="listing-company-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <div class="campaign-form-grid">
+            <div class="campaign-form-field">
+              <label for="listing-name">Name</label>
+              <input id="listing-name" name="name" type="text" autocomplete="name" required maxlength="160" />
+            </div>
+            <div class="campaign-form-field">
+              <label for="listing-email">Email</label>
+              <input id="listing-email" name="email" type="email" autocomplete="email" required maxlength="160" />
+            </div>
+            <div class="campaign-form-field">
+              <label for="listing-phone">Phone</label>
+              <input id="listing-phone" name="phone" type="tel" autocomplete="tel" required maxlength="40" />
+            </div>
+            <div class="campaign-form-field">
+              <label for="listing-address">Property address</label>
+              <input
+                id="listing-address"
+                name="propertyAddress"
+                type="text"
+                autocomplete="street-address"
+                required
+                maxlength="300"
+              />
+            </div>
+            <div class="campaign-form-field campaign-form-field-full">
+              <label for="listing-style">Musical style preference</label>
+              <select id="listing-style" name="musicalStyle" required>
+                <option value="">Choose a direction</option>
+                <option value="pop">Pop</option>
+                <option value="rock">Rock</option>
+                <option value="country">Country</option>
+                <option value="r-and-b-soul">R&amp;B / Soul</option>
+                <option value="jazz">Jazz</option>
+                <option value="electronic">Electronic</option>
+                <option value="acoustic-folk">Acoustic / Folk</option>
+                <option value="orchestral-cinematic">Orchestral / Cinematic</option>
+                <option value="other-not-sure">Other / Not sure</option>
+              </select>
+            </div>
+            <div class="campaign-form-field campaign-form-field-full">
+              <label for="listing-requests">Special requests <span>Optional</span></label>
+              <textarea
+                id="listing-requests"
+                name="specialRequests"
+                rows="6"
+                maxlength="2000"
+                placeholder="Describe the mood, references, property story, must-mention details, or anything else you have in mind."
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="campaign-form-status" data-listing-form-status role="status" aria-live="polite" hidden></div>
+          <button class="button campaign-form-submit" type="submit">Send Listing Details</button>
+          <p class="campaign-form-privacy">
+            By submitting, you authorize Cyber Genie to use the contact, property, musical-preference, and creative-brief information you provide to respond and prepare the listing package. Submitting this form is an inquiry, not an order. See our <a href="/privacy/">privacy policy</a>.
+          </p>
+        </form>
+
+        <div class="campaign-form-success" data-listing-form-success hidden tabindex="-1">
+          <span aria-hidden="true">✓</span>
+          <h3>Thank you. We have your listing details.</h3>
+          <p>We’ll follow up by email or phone to confirm the creative direction and next steps.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const listingForm = document.querySelector<HTMLFormElement>("#realtor-listing-package-form");
+
+  if (listingForm) {
+    const status = listingForm.querySelector<HTMLElement>("[data-listing-form-status]");
+    const submitButton = listingForm.querySelector<HTMLButtonElement>('button[type="submit"]');
+    const successState = document.querySelector<HTMLElement>("[data-listing-form-success]");
+    const startedAt = listingForm.elements.namedItem("startedAt") as HTMLInputElement;
+    const originatingPage = listingForm.elements.namedItem("originatingPage") as HTMLInputElement;
+    const idempotencyKey = listingForm.elements.namedItem("idempotencyKey") as HTMLInputElement;
+
+    startedAt.value = String(Date.now());
+    originatingPage.value = window.location.href;
+    idempotencyKey.value = crypto.randomUUID();
+
+    listingForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      status?.classList.remove("is-error");
+
+      if (!listingForm.checkValidity()) {
+        listingForm.reportValidity();
+        return;
+      }
+
+      if (!submitButton) return;
+      submitButton.disabled = true;
+      submitButton.textContent = "Sending...";
+      if (status) {
+        status.textContent = "Sending your listing details.";
+        status.hidden = false;
+      }
+
+      const formData = new FormData(listingForm);
+      const payload = Object.fromEntries(formData.entries());
+
+      try {
+        const response = await fetch("/api/realtor-listing-package", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(result.message || "We could not send your request. Please try again.");
+
+        listingForm.hidden = true;
+        if (successState) {
+          if (result.dryRun) {
+            const heading = successState.querySelector("h3");
+            const message = successState.querySelector("p");
+            if (heading) heading.textContent = "Preview complete. No request was sent.";
+            if (message) message.textContent = "This preview validated your form without sending email or creating a customer record.";
+          }
+          successState.hidden = false;
+          successState.focus();
+        }
+      } catch (error) {
+        if (status) {
+          status.classList.add("is-error");
+          status.textContent = error instanceof Error ? error.message : "We could not send your request. Please try again.";
+          status.hidden = false;
+          status.focus();
+        }
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "Send Listing Details";
+      }
+    });
+  }
+</script>
+
+<style>
+  .listing-campaign-hero {
+    position: relative;
+    min-height: min(760px, calc(100svh - 76px));
+    overflow: hidden;
+    display: grid;
+    align-items: start;
+    color: #ffffff;
+    background: #0f1217;
+  }
+
+  .listing-campaign-hero-art {
+    position: absolute;
+    inset: 0;
+    left: 30%;
+    overflow: hidden;
+    opacity: 0.72;
+    pointer-events: none;
+  }
+
+  .listing-campaign-hero-art svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .campaign-hero-grid-lines line {
+    stroke: rgba(255, 255, 255, 0.065);
+    stroke-width: 1;
+    stroke-dasharray: 2 10;
+  }
+
+  .campaign-hero-format-frames rect,
+  .campaign-hero-format-frames line {
+    fill: none;
+    stroke: rgba(155, 162, 255, 0.31);
+    stroke-width: 1.2;
+  }
+
+  .campaign-hero-format-frames .campaign-hero-frame-portrait {
+    stroke: rgba(255, 255, 255, 0.25);
+  }
+
+  .campaign-hero-waveform line {
+    stroke: rgba(255, 255, 255, 0.46);
+    stroke-width: 2;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: hero-waveform 2.4s ease-in-out infinite alternate;
+  }
+
+  .campaign-hero-waveform line:nth-child(2n) {
+    animation-delay: -1.2s;
+  }
+
+  .campaign-hero-signal-tracks path {
+    fill: none;
+    stroke: rgba(125, 136, 255, 0.52);
+    stroke-width: 1.8;
+  }
+
+  .campaign-hero-signal-tracks path:nth-child(2) {
+    stroke: rgba(255, 255, 255, 0.44);
+  }
+
+  .campaign-hero-pulses circle {
+    fill: #ffffff;
+    stroke: #7d88ff;
+    stroke-width: 2;
+  }
+
+  .listing-campaign-hero-inner {
+    position: relative;
+    z-index: 1;
+    width: min(1180px, calc(100% - 48px));
+    padding-block: 104px 118px;
+  }
+
+  .listing-campaign-hero-copy {
+    max-width: 760px;
+  }
+
+  .campaign-kicker {
+    margin: 0 0 18px;
+    color: #9ba2ff;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .campaign-kicker-dark {
+    color: var(--primary);
+  }
+
+  .listing-campaign-hero h1,
+  .campaign-section-heading h2,
+  .campaign-example-copy h2,
+  .campaign-inquiry h2 {
+    margin: 0;
+    font-family: Manrope, Inter, ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: 0;
+  }
+
+  .listing-campaign-hero h1 {
+    max-width: 720px;
+    font-size: 82px;
+    line-height: 0.98;
+  }
+
+  .campaign-lead {
+    max-width: 650px;
+    margin: 28px 0 0;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 20px;
+    line-height: 1.55;
+  }
+
+  .campaign-offer-row {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: 34px;
+  }
+
+  .campaign-offer-row > p:last-child {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.66);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.35;
+    text-transform: uppercase;
+  }
+
+  .campaign-price {
+    margin: 0;
+    font-family: Manrope, Inter, ui-sans-serif, system-ui, sans-serif;
+    font-size: 66px;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .campaign-price span {
+    position: relative;
+    top: -22px;
+    margin-right: 4px;
+    font-size: 25px;
+  }
+
+  .campaign-actions {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    margin-top: 34px;
+  }
+
+  .campaign-button-primary,
+  .campaign-button-primary:hover {
+    min-height: 52px;
+    background: #ffffff;
+    color: #111315;
+  }
+
+  .campaign-text-link {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 750;
+  }
+
+  .campaign-text-link span,
+  .campaign-example-copy a span {
+    margin-left: 7px;
+    color: #8992ff;
+  }
+
+  .campaign-soundline {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    height: 52px;
+    display: flex;
+    align-items: end;
+    gap: 4px;
+    padding: 0 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+    opacity: 0.72;
+  }
+
+  .campaign-soundline span {
+    flex: 1;
+    height: var(--bar-height);
+    max-height: 42px;
+    background: rgba(155, 162, 255, 0.72);
+    transform-origin: bottom;
+    animation: soundline 2.8s ease-in-out infinite alternate;
+    animation-delay: calc(var(--bar) * -75ms);
+  }
+
+  .campaign-deliverables,
+  .campaign-process {
+    padding: 112px 0;
+    background: var(--background);
+  }
+
+  .campaign-section-heading {
+    max-width: 830px;
+    margin-bottom: 56px;
+  }
+
+  .campaign-section-heading h2,
+  .campaign-example-copy h2,
+  .campaign-inquiry h2 {
+    font-size: 58px;
+    line-height: 1.04;
+  }
+
+  .deliverable-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border: 1px solid #d4d4cd;
+  }
+
+  .deliverable {
+    min-width: 0;
+    background: #fbfaf8;
+  }
+
+  .deliverable + .deliverable {
+    border-left: 1px solid #d4d4cd;
+  }
+
+  .deliverable-visual {
+    height: 280px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border-bottom: 1px solid #d4d4cd;
+    background: #111315;
+  }
+
+  .waveform {
+    width: min(78%, 250px);
+    height: 126px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .waveform span {
+    width: 4px;
+    height: var(--wave-height);
+    max-height: 112px;
+    background: #9ba2ff;
+    animation: waveform 1.7s ease-in-out infinite alternate;
+    animation-delay: calc(var(--wave) * -90ms);
+  }
+
+  .film-still,
+  .reel-still {
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 44px rgba(0, 0, 0, 0.35);
+  }
+
+  .film-still :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .film-still {
+    width: 82%;
+    aspect-ratio: 16 / 9;
+    border: 1px solid rgba(255, 255, 255, 0.54);
+  }
+
+  .reel-still {
+    height: 82%;
+    aspect-ratio: 9 / 16;
+    border: 1px solid rgba(255, 255, 255, 0.54);
+  }
+
+  .reel-still iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .play-mark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.76);
+    border-radius: 50%;
+    background: rgba(10, 11, 13, 0.62);
+    transform: translate(-50%, -50%);
+  }
+
+  .play-mark::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 53%;
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 10px solid #ffffff;
+    transform: translate(-50%, -50%);
+  }
+
+  .deliverable-copy {
+    min-height: 330px;
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+  }
+
+  .deliverable-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .deliverable h3,
+  .campaign-process-grid h3 {
+    margin: 28px 0 12px;
+    font-family: Manrope, Inter, ui-sans-serif, system-ui, sans-serif;
+    font-size: 26px;
+    line-height: 1.16;
+    letter-spacing: 0;
+  }
+
+  .deliverable p,
+  .campaign-process-grid p,
+  .campaign-example-copy > p {
+    margin: 0;
+    color: #5c5c59;
+    line-height: 1.65;
+  }
+
+  .deliverable strong {
+    margin-top: auto;
+    padding-top: 28px;
+    color: #111315;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+
+  .campaign-example,
+  .campaign-inquiry {
+    color: #ffffff;
+    background: #111315;
+  }
+
+  .campaign-example {
+    padding: 112px 0;
+  }
+
+  .campaign-example-grid {
+    display: grid;
+    grid-template-columns: minmax(260px, 0.62fr) minmax(0, 1.38fr);
+    gap: 68px;
+    align-items: center;
+  }
+
+  .campaign-example-copy > p {
+    margin-top: 24px;
+    color: rgba(255, 255, 255, 0.66);
+  }
+
+  .campaign-example-copy a {
+    display: inline-block;
+    margin-top: 28px;
+    font-size: 14px;
+    font-weight: 750;
+  }
+
+  .campaign-video-frame {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: #050607;
+  }
+
+  .campaign-video-frame iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .campaign-section-heading-compact {
+    max-width: 700px;
+  }
+
+  .campaign-process-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-top: 1px solid #d4d4cd;
+    border-bottom: 1px solid #d4d4cd;
+  }
+
+  .campaign-process-grid article {
+    padding: 38px 34px 42px 0;
+  }
+
+  .campaign-process-grid article + article {
+    border-left: 1px solid #d4d4cd;
+    padding-left: 34px;
+  }
+
+  .campaign-process-grid > article > span {
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .campaign-process-grid h3 {
+    margin-top: 48px;
+  }
+
+  .campaign-inquiry {
+    padding: 112px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    scroll-margin-top: 76px;
+  }
+
+  .campaign-inquiry-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(440px, 1.2fr);
+    gap: 88px;
+    align-items: start;
+  }
+
+  .campaign-inquiry h2 {
+    max-width: 560px;
+    margin: 0;
+    font-family: Manrope, Inter, ui-sans-serif, system-ui, sans-serif;
+    font-size: 52px;
+    line-height: 1.04;
+    letter-spacing: 0;
+  }
+
+  .campaign-inquiry-copy > p:not(.campaign-kicker) {
+    max-width: 520px;
+    margin: 24px 0 0;
+    color: rgba(255, 255, 255, 0.66);
+    font-size: 17px;
+    line-height: 1.65;
+  }
+
+  .campaign-inquiry-price {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    margin-top: 42px;
+  }
+
+  .campaign-inquiry-price strong {
+    font-family: Manrope, Inter, ui-sans-serif, system-ui, sans-serif;
+    font-size: 52px;
+    line-height: 1;
+  }
+
+  .campaign-inquiry-price span {
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.55;
+    text-transform: uppercase;
+  }
+
+  .campaign-form-shell {
+    min-width: 0;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    padding: 38px;
+    background: #171a1f;
+  }
+
+  .campaign-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 20px;
+  }
+
+  .campaign-form-field {
+    min-width: 0;
+  }
+
+  .campaign-form-field-full {
+    grid-column: 1 / -1;
+  }
+
+  .campaign-form-field label {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 9px;
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 12px;
+    font-weight: 750;
+    text-transform: uppercase;
+  }
+
+  .campaign-form-field label span {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 10px;
+  }
+
+  .campaign-form-field input,
+  .campaign-form-field select,
+  .campaign-form-field textarea {
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    background: #101216;
+    color: #ffffff;
+    font: inherit;
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+  }
+
+  .campaign-form-field input,
+  .campaign-form-field select {
+    min-height: 52px;
+    padding: 0 14px;
+  }
+
+  .campaign-form-field textarea {
+    min-height: 148px;
+    resize: vertical;
+    padding: 14px;
+    line-height: 1.55;
+  }
+
+  .campaign-form-field textarea::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .campaign-form-field input:focus,
+  .campaign-form-field select:focus,
+  .campaign-form-field textarea:focus {
+    outline: none;
+    border-color: #8992ff;
+    box-shadow: 0 0 0 3px rgba(137, 146, 255, 0.18);
+  }
+
+  .campaign-form-status {
+    margin-top: 20px;
+    border-left: 3px solid #8992ff;
+    padding: 10px 12px;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 14px;
+  }
+
+  .campaign-form-status.is-error {
+    border-left-color: #ff8f8f;
+    color: #ffd1d1;
+  }
+
+  .campaign-form-submit,
+  .campaign-form-submit:hover {
+    width: 100%;
+    min-height: 54px;
+    margin-top: 24px;
+    background: #ffffff;
+    color: #111315;
+  }
+
+  .campaign-form-submit:disabled {
+    cursor: wait;
+    opacity: 0.64;
+    transform: none;
+  }
+
+  .campaign-form-privacy {
+    margin: 16px 0 0;
+    color: rgba(255, 255, 255, 0.48);
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  .campaign-form-privacy a {
+    color: rgba(255, 255, 255, 0.78);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .campaign-honeypot {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .campaign-form-success {
+    min-height: 360px;
+    display: grid;
+    align-content: center;
+    justify-items: start;
+  }
+
+  .campaign-form-success[hidden] {
+    display: none;
+  }
+
+  .campaign-form-success > span {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border: 1px solid #65d99a;
+    border-radius: 50%;
+    color: #65d99a;
+    font-size: 22px;
+  }
+
+  .campaign-form-success h3 {
+    margin: 26px 0 10px;
+    font-family: Manrope, Inter, ui-sans-serif, system-ui, sans-serif;
+    font-size: 30px;
+    line-height: 1.14;
+  }
+
+  .campaign-form-success p {
+    max-width: 520px;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.64);
+    line-height: 1.65;
+  }
+
+  @keyframes waveform {
+    0% { transform: scaleY(0.38); opacity: 0.5; }
+    100% { transform: scaleY(1); opacity: 1; }
+  }
+
+  @keyframes soundline {
+    0% { transform: scaleY(0.25); opacity: 0.35; }
+    100% { transform: scaleY(1); opacity: 1; }
+  }
+
+  @keyframes hero-waveform {
+    0% { transform: scaleY(0.52); opacity: 0.42; }
+    100% { transform: scaleY(1); opacity: 0.82; }
+  }
+
+  @media (max-width: 900px) {
+    .listing-campaign-hero-art {
+      top: 38%;
+      right: 0;
+      bottom: 24px;
+      left: 0;
+      opacity: 0.68;
+    }
+
+    .listing-campaign-hero-inner {
+      padding-block: 84px 104px;
+    }
+
+    .listing-campaign-hero h1 {
+      font-size: 58px;
+    }
+
+    .campaign-section-heading h2,
+    .campaign-example-copy h2,
+    .campaign-inquiry h2 {
+      font-size: 46px;
+    }
+
+    .deliverable-grid,
+    .campaign-process-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .deliverable + .deliverable,
+    .campaign-process-grid article + article {
+      border-left: 0;
+      border-top: 1px solid #d4d4cd;
+    }
+
+    .campaign-process-grid article,
+    .campaign-process-grid article + article {
+      padding: 32px 0;
+    }
+
+    .campaign-process-grid h3 {
+      margin-top: 28px;
+    }
+
+    .campaign-example-grid,
+    .campaign-inquiry-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .campaign-example-grid {
+      gap: 44px;
+    }
+
+    .campaign-inquiry-layout {
+      gap: 52px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .listing-campaign-hero {
+      min-height: calc(100svh - 76px);
+    }
+
+    .listing-campaign-hero-art {
+      top: 44%;
+      right: -28%;
+      bottom: 42px;
+      left: -28%;
+      opacity: 0.7;
+    }
+
+    .listing-campaign-hero-inner {
+      width: min(100% - 36px, 1180px);
+      padding-block: 70px 96px;
+    }
+
+    .listing-campaign-hero h1 {
+      font-size: 48px;
+    }
+
+    .campaign-lead {
+      font-size: 17px;
+    }
+
+    .campaign-price {
+      font-size: 56px;
+    }
+
+    .campaign-actions {
+      align-items: stretch;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .campaign-button-primary {
+      width: 100%;
+    }
+
+    .campaign-deliverables,
+    .campaign-process,
+    .campaign-example,
+    .campaign-inquiry {
+      padding: 78px 0;
+    }
+
+    .campaign-section-heading {
+      margin-bottom: 38px;
+    }
+
+    .campaign-section-heading h2,
+    .campaign-example-copy h2,
+    .campaign-inquiry h2 {
+      font-size: 38px;
+    }
+
+    .deliverable-visual {
+      height: 250px;
+    }
+
+    .deliverable-copy {
+      min-height: 0;
+      padding: 28px 24px 32px;
+    }
+
+    .deliverable strong {
+      margin-top: 22px;
+      padding-top: 0;
+    }
+
+    .campaign-form-shell {
+      padding: 26px 20px;
+    }
+
+    .campaign-form-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .campaign-form-field-full {
+      grid-column: auto;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .campaign-soundline span,
+    .waveform span,
+    .campaign-hero-waveform line {
+      animation: none;
+    }
+
+    .campaign-hero-pulses {
+      display: none;
+    }
+  }
+</style>

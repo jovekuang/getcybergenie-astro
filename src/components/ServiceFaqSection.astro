@@ -1,0 +1,44 @@
+---
+import type { ServiceFaq } from "@/data/solutions";
+
+interface Props {
+  title: string;
+  intro: string;
+  items: ServiceFaq[];
+}
+
+const { title, intro, items } = Astro.props;
+---
+
+<section class="section faq-section" id="faq">
+  <div class="container faq-grid">
+    <div class="faq-intro">
+      <h2>{title}</h2>
+      <p>{intro}</p>
+      <div class="story-accent"></div>
+    </div>
+    <div class="faq-list">
+      {items.map((faq) => (
+        <details class="faq-item" id={faq.id}>
+          <summary>{faq.question}</summary>
+          <p>{faq.answer}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const openTargetedFaq = () => {
+    const targetId = decodeURIComponent(window.location.hash.slice(1));
+    const target = targetId ? document.getElementById(targetId) : null;
+
+    if (target instanceof HTMLDetailsElement && target.classList.contains("faq-item")) {
+      target.open = true;
+      target.scrollIntoView({ block: "start" });
+    }
+  };
+
+  openTargetedFaq();
+  window.addEventListener("hashchange", openTargetedFaq);
+</script>

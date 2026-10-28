@@ -1,0 +1,178 @@
+---
+import ServiceDelivery from "@/components/ServiceDelivery.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import WorkCarousel from "@/components/WorkCarousel.astro";
+import ServiceFaqSection from "@/components/ServiceFaqSection.astro";
+import { calendlyUrl, createBreadcrumbSchema, createFaqSchema, createServiceSchema } from "@/data/site";
+import { planSeo } from "@/data/seo";
+import {
+  membershipPlanBySlug,
+  membershipTerms,
+  evolvingWebsiteFaqs,
+  websitePlanExclusions,
+} from "@/data/solutions";
+
+const plan = membershipPlanBySlug("evolving-website");
+const seo = planSeo[plan.slug];
+
+const pageDescription =
+  "One evolving web application for one brand, with eligible integrations, backend database support, user single sign-on, hosting, and ongoing improvements for $99 billed monthly.";
+const pagePath = "/services/website-design-hosting/";
+---
+
+<BaseLayout
+  title={seo.title}
+  description={seo.description}
+  canonical={pagePath}
+  image={seo.image}
+  imageAlt={seo.imageAlt}
+  jsonLd={[
+    createServiceSchema({
+      name: plan.name,
+      description: pageDescription,
+      serviceType: "Managed web application development, integrations, backend database support, and user single sign-on",
+      path: pagePath,
+    }),
+    createBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: plan.name, path: pagePath },
+    ]),
+    createFaqSchema(evolvingWebsiteFaqs),
+  ]}
+>
+  <section class="hero">
+    <div class="container hero-grid membership-hero-grid">
+      <div>
+        <h1 class="page-title">
+          <span class="headline-sentence headline-sentence-neutral">One brand. One price.</span>
+          <span class="headline-sentence">A web application that keeps evolving.</span>
+        </h1>
+        <p class="lead">
+          Cyber Genie builds, hosts, and improves your web application, with eligible integrations, a backend database,
+          and single sign-on (SSO) for users.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href={plan.ctaHref}>{plan.cta}</a>
+          <a class="button button-secondary" href={calendlyUrl}>Talk through the process</a>
+        </div>
+      </div>
+      <div class="membership-price-panel">
+        <h2>{plan.name}</h2>
+        <p class="price">{plan.monthlyEquivalent}</p>
+        <p class="billing-price">{plan.billingPrice} {plan.billingDetail}</p>
+        <p>{plan.commitment}</p>
+        <p class="plan-guarantee">{plan.guarantee}</p>
+        <ul class="check-list compact-check-list">
+          <li>One brand and primary root domain</li>
+          <li>Eligible web application integrations</li>
+          <li>Backend database support and user single sign-on</li>
+          <li>10 launch blogs, then one new blog each month</li>
+          <li>One active priority at a time</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <ServiceDelivery service="evolving" />
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2>What is included</h2>
+        <p>{plan.bestFor}</p>
+        <p>All Essential Website features, with unlimited published pages within the application.</p>
+      </div>
+      <div class="membership-feature-grid">
+        {plan.features.map((feature, index) => (
+          <div class="membership-feature">
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <p>{feature}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2">
+      <div>
+        <h2 class="section-title">Unlimited requests, with a clear queue.</h2>
+        <p class="lead">
+          Add eligible requests anytime. We work on one active priority and divide larger work into reviewable milestones.
+        </p>
+        <div class="request-flow" aria-label="Web application request workflow">
+          <span>Submit</span><span>Prioritize</span><span>Build</span><span>Review</span><span>Repeat</span>
+        </div>
+      </div>
+      <div class="card">
+        <h2>What you can request</h2>
+        <ul class="check-list">
+          {plan.examples.map((example) => <li>{example}</li>)}
+          <li>Improve speed, analytics, technical SEO, AEO, or conversion paths</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header center">
+        <h2>Selected work</h2>
+      </div>
+      <WorkCarousel />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>The practical boundaries</h2>
+        <p>{membershipTerms.brandDefinition}</p>
+      </div>
+      <div class="grid-2">
+        <div>
+          <h2>How the service works</h2>
+          <div class="faq-list">
+            <details class="faq-item"><summary>Monthly billing and cancellation</summary><p>{membershipTerms.commitment}</p></details>
+            <details class="faq-item"><summary>Request queue and delivery targets</summary><p>{membershipTerms.requestPolicy}</p><p>{membershipTerms.delivery}</p></details>
+            <details class="faq-item"><summary>Revisions</summary><p>{membershipTerms.feedback}</p></details>
+            <details class="faq-item"><summary>15-day money-back guarantee</summary><p>{membershipTerms.guarantee}</p></details>
+          </div>
+        </div>
+        <div class="card">
+          <h2>Move up when the work spans systems</h2>
+          <p>
+            Evolving Web Application includes eligible integrations, backend database support, and single sign-on
+            within one agreed application for customers or your team. Technology Partner becomes the better fit when
+            Cyber Genie must map and manage processes across multiple business platforms, including ongoing platform
+            administration and vendor coordination beyond the application.
+          </p>
+          <ul class="check-list">
+            {websitePlanExclusions.map((exclusion) => <li>{exclusion}</li>)}
+          </ul>
+          <a class="learn-more" href="/services/technology-partner/">Explore Technology Partner <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <p class="terms-footnote">{membershipTerms.ownership}</p>
+    </div>
+  </section>
+
+  <ServiceFaqSection
+    title="Evolving Web Application Questions"
+    intro="Application scope, database requirements, and user access."
+    items={evolvingWebsiteFaqs}
+  />
+
+  <section class="section section-alt">
+    <div class="container cta-band">
+      <div>
+        <h2>Give your application somewhere to go next.</h2>
+        <p>Start with one brand and keep improving month by month.</p>
+      </div>
+      <div class="hero-actions">
+        <a class="button button-primary" href={plan.ctaHref}>{plan.cta}</a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

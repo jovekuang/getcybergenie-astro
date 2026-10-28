@@ -1,0 +1,51 @@
+---
+import { brand } from "@/data/brand";
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  image?: string;
+  imageAlt?: string;
+  type?: "website" | "article";
+  robots?: string;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const {
+  title,
+  description,
+  canonical = Astro.url.pathname,
+  image = "/og-default.png",
+  imageAlt = "Cyber Genie: Get the outcome, not the software. Agency-level service. Software-level pricing.",
+  type = "website",
+  robots,
+  jsonLd,
+} = Astro.props;
+
+const canonicalUrlObject = new URL(canonical, Astro.site ?? brand.origin);
+if (!canonicalUrlObject.pathname.endsWith("/") && !canonicalUrlObject.pathname.split("/").at(-1)?.includes(".")) {
+  canonicalUrlObject.pathname += "/";
+}
+const canonicalUrl = canonicalUrlObject.toString();
+const imageUrl = new URL(image, Astro.site ?? brand.origin).toString();
+const schema = jsonLd ? JSON.stringify(jsonLd).replace(/</g, "\\u003c") : null;
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+{robots && <meta name="robots" content={robots} />}
+<link rel="canonical" href={canonicalUrl} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={brand.name} />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:image:alt" content={imageAlt} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />
+<meta name="twitter:image:alt" content={imageAlt} />
+{schema && <script type="application/ld+json" set:html={schema} />}

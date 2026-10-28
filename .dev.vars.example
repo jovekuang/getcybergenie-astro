@@ -1,0 +1,10 @@
+RESEND_API_KEY=
+ONBOARDING_TO_EMAIL=jove@fkcapital.xyz
+ONBOARDING_FROM_EMAIL=Cyber Genie Onboarding <onboarding@getcybergenie.com>
+ONBOARDING_DRY_RUN=true
+FK_CRM_CAPTURE_URL=https://psrlivpzkmyaubchqywr.supabase.co/functions/v1/capture-crm-lead
+FK_CRM_FORM_TOKEN=
+CRM_CAPTURE_DRY_RUN=true
+
+# Keep false until the custom domain and production delivery checks are approved.
+SITE_INDEXABLE=false

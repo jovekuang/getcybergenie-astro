@@ -1,0 +1,91 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { createBreadcrumbSchema } from "@/data/site";
+import { membershipTerms, technologyPartnerScopeNotes, websitePlanExclusions } from "@/data/solutions";
+
+// Draft legal copy requires owner or legal review before production release.
+---
+
+<BaseLayout
+  title="Service Terms | Cyber Genie"
+  description="Read Cyber Genie service terms covering subscriptions, request queues, Technology Partner scope, Customer OS access, ownership, and the 15-day guarantee."
+  canonical="/terms/"
+  jsonLd={createBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Service Terms", path: "/terms/" },
+  ])}
+>
+  <section class="hero compact-hero">
+    <div class="container legal-page-heading">
+      <h1 class="compact-title">Service terms in plain English.</h1>
+      <p class="lead">These terms explain the operating boundaries behind Cyber Genie's ongoing services. Your signed order or service agreement controls if it states different terms.</p>
+      <p class="legal-effective-date"><strong>Effective:</strong> October 27, 2026. <strong>Last updated:</strong> October 27, 2026.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container legal-content">
+      <p><strong>Service operator:</strong> Cyber Genie is the public brand of FK Innovation Partners LLC, the existing company behind FK Innovate. References to “we,” “us,” and “our” mean that legal entity. Existing customer agreements remain with the same company.</p>
+      <h2>Inquiries and service agreements</h2>
+      <p>These website terms provide a general description of how Cyber Genie services operate. Submitting an inquiry or onboarding form, requesting a demonstration, or scheduling a call does not create an order or require either party to begin work.</p>
+      <p>A binding customer relationship begins only when Cyber Genie and the customer accept a written order or service agreement. That signed agreement controls if it differs from this website summary.</p>
+
+      <h2>Plans, billing, and renewal</h2>
+      <p>{membershipTerms.essentialCommitment}</p>
+      <p>{membershipTerms.commitment}</p>
+      <p>Social Media Management and Voice AI are separately priced services and are not included in the three primary website, web application, and technology plans.</p>
+
+      <h2>15-day money-back guarantee</h2>
+      <p>{membershipTerms.guarantee}</p>
+
+      <h2>Requests, milestones, and turnaround</h2>
+      <p>{membershipTerms.requestPolicy}</p>
+      <p>{membershipTerms.eligibleRequest}</p>
+      <p>{membershipTerms.reviewableMilestone}</p>
+      <p>{membershipTerms.essentialDelivery}</p>
+      <p>{membershipTerms.delivery}</p>
+      <p>{membershipTerms.feedback}</p>
+
+      <h2>Plan boundaries</h2>
+      <p>{membershipTerms.brandDefinition}</p>
+      <p>{membershipTerms.planInheritance}</p>
+      <p>{membershipTerms.sharedManagedQueue}</p>
+      <h3>Website and web application boundary</h3>
+      <p>Evolving Web Application includes eligible web application integrations, backend database support, and single sign-on for users within one agreed application. The data model, user roles, identity provider, and integrations are confirmed during onboarding. Application work follows the plan's request and milestone queue; ongoing administration of separate business platforms falls under Technology Partner.</p>
+      <ul>{websitePlanExclusions.map((item) => <li>{item}</li>)}</ul>
+      <h3>Technology Partner boundary</h3>
+      <ul>{technologyPartnerScopeNotes.map((item) => <li>{item}</li>)}</ul>
+
+      <h2>Self-service AI credits</h2>
+      <p>{membershipTerms.aiCredits}</p>
+      <p>Credits are a service feature, are not currency, and cannot be transferred or redeemed for money.</p>
+
+      <h2>Customer responsibilities</h2>
+      <p>Customers must provide accurate instructions, approvals, access, and materials required for the active request. Customers remain responsible for the legality and accuracy of the content, data, and business rules they approve.</p>
+      <p>Customers must have the rights and permissions needed for any names, trademarks, property media, music references, customer data, or other materials they ask Cyber Genie to use. Delivery targets pause while required information, access, approvals, or payment remain unavailable.</p>
+      <p>Customers are responsible for obtaining any consent, notice, or authorization required for email, SMS, telemarketing, call recording, advertising, customer-data use, and third-party platform activity. Cyber Genie may help configure an agreed workflow, but does not provide legal advice or guarantee that a customer's business practices comply with every applicable law or platform policy.</p>
+
+      <h2>Platform availability and results</h2>
+      <p>Third-party platforms, integrations, APIs, search engines, social networks, advertising systems, and AI providers may change, restrict, interrupt, or discontinue their services. Cyber Genie will use reasonable efforts to adapt eligible work, but does not control those providers or guarantee uninterrupted availability.</p>
+      <p>Cyber Genie does not guarantee search rankings, revenue, lead volume, campaign performance, customer decisions, or any other specific business result. Performance depends on factors outside Cyber Genie's control, including the customer's offer, market, budget, approvals, data, and third-party platforms.</p>
+
+      <h2>Pauses and termination</h2>
+      <p>Cyber Genie may pause affected work when an invoice is overdue, required access or approvals are unavailable, a requested use appears unlawful or harmful, or continued work would create a material security or platform risk. Cancellation or termination does not waive amounts already due, and the signed order or service agreement controls any additional termination terms.</p>
+
+      <h2>Ownership and third-party services</h2>
+      <p>{membershipTerms.ownership}</p>
+      <p>
+        Custom songs delivered through Social Media Management include perpetual commercial-use rights for the
+        customer, subject to applicable third-party platform and licensing terms. Copyright registration,
+        copyrightability, and exclusivity are not guaranteed for AI-assisted music.
+      </p>
+      <p>Services, subscriptions, processing fees, and usage purchased from a third party remain subject to that provider's terms and charges.</p>
+
+      <h2>Realtor Listing Song &amp; Video Package</h2>
+      <p>The $500 Realtor Listing Song &amp; Video page is an offer summary and invitation to inquire, not an automatically accepted order. The package summary includes one custom song, one full-length 1080p 16:9 listing video, and one 60-second 9:16 Reel.</p>
+      <p>Before work begins, the signed order will identify payment timing, delivery schedule, included revisions, customer-supplied media and permissions, approval steps, and final usage rights. Terms stated in that signed order control the engagement.</p>
+
+      <h2>Contact</h2>
+      <p>Use the <a href="/contact/">Cyber Genie contact page</a> for service, billing, cancellation, or policy questions.</p>
+    </div>
+  </section>
+</BaseLayout>

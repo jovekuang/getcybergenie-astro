@@ -1,0 +1,205 @@
+---
+import ServiceDelivery from "@/components/ServiceDelivery.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import WorkCarousel from "@/components/WorkCarousel.astro";
+import { createBreadcrumbSchema, createServiceSchema } from "@/data/site";
+import { planSeo } from "@/data/seo";
+import { membershipPlanBySlug, membershipTerms } from "@/data/solutions";
+
+const plan = membershipPlanBySlug("essential-website");
+const seo = planSeo[plan.slug];
+const evolvingPlan = membershipPlanBySlug("evolving-website");
+const pagePath = "/services/essential-website/";
+const pageDescription =
+  "A custom website with up to 10 content pages, hosting, maintenance, unlimited queued changes, and a free CRM in Customer OS for $25/month, billed annually at $300.";
+
+const corePageExamples = [
+  "Home",
+  "About",
+  "Services",
+  "Service page",
+  "Service page",
+  "Service page",
+  "Reviews or work",
+  "FAQ",
+  "Contact",
+  "Resources or another priority",
+];
+
+---
+
+<BaseLayout
+  title={seo.title}
+  description={seo.description}
+  canonical={pagePath}
+  image={seo.image}
+  imageAlt={seo.imageAlt}
+  jsonLd={[
+    createServiceSchema({
+      name: plan.name,
+      description: pageDescription,
+      serviceType: "Custom website design, hosting, maintenance, and ongoing changes",
+      path: pagePath,
+    }),
+    createBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: plan.name, path: pagePath },
+    ]),
+  ]}
+>
+  <section class="hero">
+    <div class="container hero-grid membership-hero-grid">
+      <div>
+        <h1 class="page-title">
+          <span class="headline-sentence headline-sentence-neutral">Your website, handled.</span>
+          <span class="headline-sentence">Your CRM, included.</span>
+        </h1>
+        <p class="lead">
+          We design, write, host, and maintain your custom website. Up to 10 content pages, unlimited eligible
+          queued changes, and Customer OS CRM while your plan is active.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href={plan.ctaHref}>{plan.cta}</a>
+          <a class="button button-secondary" href="/pricing/">Compare All Plans</a>
+        </div>
+      </div>
+      <div class="membership-price-panel">
+        <h2>{plan.name}</h2>
+        <p class="price">{plan.monthlyEquivalent}</p>
+        <p class="billing-price">{plan.billingPrice} {plan.billingDetail}</p>
+        <p>{plan.commitment}</p>
+        <p class="plan-guarantee">{plan.guarantee}</p>
+        <ul class="check-list compact-check-list">
+          <li>Custom design for one brand and primary domain</li>
+          <li>Up to 10 published content pages</li>
+          <li>Customer OS included at no additional cost</li>
+          <li>Unlimited eligible changes through a clear queue</li>
+          <li>One active request, delivered within five business days</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <ServiceDelivery service="essential" />
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2>A website to get found. A CRM to keep track.</h2>
+        <p>{plan.bestFor}</p>
+      </div>
+      <p class="service-note">Copy, logo creation, and generated or licensed imagery are included when needed. Video production is not included.</p>
+      <div class="membership-feature-grid">
+        {plan.features.map((feature, index) => (
+          <div class="membership-feature">
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <p>{feature}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2 page-limit-layout">
+      <div>
+        <h2 class="section-title">Ten pages, arranged around what customers need.</h2>
+        <p class="lead">
+          Choose the pages customers need most. Replace a page as priorities change, or upgrade for more than 10.
+        </p>
+        <p class="service-note">
+          Privacy, terms, form-confirmation, error, and other utility pages do not count. Individual service, location,
+          portfolio, and blog pages do count.
+        </p>
+      </div>
+      <ol class="page-limit-list" aria-label="Example 10-page website structure">
+        {corePageExamples.map((page, index) => (
+          <li><span>{String(index + 1).padStart(2, "0")}</span>{page}</li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header center">
+        <h2>Custom work, not a recycled template.</h2>
+      </div>
+      <WorkCarousel />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2">
+      <div>
+        <h2 class="section-title">Unlimited changes, one clear priority.</h2>
+        <p class="lead">
+          Add eligible changes anytime. We deliver one active request or milestone within five business days of receiving complete instructions, access, and assets.
+        </p>
+        <div class="request-flow" aria-label="Essential Website request workflow">
+          <span>Submit</span><span>Prioritize</span><span>Build</span><span>Review</span><span>Repeat</span>
+        </div>
+      </div>
+      <div class="card">
+        <h2>What you can request</h2>
+        <ul class="check-list">
+          {plan.examples.map((example) => <li>{example}</li>)}
+          <li>Change the creative direction over a series of queued milestones</li>
+          <li>Improve standard forms, analytics, metadata, or mobile presentation</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container grid-2">
+      <div>
+        <h2 class="section-title">Move up when the website needs more room.</h2>
+        <p class="lead">
+          Add backend database support, single sign-on, and eligible application integrations with Evolving Web Application.
+        </p>
+        <a class="learn-more" href={evolvingPlan.href}>Explore {evolvingPlan.name} <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="card comparison-card-featured">
+        <h2>{evolvingPlan.name}</h2>
+        <p class="price">{evolvingPlan.monthlyEquivalent}</p>
+        <ul class="check-list">
+          <li>Unlimited published pages</li>
+          <li>24-hour active request or milestone delivery</li>
+          <li>10 launch blogs, then one new blog each month</li>
+          <li>Proactive SEO, conversion, integration, and technical guidance</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Service terms in plain English.</h2>
+        <p>The hard boundaries behind the simple price.</p>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item"><summary>Annual billing and cancellation</summary><p>{membershipTerms.essentialCommitment}</p></details>
+        <details class="faq-item"><summary>Request queue</summary><p>{membershipTerms.requestPolicy}</p></details>
+        <details class="faq-item"><summary>Five-business-day delivery</summary><p>{membershipTerms.essentialDelivery}</p></details>
+        <details class="faq-item"><summary>15-day money-back guarantee</summary><p>{membershipTerms.guarantee}</p></details>
+      </div>
+      <p class="terms-footnote">
+        {membershipTerms.ownership}
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container cta-band">
+      <div>
+        <h2>Give your business a website it can depend on.</h2>
+        <p>A custom website, ongoing care, and a free CRM. $25/month, billed annually at $300.</p>
+      </div>
+      <div class="hero-actions">
+        <a class="button button-primary" href={plan.ctaHref}>{plan.cta}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

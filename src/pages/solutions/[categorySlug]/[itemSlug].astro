@@ -1,0 +1,128 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { solutionSeo } from "@/data/seo";
+import { createBreadcrumbSchema } from "@/data/site";
+import { coreOfferLabels, outcomeCategories, outcomeCategoryBySlug, solutionItems, solutionItemsByCategory, solutionPageDetails, solutionRelationships, technologyPartnerOffer } from "@/data/solutions";
+
+export function getStaticPaths() {
+  return solutionItems.map((item) => ({
+    params: { categorySlug: item.outcome, itemSlug: item.slug },
+    props: { item, category: outcomeCategoryBySlug(item.outcome) },
+  }));
+}
+
+const { item, category } = Astro.props;
+const relatedItems = solutionItemsByCategory(item.outcome).filter((candidate) => candidate.slug !== item.slug);
+const otherCategories = outcomeCategories.filter((candidate) => candidate.slug !== item.outcome);
+const relationships = solutionRelationships(item);
+const seo = solutionSeo[item.slug];
+const detail = solutionPageDetails[item.slug];
+---
+
+<BaseLayout
+  title={seo.title}
+  description={seo.description}
+  canonical={`/solutions/${category.slug}/${item.slug}/`}
+  jsonLd={[
+    createBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "Solutions", path: "/solutions/" },
+      { name: category.name, path: `/solutions/${category.slug}/` },
+      { name: item.title, path: `/solutions/${category.slug}/${item.slug}/` },
+    ]),
+  ]}
+>
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">{category.name}</p>
+      <h1 class="page-title">{item.title}</h1>
+      <p class="lead">{item.description}</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href={technologyPartnerOffer.ctaHref}>{technologyPartnerOffer.cta}</a>
+        {item.selfServe && <a class="button button-secondary" href={item.selfServe.href}>{item.selfServe.label}</a>}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2">
+      <div>
+        <p class="eyebrow">Outcome</p>
+        <h2 class="section-title">{item.proof}</h2>
+        <p class="lead">{item.whiteGloveOutcome}</p>
+        <div class="badge-list">
+          <span class="badge">{coreOfferLabels[item.coreOffer]}</span>
+        </div>
+      </div>
+      <div class="card">
+        <p class="eyebrow">White glove delivery</p>
+        <h2>What Cyber Genie handles</h2>
+        <ul class="check-list">
+          {item.whiteGlove.map((feature) => <li>{feature}</li>)}
+        </ul>
+        {item.selfServeNote && <p class="service-note">{item.selfServeNote}</p>}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container grid-2">
+      <div>
+        <h2 class="section-title">Signs this workflow needs attention.</h2>
+        <ul class="check-list">
+          {detail.warningSigns.map((sign) => <li>{sign}</li>)}
+        </ul>
+      </div>
+      <div class="card">
+        <h2>A practical first milestone.</h2>
+        <p class="lead">{detail.firstMilestone}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2">
+      <div class="solution-service-fit">
+        <h2 class="section-title">Choose the right service.</h2>
+        <p>Implementation stays within the agreed service scope. Technology Partner manages broader cross-platform work.</p>
+        <div class="solution-relationship-grid">
+          {relationships.map((relationship) => (
+            <a class="solution-relationship" href={relationship.href}>
+              <span>{relationship.label}</span>
+              <strong>{relationship.name}</strong>
+            </a>
+          ))}
+        </div>
+        <p class="service-note">Voice AI includes required custom integrations for its agreed call workflow. Customer OS CRM and self-service tools are included while a paid service is active.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href={technologyPartnerOffer.ctaHref}>{technologyPartnerOffer.cta}</a>
+          <a class="button button-secondary" href="/pricing/">Compare Service Options</a>
+        </div>
+      </div>
+      <div class="card">
+        <p class="eyebrow">Real-world examples</p>
+        <h2>Where this shows up</h2>
+        <ul class="check-list">
+          {item.industryUseCases.map((useCase) => <li>{useCase}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">Related workflows</p>
+        <h2>Build the rest of the {category.name.toLowerCase()} system.</h2>
+      </div>
+      <div class="industry-list outcome-links">
+        {relatedItems.map((related) => (
+          <a class="pill" href={`/solutions/${category.slug}/${related.slug}/`}>{related.title}</a>
+        ))}
+      </div>
+      <div class="industry-list outcome-links">
+        {otherCategories.map((other) => <a class="pill" href={`/solutions/${other.slug}/`}>{other.name}</a>)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

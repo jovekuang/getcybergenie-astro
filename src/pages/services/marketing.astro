@@ -1,0 +1,136 @@
+---
+import ServiceDelivery from "@/components/ServiceDelivery.astro";
+import SocialChannels from "@/components/SocialChannels.astro";
+import { customerOsFeature } from "@/data/positioning";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { calendlyUrl, createBreadcrumbSchema, createServiceSchema } from "@/data/site";
+import { socialMediaPlans, socialMediaPlanNotes } from "@/data/solutions";
+
+const legend = [
+  {
+    icon: "G",
+    label: "Google Posts",
+    unit: "/wk",
+    impact: "Updates, offers, and events on Google Business Profile",
+  },
+  {
+    icon: "S",
+    label: "Social Media Posts",
+    unit: "/wk",
+    impact: "Custom photos and text for your agreed channels",
+  },
+  {
+    icon: "V",
+    label: "Video Reels",
+    unit: "/mo",
+    impact: "Short-form video made for your brand",
+  },
+  {
+    icon: "M",
+    label: "Custom Music",
+    unit: "/mo",
+    impact: "Original lyric songs for campaigns and brand moments",
+  },
+];
+
+const pageDescription = "Done-for-you social media management from $99/mo, including posts, video reels, custom lyric music, client approval, scheduling, and publishing.";
+const pagePath = "/services/marketing/";
+---
+
+<BaseLayout
+  title="Social Media Management from $99/mo | Cyber Genie"
+  description={pageDescription}
+  canonical={pagePath}
+  jsonLd={[
+    createServiceSchema({
+      name: "Social Media Management",
+      description: pageDescription,
+      serviceType: "Done-for-you social media management",
+      path: pagePath,
+    }),
+    createBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "Social Media Management", path: pagePath },
+    ]),
+  ]}
+>
+  <section class="hero compact-hero">
+    <div class="container">
+      <div class="hero-centered headline-hero-centered">
+        <h1 class="compact-title">
+          <span class="headline-sentence headline-sentence-neutral">Stay visible on social media.</span>
+          <span class="headline-sentence">Without making content another job.</span>
+        </h1>
+        <p class="lead">
+          We plan, create, and publish approved content for your brand. Available on its own or coordinated with your other services.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#social-plans">View social plans</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ServiceDelivery service="marketing" />
+
+  <section class="section marketing-legend-section">
+    <div class="container">
+      <div class="marketing-narrow">
+        <h2 class="marketing-small-heading">What We Can Do for You</h2>
+        <div class="marketing-legend">
+          {legend.map((item) => (
+            <div class="marketing-legend-row">
+              <span class="marketing-legend-icon" aria-hidden="true">{item.icon}</span>
+              <div>
+                <span class="marketing-legend-label">{item.label}</span>
+                <span class="marketing-legend-impact"> — {item.impact}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="social-plans" class="section marketing-pricing-section">
+    <div class="container">
+      <div class="social-plan-context marketing-plan-context">
+        <p>{socialMediaPlanNotes.customization}</p>
+        <div class="social-platform-summary">
+          <span>Channels</span>
+          <SocialChannels channels={socialMediaPlans[0].channels} idPrefix="marketing-social-channel" />
+          <span class="social-channel-note">Scale: custom channel mix.</span>
+        </div>
+      </div>
+      <div class="marketing-price-grid">
+        {socialMediaPlans.map((plan) => (
+          <div class="card marketing-plan-card">
+            <div class="marketing-plan-header">
+              <h2>{plan.name}</h2>
+              <p class="price">{plan.price}<small>{plan.detail}</small></p>
+              <p>{plan.description}</p>
+            </div>
+            <ul class="check-list marketing-plan-list">
+              {plan.features.filter((feature) => feature !== customerOsFeature).map((feature) => <li>{feature}</li>)}
+            </ul>
+            <div class="hero-actions">
+              <a class="button button-primary" href={calendlyUrl}>Book a discovery call</a>
+            </div>
+          </div>
+        ))}
+      </div>
+      <p class="marketing-rights-note">{socialMediaPlanNotes.counts}</p>
+      <p class="marketing-rights-note">{socialMediaPlanNotes.songs}</p>
+    </div>
+  </section>
+
+  <section class="section marketing-cta-section">
+    <div class="container hero-centered">
+      <h2>Ready to Grow Your Brand?</h2>
+      <p>Choose a managed plan or talk with us about a custom content program.</p>
+      <div class="hero-actions">
+        <a class="button button-secondary" href={calendlyUrl}>Book a discovery call</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

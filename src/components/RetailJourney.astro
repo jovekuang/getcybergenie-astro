@@ -1,0 +1,50 @@
+<figure class="retail-journey" aria-label="Social content connects to your storefront and customer follow-up">
+  <div class="retail-journey-node">
+    <svg viewBox="0 0 80 64" aria-hidden="true" fill="none">
+      <rect x="12" y="7" width="56" height="50" rx="8" fill="white" stroke="currentColor" stroke-width="2" />
+      <rect x="20" y="15" width="40" height="24" rx="4" fill="#e6e5ff" />
+      <path d="m24 34 10-10 8 7 7-6 8 9M21 46h23M21 51h15" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+    </svg>
+    <strong>Social content</strong>
+    <span>Give products a story.</span>
+  </div>
+  <span class="retail-journey-connector" aria-hidden="true">→</span>
+  <div class="retail-journey-node retail-journey-store">
+    <svg viewBox="0 0 80 64" aria-hidden="true" fill="none">
+      <path d="M14 26v30h52V26M11 26l6-17h46l6 17" fill="white" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+      <path d="M11 26c0 9 14 9 14 0 0 9 15 9 15 0 0 9 15 9 15 0 0 9 14 9 14 0M27 10l-2 16M40 10v16M53 10l2 16" stroke="currentColor" stroke-width="2" />
+      <path d="M44 56V38h13v18M22 39h13v10H22z" fill="#e6e5ff" stroke="currentColor" stroke-width="2" />
+    </svg>
+    <strong>Your storefront</strong>
+    <span>Make shopping feel simple.</span>
+  </div>
+  <span class="retail-journey-connector" aria-hidden="true">→</span>
+  <div class="retail-journey-node">
+    <svg viewBox="0 0 80 64" aria-hidden="true" fill="none">
+      <rect x="10" y="8" width="60" height="48" rx="8" fill="white" stroke="currentColor" stroke-width="2" />
+      <circle cx="26" cy="26" r="7" fill="#e6e5ff" stroke="currentColor" stroke-width="2" />
+      <path d="M16 44c0-12 20-12 20 0M44 22h16M44 29h11m-9 12 5 5 10-11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    <strong>Customer follow-up</strong>
+    <span>Keep the relationship going.</span>
+  </div>
+  <figcaption>One connected journey. A team to manage the work.</figcaption>
+</figure>
+
+<style>
+  .retail-journey { display: grid; grid-template-columns: 1fr 32px 1fr 32px 1fr; align-items: center; max-width: 940px; margin: 0 auto; padding: 26px; border: 1px solid #dcdaf0; border-radius: 20px; background: linear-gradient(130deg, #f2f1ff, #f9fbff); color: #423ba1; }
+  .retail-journey-node { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 7px; padding: 18px 8px; }
+  .retail-journey-node svg { width: 80px; height: 64px; margin-bottom: 5px; }
+  .retail-journey-node strong { font-size: 17px; color: #29253d; }
+  .retail-journey-node span { font-size: 13px; color: #57536c; }
+  .retail-journey-connector { text-align: center; font-size: 27px; color: #8a83cd; }
+  .retail-journey-store { background: #ffffffb3; border: 1px solid #dedcf1; border-radius: 14px; }
+  figcaption { grid-column: 1 / -1; text-align: center; font-size: 13px; margin-top: 16px; color: #57536c; }
+  @media (max-width: 600px) {
+    .retail-journey { grid-template-columns: 1fr; gap: 0; padding: 18px; }
+    .retail-journey-node { display: grid; grid-template-columns: 64px 1fr; text-align: left; column-gap: 14px; padding: 12px; }
+    .retail-journey-node svg { grid-row: span 2; width: 64px; height: 52px; margin: 0; }
+    .retail-journey-node strong { font-size: 16px; }
+    .retail-journey-connector { transform: rotate(90deg); line-height: 26px; }
+  }
+</style>

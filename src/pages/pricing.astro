@@ -1,0 +1,443 @@
+---
+import { brand } from "@/data/brand";
+import { customerOsFeature, customerOsInclusion } from "@/data/positioning";
+import SocialChannels from "@/components/SocialChannels.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { appUrl, calendlyUrl, createBreadcrumbSchema } from "@/data/site";
+import {
+  individualServiceOffers,
+  membershipPlanBySlug,
+  membershipPlans,
+  membershipTerms,
+  socialMediaPlans,
+  socialMediaPlanNotes,
+  technologyPartnerOffer,
+  voiceAiPricing,
+  voicePricingSummary,
+} from "@/data/solutions";
+import { staticSeo } from "@/data/seo";
+
+const partner = membershipPlanBySlug("technology-partner");
+const webPlans = membershipPlans.filter((plan) => plan.slug !== "technology-partner");
+const voice = individualServiceOffers.find((offer) => offer.name === "Voice AI")!;
+const pricingTabPrices = {
+  overview: "All services",
+  "web-plans": `From ${webPlans[0].monthlyEquivalent}`,
+  "social-media": `From ${socialMediaPlans[0].price}/mo`,
+  "voice-ai": `${voice.price}/mo + usage`,
+  "technology-partner": partner.monthlyEquivalent,
+} as const;
+const pricingTabs = [
+  { id: "overview", label: "Overview", mobile: "Overview", price: pricingTabPrices.overview },
+  { id: "web-plans", label: "Websites & Apps", mobile: "Web & Apps", price: pricingTabPrices["web-plans"] },
+  { id: "social-media", label: "Social Media", mobile: "Social", price: pricingTabPrices["social-media"] },
+  { id: "voice-ai", label: "Voice AI", mobile: "Voice", price: pricingTabPrices["voice-ai"] },
+  { id: "technology-partner", label: "Technology Partner", mobile: "Partner", price: pricingTabPrices["technology-partner"] },
+];
+const serviceOverview = [
+  {
+    name: "Websites & Apps",
+    summary: webPlans.map((plan) => plan.name).join(" or ") + ".",
+    price: pricingTabPrices["web-plans"],
+    detail: webPlans.map((plan) => `${plan.billingPrice} ${plan.billingDetail}`).join(" / "),
+    href: "#web-plans",
+  },
+  { name: "Social Media Management", summary: "Content creation, approval, scheduling, and publishing.", price: pricingTabPrices["social-media"], detail: "Per month, by plan", href: "#social-media" },
+  { name: voice.name, summary: voicePricingSummary.description, price: pricingTabPrices["voice-ai"], detail: "Monthly fee plus AI phone minutes", href: "#voice-ai" },
+  { name: partner.name, summary: "Ongoing management of your processes and business technology.", price: pricingTabPrices["technology-partner"], detail: "Billed monthly", href: "#technology-partner" },
+];
+
+const serviceQuestions = [
+  { question: "Can I combine services?", answer: "Yes. Choose services individually or combine them around your priorities. Technology Partner includes Evolving Web Application, with all eligible work sharing one active priority queue. Social Media Management and Voice AI are separately priced; their fees are not automatically included in Technology Partner." },
+  { question: "What does one brand cover?", answer: membershipTerms.brandDefinition },
+  { question: "How does billing and cancellation work?", answer: `${membershipTerms.essentialCommitment} ${membershipTerms.commitment} Social Media and Voice AI pricing is shown above; their billing and cancellation terms are confirmed in your service agreement.` },
+  { question: "How do requests and turnaround work?", answer: `${membershipTerms.requestPolicy} ${membershipTerms.eligibleRequest} ${membershipTerms.reviewableMilestone} ${membershipTerms.essentialDelivery} ${membershipTerms.delivery}` },
+  { question: "How are revisions handled?", answer: membershipTerms.feedback },
+  { question: "What are self-service AI credits?", answer: membershipTerms.aiCredits },
+  { question: "What is separate from the service fee?", answer: "Third-party subscriptions, identity providers, paid apps, advertising spend, transaction fees, and other provider usage charges are separate. Voice AI phone minutes are charged at the rate shown above. Major migrations, additional standalone applications, and work outside the agreed scope require a separate agreement." },
+  { question: "How does the 15-day money-back guarantee work?", answer: `The Essential Website, Evolving Web Application, and Technology Partner plans include the 15-day money-back guarantee. ${membershipTerms.guarantee}` },
+  { question: "Who owns the completed work?", answer: membershipTerms.ownership },
+];
+
+const pricingCatalogSchema = {
+  "@context": "https://schema.org",
+  "@type": "OfferCatalog",
+  name: "Cyber Genie services and pricing",
+  url: `${brand.origin}/pricing/`,
+  itemListElement: [
+    ...membershipPlans.map((plan) => ({
+      "@type": "Offer",
+      name: plan.name,
+      description: plan.description,
+      url: new URL(plan.href, brand.origin).toString(),
+      price: plan.billingPrice.replace(/[$,]/g, ""),
+      priceCurrency: "USD",
+      priceSpecification: {
+        "@type": "UnitPriceSpecification",
+        price: plan.billingPrice.replace(/[$,]/g, ""),
+        priceCurrency: "USD",
+        billingDuration: plan.slug === "essential-website" ? "P1Y" : "P1M",
+      },
+      seller: { "@id": `${brand.origin}/#organization` },
+    })),
+    ...socialMediaPlans.map((plan) => ({
+      "@type": "Offer",
+      name: `Social Media Management: ${plan.name}`,
+      description: plan.description,
+      url: `${brand.origin}/pricing/#social-media`,
+      priceSpecification: {
+        "@type": "UnitPriceSpecification",
+        ...(plan.price.startsWith("From ")
+          ? { minPrice: plan.price.replace(/[^\d.]/g, "") }
+          : { price: plan.price.replace(/[$,]/g, "") }),
+        priceCurrency: "USD",
+        billingDuration: "P1M",
+      },
+      seller: { "@id": `${brand.origin}/#organization` },
+    })),
+    {
+      "@type": "Offer",
+      name: voice.name,
+      description: `${voice.description} ${voice.setupNote}`,
+      url: `${brand.origin}/pricing/#voice-ai`,
+      priceSpecification: {
+        "@type": "CompoundPriceSpecification",
+        priceComponent: [
+          { "@type": "UnitPriceSpecification", price: voiceAiPricing.monthly, priceCurrency: "USD", billingDuration: "P1M" },
+          { "@type": "UnitPriceSpecification", price: voiceAiPricing.perMinute, priceCurrency: "USD", referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "MIN" } },
+        ],
+      },
+      seller: { "@id": `${brand.origin}/#organization` },
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={staticSeo.pricing.title}
+  description={staticSeo.pricing.description}
+  canonical="/pricing/"
+  jsonLd={[
+    pricingCatalogSchema,
+    createBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "Pricing", path: "/pricing/" },
+    ]),
+  ]}
+>
+  <section class="hero compact-hero pricing-hero pricing-catalog-hero">
+    <div class="container hero-centered">
+      <h1 class="compact-title pricing-title">
+        <span class="headline-sentence headline-sentence-neutral">Agency-level service.</span>
+        <span class="headline-sentence">Software-level pricing.</span>
+      </h1>
+      <p class="lead">Choose the support your business needs. Start with one service or combine several as your priorities grow.</p>
+    </div>
+  </section>
+
+  <div class="pricing-browser" data-pricing-browser>
+    <nav class="pricing-selector" aria-label="Service pricing" data-pricing-selector>
+      <div class="container pricing-selector-list" data-pricing-tablist>
+        {pricingTabs.map((tab) => (
+          <a href={`#${tab.id}`} id={`pricing-tab-${tab.id}`} aria-label={tab.label} data-pricing-tab={tab.id}>
+            <span class="pricing-tab-desktop">{tab.label}</span>
+            <span class="pricing-tab-mobile" aria-hidden="true">{tab.mobile}</span>
+            <small>{tab.price}</small>
+          </a>
+        ))}
+      </div>
+    </nav>
+
+  <section class="pricing-overview" id="overview" data-pricing-panel aria-labelledby="pricing-overview-title">
+    <div class="container">
+      <h2 id="pricing-overview-title">Four service tracks. One place to compare.</h2>
+      <nav aria-label="Service pricing overview">
+        <ul class="pricing-overview-list">
+          {serviceOverview.map((service) => (
+            <li>
+              <a class="pricing-overview-row" href={service.href}>
+                <span class="pricing-overview-copy"><strong>{service.name}</strong><span>{service.summary}</span></span>
+                <span class="pricing-overview-price"><strong>{service.price}</strong><span>{service.detail}</span></span>
+                <span class="pricing-overview-link">View pricing <span aria-hidden="true">→</span></span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <p class="pricing-inclusion-note"><a href="#included-tools">Customer OS and a free CRM are included with every active paid service.</a></p>
+    </div>
+  </section>
+
+  <section class="section pricing-partner-section pricing-catalog-section" id="technology-partner" data-pricing-panel aria-labelledby="partner-pricing-title">
+    <div class="container pricing-partner-layout">
+      <div class="pricing-partner-intro">
+        <p class="eyebrow">Ongoing business technology management</p>
+        <h2 id="partner-pricing-title">{partner.name}</h2>
+        <p class="lead">{partner.pricingSummary.description}</p>
+        <p class="pricing-service-price">{partner.monthlyEquivalent}</p>
+        <p class="pricing-billing">Billed monthly. {partner.commitment}</p>
+        <p class="plan-guarantee">{partner.guarantee}</p>
+        <p class="pricing-service-fit"><strong>Best for:</strong> {partner.pricingSummary.bestFor}</p>
+        <div class="pricing-roadmap-note"><strong>The first 15 days</strong><p>{technologyPartnerOffer.roadmapPromise}</p></div>
+        <div class="pricing-service-actions">
+          <a class="button button-primary" href={partner.ctaHref}>{partner.cta}</a>
+          <a class="learn-more" href={partner.href}>See full service details <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <div class="pricing-partner-scope">
+        <div class="membership-outcome-tabs" data-outcome-tabs>
+          <div class="membership-outcome-strip" role="tablist" aria-label="Technology Partner responsibilities">
+            {technologyPartnerOffer.outcomes.map((outcome, index) => (
+              <button type="button" role="tab" id={`pricing-outcome-tab-${outcome.slug}`} aria-controls={`pricing-outcome-panel-${outcome.slug}`} aria-selected={index === 0 ? "true" : "false"} tabindex={index === 0 ? 0 : -1}>
+                {outcome.title.replace(" Customers", "")}
+              </button>
+            ))}
+          </div>
+          {technologyPartnerOffer.outcomes.map((outcome) => (
+            <div class="membership-outcome-panel" role="tabpanel" id={`pricing-outcome-panel-${outcome.slug}`} aria-labelledby={`pricing-outcome-tab-${outcome.slug}`}>
+              <p>{outcome.description}</p>
+              <ul>{outcome.responsibilities.map((responsibility) => <li>{responsibility}</li>)}</ul>
+              <p class="membership-outcome-technologies"><strong>Corresponding technologies:</strong> {outcome.technologies}</p>
+            </div>
+          ))}
+        </div>
+        <h3>What we own with you</h3>
+        <ul class="check-list">{partner.pricingSummary.features.map((feature) => <li>{feature}</li>)}</ul>
+        <p class="pricing-scope-note">Evolving Web Application shares the same queue. Social Media and Voice AI are priced separately.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt pricing-catalog-section" id="web-plans" data-pricing-panel aria-labelledby="web-pricing-title">
+    <div class="container">
+      <div class="section-header"><h2 id="web-pricing-title">Websites &amp; Web Applications</h2><p>A managed website or an evolving web application.</p></div>
+      <div class="pricing-web-grid">
+        {webPlans.map((plan) => (
+          <article class="pricing-plan" id={plan.slug}>
+            <header class="pricing-plan-header"><h3>{plan.name}</h3><p>{plan.pricingSummary.description}</p></header>
+            <div class="pricing-plan-cost">
+              <p class="pricing-service-price">{plan.monthlyEquivalent}</p>
+              <p>{plan.slug === "essential-website" ? `${plan.billingPrice} ${plan.billingDetail}` : "Billed monthly"}</p><p>{plan.commitment}</p>
+              <p class="plan-guarantee">{plan.guarantee}</p>
+            </div>
+            <p class="pricing-service-fit"><strong>Best for:</strong> {plan.pricingSummary.bestFor}</p>
+            <ul class="check-list">{plan.pricingSummary.features.map((feature) => <li>{feature}</li>)}</ul>
+            <div class="pricing-service-actions"><a class="button button-primary" href={plan.ctaHref}>{plan.cta}</a><a class="learn-more" href={plan.href}>See full service details <span aria-hidden="true">→</span></a></div>
+          </article>
+        ))}
+      </div>
+      <p class="pricing-scope-note">Need wider systems management? Technology Partner includes Evolving Web Application.</p>
+    </div>
+  </section>
+
+  <section class="section pricing-catalog-section" id="social-media" data-pricing-panel aria-labelledby="social-pricing-title">
+    <div class="container">
+      <div class="section-header"><h2 id="social-pricing-title">Social Media Management</h2><p>Content planning, approval, and publishing, handled for you.</p></div>
+      <div class="social-plan-context">
+        <p>{socialMediaPlanNotes.customization}</p>
+        <div class="social-platform-summary">
+          <span>Channels</span>
+          <SocialChannels channels={socialMediaPlans[0].channels} idPrefix="pricing-social-channel" />
+          <span class="social-channel-note">Scale: custom channel mix.</span>
+        </div>
+      </div>
+      <div class="pricing-social-grid">
+        {socialMediaPlans.map((plan) => (
+          <article class="pricing-plan">
+            <header class="pricing-plan-header"><h3>{plan.name}</h3><p>{plan.description}</p></header>
+            <div class="pricing-plan-cost"><p class="pricing-service-price">{plan.price}<small>{plan.detail}</small></p></div>
+            <ul class="check-list">{plan.features.filter((feature) => feature !== customerOsFeature).map((feature) => <li>{feature}</li>)}</ul>
+            <div class="pricing-service-actions"><a class="button button-primary" href={calendlyUrl}>Discuss {plan.name}</a></div>
+          </article>
+        ))}
+      </div>
+      <div class="pricing-social-notes">
+        <p><strong>Posts and reels:</strong> {socialMediaPlanNotes.counts}</p>
+        <p><strong>Custom songs:</strong> {socialMediaPlanNotes.songs}</p>
+        <a class="learn-more" href="/services/marketing/">See full social media service details <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt pricing-catalog-section" id="voice-ai" data-pricing-panel aria-labelledby="voice-pricing-title">
+    <div class="container pricing-voice-layout">
+      <div>
+        <p class="eyebrow">Call handling &amp; customer intake</p>
+        <h2 id="voice-pricing-title">{voice.name}</h2>
+        <p class="lead">{voicePricingSummary.description}</p>
+        <p class="pricing-service-price">{voice.price}<small>/mo</small></p>
+        <p class="pricing-usage-price">Plus ${voiceAiPricing.perMinute.toFixed(2)} per AI phone minute</p>
+        <p class="pricing-billing">{voicePricingSummary.billingNote}</p>
+        <div class="pricing-service-actions"><a class="button button-primary" href={`${appUrl}/login?service=voice`}>{voice.cta}</a><a class="learn-more" href={voice.href}>See full Voice AI service details <span aria-hidden="true">→</span></a></div>
+      </div>
+      <div class="pricing-voice-scope"><h3>Built, connected, and tested</h3><ul class="check-list">{voicePricingSummary.features.map((feature) => <li>{feature}</li>)}</ul><p class="pricing-scope-note">{voicePricingSummary.scopeNote}</p></div>
+    </div>
+  </section>
+
+  <section class="section pricing-catalog-section" id="included-tools" aria-labelledby="shared-pricing-title">
+    <div class="container">
+      <div class="section-header"><h2 id="shared-pricing-title">Included Tools &amp; Service Questions</h2><p>How the services fit together, what is included, and how ongoing work is handled.</p></div>
+      <div class="pricing-included-tools">
+        <div><h3>{customerOsInclusion.title}</h3><a class="learn-more" href="/solutions/keep-customers/customer-management/">Explore the included CRM <span aria-hidden="true">→</span></a></div>
+        <div><p><strong>{customerOsInclusion.summary}</strong></p><p>{customerOsInclusion.availability}</p><p>{customerOsInclusion.entry}</p></div>
+      </div>
+      <div class="pricing-service-questions">
+        {serviceQuestions.map((item) => (<details><summary>{item.question}</summary><p>{item.answer}</p></details>))}
+      </div>
+      <p class="pricing-scope-note">{membershipTerms.planInheritance} Your signed service agreement controls the agreed scope and terms. <a href="/terms/">Read the service terms</a>.</p>
+    </div>
+  </section>
+  </div>
+</BaseLayout>
+
+<script>
+  const browser = document.querySelector<HTMLElement>("[data-pricing-browser]");
+  const selector = browser?.querySelector<HTMLElement>("[data-pricing-selector]");
+  const tablist = browser?.querySelector<HTMLElement>("[data-pricing-tablist]");
+  const serviceTabs = Array.from(browser?.querySelectorAll<HTMLAnchorElement>("[data-pricing-tab]") ?? []);
+  const servicePanels = Array.from(browser?.querySelectorAll<HTMLElement>("[data-pricing-panel]") ?? []);
+  const header = document.querySelector<HTMLElement>(".site-header");
+
+  if (browser && selector && tablist && serviceTabs.length === 5 && serviceTabs.every((tab) => servicePanels.some((panel) => panel.id === tab.dataset.pricingTab))) {
+    let activeId = "overview";
+    const initialHash = window.location.hash;
+    const updateOffsets = () => {
+      browser.style.setProperty("--pricing-header-height", `${header?.getBoundingClientRect().height ?? 0}px`);
+      browser.style.setProperty("--pricing-selector-height", `${selector.getBoundingClientRect().height}px`);
+    };
+    const reveal = (target: HTMLElement) => {
+      const gap = target.hasAttribute("data-pricing-panel") ? 0 : 16;
+      const offset = (header?.getBoundingClientRect().height ?? 0) + selector.getBoundingClientRect().height + gap;
+      window.scrollTo({ top: Math.max(0, window.scrollY + target.getBoundingClientRect().top - offset), behavior: "instant" });
+    };
+    const selectPanel = (id: string) => {
+      activeId = id;
+      serviceTabs.forEach((tab) => {
+        const selected = tab.dataset.pricingTab === id;
+        tab.setAttribute("aria-selected", String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+      });
+      servicePanels.forEach((panel) => { panel.hidden = panel.id !== id; });
+    };
+    const resolveHash = () => {
+      const hash = window.location.hash.slice(1);
+      if (hash === "essential-website" || hash === "evolving-website") return { id: "web-plans", target: hash };
+      if (hash === "included-tools") {
+        const previousId = history.state?.fkPricingPanel;
+        return { id: servicePanels.some((panel) => panel.id === previousId) ? previousId : activeId, target: hash };
+      }
+      const known = servicePanels.some((panel) => panel.id === hash);
+      return { id: known ? hash : "overview", target: known ? hash : "" };
+    };
+    const restoreLocation = () => {
+      const resolved = resolveHash();
+      const focusWillHide = servicePanels.some((panel) => panel.id !== resolved.id && panel.contains(document.activeElement));
+      selectPanel(resolved.id);
+      history.replaceState({ ...history.state, fkPricingPanel: resolved.id }, "");
+      if (focusWillHide) serviceTabs.find((tab) => tab.dataset.pricingTab === resolved.id)?.focus({ preventScroll: true });
+      if (resolved.target) {
+        const target = document.getElementById(resolved.target);
+        if (target) reveal(target);
+      } else {
+        window.scrollTo({ top: 0, behavior: "instant" });
+      }
+    };
+    const navigate = (id: string, targetId: string, fromOverview = false) => {
+      const isPinned = selector.getBoundingClientRect().top <= (header?.getBoundingClientRect().height ?? 0) + 1;
+      selectPanel(id);
+      if (window.location.hash !== `#${targetId}`) history.pushState({ ...history.state, fkPricingPanel: id }, "", `#${targetId}`);
+      const target = document.getElementById(targetId);
+      if (target && (isPinned || targetId !== id)) reveal(target);
+      if (fromOverview) {
+        const heading = document.querySelector<HTMLElement>(`#${id} h2`);
+        heading?.focus({ preventScroll: true });
+      } else {
+        serviceTabs.find((tab) => tab.dataset.pricingTab === id)?.focus({ preventScroll: true });
+      }
+    };
+
+    updateOffsets();
+    tablist.setAttribute("role", "tablist");
+    tablist.setAttribute("aria-label", "Service pricing");
+    servicePanels.forEach((panel) => {
+      panel.setAttribute("role", "tabpanel");
+      panel.setAttribute("aria-labelledby", `pricing-tab-${panel.id}`);
+      panel.tabIndex = 0;
+      const heading = panel.querySelector<HTMLElement>("h2");
+      if (heading) heading.tabIndex = -1;
+    });
+    serviceTabs.forEach((tab, index) => {
+      const id = tab.dataset.pricingTab!;
+      tab.setAttribute("role", "tab");
+      tab.setAttribute("aria-controls", id);
+      tab.addEventListener("click", (event) => {
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        navigate(id, id);
+      });
+      tab.addEventListener("keydown", (event) => {
+        let next: number | undefined;
+        if (event.key === "ArrowRight") next = (index + 1) % serviceTabs.length;
+        if (event.key === "ArrowLeft") next = (index - 1 + serviceTabs.length) % serviceTabs.length;
+        if (event.key === "Home") next = 0;
+        if (event.key === "End") next = serviceTabs.length - 1;
+        if (next !== undefined) {
+          event.preventDefault();
+          serviceTabs.forEach((item, itemIndex) => { item.tabIndex = itemIndex === next ? 0 : -1; });
+          serviceTabs[next].focus();
+        } else if (event.key === " ") {
+          event.preventDefault();
+          navigate(id, id);
+        }
+      });
+    });
+    browser.querySelectorAll<HTMLAnchorElement>(".pricing-overview-row").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        const targetId = link.hash.slice(1);
+        const id = targetId === "essential-website" || targetId === "evolving-website" ? "web-plans" : targetId;
+        navigate(id, targetId, true);
+      });
+    });
+    selectPanel(resolveHash().id);
+    browser.dataset.pricingEnhanced = "true";
+    const resizeObserver = new ResizeObserver(updateOffsets);
+    if (header) resizeObserver.observe(header);
+    resizeObserver.observe(selector);
+    window.addEventListener("popstate", restoreLocation);
+    window.addEventListener("hashchange", restoreLocation);
+    // Wait for initial layout before correcting native fragment scrolling.
+    document.fonts.ready.then(() => requestAnimationFrame(() => {
+      if (initialHash && window.location.hash === initialHash) restoreLocation();
+    }));
+  }
+
+  document.querySelectorAll<HTMLElement>("[data-outcome-tabs]").forEach((tabGroup) => {
+    const tabs = Array.from(tabGroup.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+    const panels = Array.from(tabGroup.querySelectorAll<HTMLElement>('[role="tabpanel"]'));
+    const activateTab = (tab: HTMLButtonElement, moveFocus = false) => {
+      tabs.forEach((item) => {
+        const selected = item === tab;
+        item.setAttribute("aria-selected", String(selected));
+        item.tabIndex = selected ? 0 : -1;
+      });
+      panels.forEach((panel) => { panel.hidden = panel.id !== tab.getAttribute("aria-controls"); });
+      if (moveFocus) tab.focus();
+    };
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => activateTab(tab));
+      tab.addEventListener("keydown", (event) => {
+        let nextIndex = index;
+        if (event.key === "ArrowRight") nextIndex = (index + 1) % tabs.length;
+        if (event.key === "ArrowLeft") nextIndex = (index - 1 + tabs.length) % tabs.length;
+        if (event.key === "Home") nextIndex = 0;
+        if (event.key === "End") nextIndex = tabs.length - 1;
+        if (nextIndex === index) return;
+        event.preventDefault();
+        activateTab(tabs[nextIndex], true);
+      });
+    });
+    if (tabs[0]) activateTab(tabs[0]);
+  });
+</script>

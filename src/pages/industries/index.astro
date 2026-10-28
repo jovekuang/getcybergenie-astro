@@ -1,0 +1,79 @@
+---
+import { brand } from "@/data/brand";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { staticSeo } from "@/data/seo";
+import { createBreadcrumbSchema } from "@/data/site";
+import { technologyPartnerOffer } from "@/data/solutions";
+import { voiceIndustries } from "@/data/voiceIndustries";
+
+const collectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Cyber Genie Industry Pages",
+  url: `${brand.origin}/industries/`,
+  mainEntity: voiceIndustries.map((industry) => ({
+    "@type": "Service",
+    name: `Managed websites and customer services for ${industry.name}`,
+    url: `${brand.origin}/industries/${industry.slug}/`,
+    description: `Website delivery, configured customer workflows, and ongoing service built around how ${industry.name.toLowerCase()} get, win, and keep customers.`,
+  })),
+};
+const seo = staticSeo.industries;
+const directorySummaries: Record<string, string> = {
+  "hvac-contractors": "Connect service calls, dispatch, estimates, and maintenance renewals.",
+  realtors: "Connect listing inquiries, showings, transaction updates, and past-client follow-up.",
+  plumbers: "Organize emergency intake, dispatch, job updates, and payments.",
+  "property-management": "Connect leasing, maintenance requests, vendors, and owner reporting.",
+  electricians: "Coordinate project inquiries, estimates, permits, and job updates.",
+  "roofing-contractors": "Connect inspections, estimates, insurance documents, and production updates.",
+  "landscaping-companies": "Organize maintenance routes, project estimates, crews, and renewals.",
+  "pest-control": "Connect inspections, treatment preparation, technician routes, and recurring plans.",
+  "auto-repair-shops": "Connect vehicle intake, estimates, approvals, and repair updates.",
+  "emergency-restoration": "Coordinate emergency intake, dispatch, documentation, and insurance updates.",
+  medspas: "Connect consultation inquiries, bookings, aftercare, and rebooking.",
+  "day-cares": "Organize parent inquiries, tours, waitlists, and enrollment follow-up.",
+  "animal-hospitals": "Connect client calls, hospital routing, and follow-up with your existing PIMS.",
+  "insurance-agencies": "Organize quote requests, policy-service inquiries, and renewal follow-up.",
+  "online-retailers": "Connect product storytelling, Shopify shopping, order updates, and repeat business.",
+};
+---
+
+<BaseLayout
+  title={seo.title}
+  description={seo.description}
+  canonical="/industries/"
+  jsonLd={[
+    collectionSchema,
+    createBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "Industries", path: "/industries/" },
+    ]),
+  ]}
+>
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Industries</p>
+      <h1 class="page-title">
+        <span class="headline-sentence headline-sentence-neutral">Every industry has its own process.</span>
+        <span class="headline-sentence">We make the technology follow it.</span>
+      </h1>
+      <p class="lead">
+        Websites, Voice AI, and connected workflows built around how your industry works.
+      </p>
+      <div class="hero-actions">
+        <a class="button button-primary" href={technologyPartnerOffer.ctaHref}>{technologyPartnerOffer.cta}</a>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container grid-3 industry-directory-grid">
+      {voiceIndustries.map((industry) => (
+        <a class="card linked-card industry-directory-card" href={`/industries/${industry.slug}/`}>
+          <h2>{industry.name}</h2>
+          <p>{directorySummaries[industry.slug]}</p>
+          <span class="learn-more">Explore services <span aria-hidden="true">→</span></span>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

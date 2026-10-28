@@ -1,0 +1,77 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { categorySeo } from "@/data/seo";
+import { createBreadcrumbSchema } from "@/data/site";
+import { outcomeCategories, solutionItemsByCategory, technologyPartnerOffer } from "@/data/solutions";
+
+export function getStaticPaths() {
+  return outcomeCategories.map((category) => ({
+    params: { categorySlug: category.slug },
+    props: { category },
+  }));
+}
+
+const { category } = Astro.props;
+const items = solutionItemsByCategory(category.slug);
+const seo = categorySeo[category.slug];
+---
+
+<BaseLayout
+  title={seo.title}
+  description={seo.description}
+  canonical={`/solutions/${category.slug}/`}
+  jsonLd={[
+    createBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "Solutions", path: "/solutions/" },
+      { name: category.name, path: `/solutions/${category.slug}/` },
+    ]),
+  ]}
+>
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">{category.name}</p>
+      <h1 class="page-title">
+        {category.headlineLines ? (
+          <>
+            <span class="headline-sentence headline-sentence-neutral">{category.headlineLines[0]}</span>
+            <span class="headline-sentence">{category.headlineLines[1]}</span>
+          </>
+        ) : category.headline}
+      </h1>
+      <p class="lead">{category.description}</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href={technologyPartnerOffer.ctaHref}>{technologyPartnerOffer.cta}</a>
+        <a class="button button-secondary" href="/solutions/">All Solutions</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>{category.promise}</h2>
+        <p>Choose a workflow. We’ll help identify the right service.</p>
+      </div>
+      <div class="grid-2">
+        {items.map((item) => (
+          <a class="card linked-card" href={`/solutions/${category.slug}/${item.slug}/`}>
+            <h2>{item.title}</h2>
+            <p>{item.description}</p>
+            <span class="learn-more">See how it works <span aria-hidden="true">→</span></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container cta-band">
+      <div>
+        <h2>Want the full {category.name.toLowerCase()} process and technology connected?</h2>
+        <p>Process mapping, connected tools, and ongoing improvements within the agreed scope.</p>
+      </div>
+      <a class="button button-primary" href={technologyPartnerOffer.ctaHref}>{technologyPartnerOffer.cta}</a>
+    </div>
+  </section>
+</BaseLayout>

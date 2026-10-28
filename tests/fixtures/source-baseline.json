@@ -1,0 +1,489 @@
+{
+  "sourceRepository": "jovekuang/fk-innovate-astro",
+  "sourceCommit": "fc69a673cffa70af62b2bdd9d95c2d1ee62f5aac",
+  "routes": [
+    {
+      "path": "/404.html",
+      "robots": "noindex, follow"
+    },
+    {
+      "path": "/about/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/blog/3-ways-ai-can-streamline-your-small-business/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/blog/ai-results-without-ai-homework/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/blog/daycare-tour-follow-up-process/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/blog/evolving-website-and-technology-partner/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/blog/hidden-cost-of-diy-digital-marketing/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/blog/how-to-automate-operations-without-dashboards/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/blog/how-to-fix-ai-memory-loss-skill-specific-system-hermes-agent/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/blog/how-to-turn-a-spreadsheet-into-custom-business-software/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/blog/how-would-you-build-your-team-of-ai-agents/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/blog/hvac-estimate-follow-up-process/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/blog/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/blog/introducing-voice-ai-service-new-software-small-business/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/blog/is-your-ai-assistant-working-for-you-or-a-hacker/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/blog/modern-small-business-tech-paradox/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/blog/pest-control-preparation-reminder-workflow/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/blog/shopify-abandoned-checkout-recovery-without-discounts/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/blog/social-media-consistency-is-a-burden/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/blog/stop-innovating-your-business-into-the-ground/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/blog/the-saas-lie-easy-to-use-software-stealing-time/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/blog/what-is-a-managed-website-service-small-business/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/blog/why-a-technology-partner-is-cheaper-than-software-suite/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/blog/why-your-small-business-doesnt-need-another-saas/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/campaigns/cfp-gp/",
+      "robots": "noindex, nofollow"
+    },
+    {
+      "path": "/campaigns/home-service-lead-qualification/",
+      "robots": "noindex, nofollow"
+    },
+    {
+      "path": "/campaigns/realtor-listing-song-video/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/contact/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/industries/animal-hospitals/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/industries/auto-repair-shops/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/industries/day-cares/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/industries/electricians/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/industries/emergency-restoration/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/industries/hvac-contractors/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/industries/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/industries/insurance-agencies/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/industries/landscaping-companies/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/industries/medspas/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/industries/online-retailers/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/industries/pest-control/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/industries/plumbers/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/industries/property-management/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/industries/realtors/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/industries/roofing-contractors/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/onboarding/website/",
+      "robots": "noindex, follow"
+    },
+    {
+      "path": "/pricing/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/privacy/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/services/essential-website/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/services/marketing/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/services/technology-partner/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/services/voice/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/services/website-design-hosting/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/solutions/get-customers/digital-advertising/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/solutions/get-customers/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/solutions/get-customers/local-ai-search-visibility/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/solutions/get-customers/optimized-website/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/solutions/get-customers/project-showcases/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/solutions/get-customers/review-management/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/solutions/get-customers/social-media-management/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/solutions/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/solutions/keep-customers/customer-management/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/solutions/keep-customers/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/solutions/keep-customers/invoicing-payments/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/solutions/keep-customers/photo-document-management/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/solutions/keep-customers/project-updates/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/solutions/keep-customers/reactivation/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/solutions/keep-customers/reviews-referrals/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/solutions/win-customers/ai-voice/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/solutions/win-customers/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/solutions/win-customers/quoting-follow-up/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/solutions/win-customers/request-pipeline/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/solutions/win-customers/sales-assistant/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/solutions/win-customers/scheduling/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/terms/",
+      "robots": "index,follow"
+    }
+  ],
+  "redirects": [
+    "/services/managed-business-app /services/technology-partner/ 301",
+    "/services/managed-business-app/ /services/technology-partner/ 301",
+    "/blog/introducing-evolving-website-managed-business-app /blog/evolving-website-and-technology-partner/ 301",
+    "/blog/introducing-evolving-website-managed-business-app/ /blog/evolving-website-and-technology-partner/ 301",
+    "/services/cloud-solutions /services/technology-partner/ 301",
+    "/services/cloud-solutions/ /services/technology-partner/ 301",
+    "/services/database-analytics /services/technology-partner/ 301",
+    "/services/database-analytics/ /services/technology-partner/ 301",
+    "/services/operational-efficiency /services/technology-partner/ 301",
+    "/services/operational-efficiency/ /services/technology-partner/ 301",
+    "/services/voice/industries /industries/ 301",
+    "/services/voice/industries/ /industries/ 301",
+    "/services/voice/animal-hospitals /industries/animal-hospitals/ 301",
+    "/services/voice/animal-hospitals/ /industries/animal-hospitals/ 301",
+    "/services/voice/auto-repair-shops /industries/auto-repair-shops/ 301",
+    "/services/voice/auto-repair-shops/ /industries/auto-repair-shops/ 301",
+    "/services/voice/day-cares /industries/day-cares/ 301",
+    "/services/voice/day-cares/ /industries/day-cares/ 301",
+    "/services/voice/electricians /industries/electricians/ 301",
+    "/services/voice/electricians/ /industries/electricians/ 301",
+    "/services/voice/emergency-restoration /industries/emergency-restoration/ 301",
+    "/services/voice/emergency-restoration/ /industries/emergency-restoration/ 301",
+    "/services/voice/hvac-contractors /industries/hvac-contractors/ 301",
+    "/services/voice/hvac-contractors/ /industries/hvac-contractors/ 301",
+    "/services/voice/insurance-agencies /industries/insurance-agencies/ 301",
+    "/services/voice/insurance-agencies/ /industries/insurance-agencies/ 301",
+    "/services/voice/landscaping-companies /industries/landscaping-companies/ 301",
+    "/services/voice/landscaping-companies/ /industries/landscaping-companies/ 301",
+    "/services/voice/medspas /industries/medspas/ 301",
+    "/services/voice/medspas/ /industries/medspas/ 301",
+    "/services/voice/pest-control /industries/pest-control/ 301",
+    "/services/voice/pest-control/ /industries/pest-control/ 301",
+    "/services/voice/plumbers /industries/plumbers/ 301",
+    "/services/voice/plumbers/ /industries/plumbers/ 301",
+    "/services/voice/property-management /industries/property-management/ 301",
+    "/services/voice/property-management/ /industries/property-management/ 301",
+    "/services/voice/realtors /industries/realtors/ 301",
+    "/services/voice/realtors/ /industries/realtors/ 301",
+    "/services/voice/roofing-contractors /industries/roofing-contractors/ 301",
+    "/services/voice/roofing-contractors/ /industries/roofing-contractors/ 301",
+    "/solutions/win-customers/ai-text /solutions/win-customers/ 301",
+    "/solutions/win-customers/ai-text/ /solutions/win-customers/ 301"
+  ],
+  "sitemapCount": 71,
+  "commercialSections": {
+    "membershipTerms": "export const membershipTerms = {\n  brandDefinition:\n    \"One brand means one primary root domain, one visual identity, and one main website or application. A second brand or root domain requires a separate service plan.\",\n  commitment:\n    \"Evolving Web Application and Technology Partner are billed monthly with no long-term commitment. Cancel before the next billing date to stop the following month.\",\n  essentialCommitment:\n    \"Essential Website begins with a 12-month commitment paid annually and renews in 12-month periods. Cancel at least 30 days before renewal to stop the next term.\",\n  requestPolicy:\n    \"Unlimited requests means you may keep adding eligible work to your queue. FK Innovate works on one active request or milestone at a time, and you may reprioritize work that has not started.\",\n  eligibleRequest:\n    \"An eligible request is a clearly defined task within the plan's listed scope and its brand, domain, or application boundary.\",\n  reviewableMilestone:\n    \"A reviewable milestone is a testable part of a larger request that can be reviewed and approved on its own.\",\n  essentialDelivery:\n    \"Essential Website requests are completed within five business days after we receive the complete instructions, access, and assets needed to begin. Larger requests are divided into reviewable milestones, with each active milestone delivered within five business days.\",\n  delivery:\n    \"Evolving Web Application targets delivery of each active eligible request within 24 hours after receiving complete requirements, access, and assets. Technology Partner work follows the approved roadmap and one-active-priority queue; larger work is divided into reviewable milestones.\",\n  feedback:\n    \"Revisions are included while they support the approved objective. A different objective becomes a new queued request so the current priority can still be completed within the turnaround for its plan.\",\n  aiCredits:\n    \"Self-service AI credits let you make quick text, color, and other minor changes directly in the app without waiting for FK Innovate's request queue. The app shows the estimated credit use before each change. Credits reset monthly, do not roll over, and have no cash value.\",\n  planInheritance:\n    \"Included features carry forward from one plan to the next, but each plan keeps its own billing schedule, cancellation terms, turnaround, and request queue.\",\n  sharedManagedQueue:\n    \"Technology Partner includes Evolving Web Application development, integrations, database support, user sign-on, pages, and blog production. Application and Technology Partner requests share one active priority queue.\",\n  ownership:\n    \"The customer owns the approved final website, application code, and business content created for the engagement after all invoices are paid. FK Innovate retains its reusable tools, templates, and general know-how.\",\n  guarantee:\n    \"The 15-day money-back guarantee applies to the first paid term only. Request it in writing within 15 calendar days of the initial payment for a full refund of your initial payment. Service and hosting end when the refund is issued, customer-provided materials remain the customer's property, and FK-created deliverables are not transferred after a full refund. Renewals and requests made after the first 15 days are non-refundable.\",\n};\n",
+    "websitePlanExclusions": "export const websitePlanExclusions = [\n  \"Management of business platforms and processes outside the primary web property\",\n  \"Cross-platform operating workflows that require ongoing administration\",\n  \"Native mobile apps, major data migrations, or undocumented legacy integrations\",\n  \"Regulated, compliance-heavy, or unusually security-sensitive workloads are not currently offered\",\n];\n",
+    "technologyPartnerOffer": "export const technologyPartnerOffer = {\n  name: \"Technology Partner\",\n  headline: \"Your tools work. They just don't work together.\",\n  supportingHeadline: \"Turn scattered software into one working customer system.\",\n  description:\n    \"We turn agreed business priorities into working customer workflows. Our team maps the process, configures and connects the tools, tests the handoffs, and manages ongoing improvements across your business systems.\",\n  cta: \"Talk to a Technology Partner\",\n  ctaHref: \"https://calendly.com/jove-fkcapital/30min\",\n  roadmapPromise: \"Your initial process map and prioritized 90-day technology roadmap, targeted within 15 calendar days of signup.\",\n  onboardingDeliverables: [\n    \"Map the Get, Win, and Keep customer journey\",\n    \"Inventory the corresponding platforms, owners, and information handoffs\",\n    \"Identify duplicated work, disconnected data, and operating friction\",\n    \"Deliver a prioritized 90-day technology roadmap using the information available\",\n    \"Recommend and begin the first approved improvement\",\n  ],\n  ongoingOwnership: [\n    \"Maintain the process and technology map\",\n    \"Administer agreed business platforms\",\n    \"Configure and optimize existing software\",\n    \"Monitor integrations and automations managed by FK Innovate\",\n    \"Coordinate relevant software vendors\",\n    \"Keep one approved improvement priority actively moving\",\n  ],\n  outcomes: [\n    {\n      slug: \"get\",\n      title: \"Get Customers\",\n      description: \"Bring discovery and inquiry channels into one intentional path.\",\n      responsibilities: [\"Website and storefront\", \"Social and advertising systems\", \"Forms, calls, and lead routing\"],\n      technologies: \"Website, store, social channels, advertising platforms, forms, phone, analytics, and lead sources\",\n    },\n    {\n      slug: \"win\",\n      title: \"Win Customers\",\n      description: \"Move every qualified opportunity toward a clear next step.\",\n      responsibilities: [\"CRM and pipeline\", \"Quotes, booking, and follow-up\", \"Onboarding and project handoff\"],\n      technologies: \"CRM, estimates, proposals, scheduling, sales follow-up, onboarding, and project-management tools\",\n    },\n    {\n      slug: \"keep\",\n      title: \"Keep Customers\",\n      description: \"Connect delivery and service to the next customer relationship.\",\n      responsibilities: [\"Project and customer updates\", \"Payments and service\", \"Reviews, referrals, and repeat campaigns\"],\n      technologies: \"Project delivery, customer communication, payments, support, reviews, loyalty, and outreach tools\",\n    },\n  ] satisfies TechnologyPartnerOutcome[],\n  examples: [\n    {\n      name: \"Online store\",\n      summary: \"Connect acquisition, checkout, service, and repeat-purchase systems around one customer journey.\",\n      stages: [\n        \"Get: Coordinate the storefront, landing pages, Meta advertising, social content, and lead capture.\",\n        \"Win: Improve Shopify product pages, checkout, abandoned-cart workflows, and consent-based follow-up.\",\n        \"Keep: Connect fulfillment updates, service, review requests, and repeat email or text campaigns.\",\n      ],\n      note: \"May involve Shopify, Meta Ads, Instagram, email and SMS platforms, review tools, payments, analytics, and a purpose-built CRM.\",\n    },\n    {\n      name: \"Restaurant\",\n      summary: \"Coordinate local discovery, ordering, service, and return visits without adding more owner homework.\",\n      stages: [\n        \"Get: Align the website, Google Business Profile, menus, promotions, and social campaigns.\",\n        \"Win: Connect reservations, online ordering, catering inquiries, waitlists, and the POS.\",\n        \"Keep: Build feedback, review requests, loyalty, event promotion, and consent-based outreach.\",\n      ],\n      note: \"May involve Square or Toast, reservation and ordering platforms, Google Business Profile, review tools, email and SMS, social channels, and the website.\",\n    },\n  ] satisfies TechnologyPartnerExample[],\n  boundaries: [\n    \"One business, one brand, and one primary customer journey\",\n    \"Platforms must be agreed and documented before management begins\",\n    \"Major migrations and substantial standalone applications require separate scope\",\n    \"Third-party subscriptions, advertising spend, transaction fees, and higher-volume content production are separate\",\n    \"Employee devices, networking, general helpdesk, emergency response, and compliance management are not included\",\n  ],\n};\n",
+    "socialMediaPlanNotes": "export const socialMediaPlanNotes = {\n  customization: \"Every post and reel is made for your brand message.\",\n  counts: \"Monthly counts cover original posts and reels, adapted across agreed channels, not extra content per network.\",\n  songs: \"Songs are refined until approved, with commercial-use rights included. Copyright registration and exclusivity are not guaranteed for AI-assisted music.\",\n};\n",
+    "socialMediaPlans": "export const socialMediaPlans: SocialMediaPlan[] = [\n  {\n    name: \"Essential\",\n    price: \"$99\",\n    detail: \"/mo\",\n    description:\n      \"Your monthly social presence, handled.\",\n    channels: socialMediaChannels,\n    features: [\n      \"4 photo-and-text posts / month\",\n      \"4 video reels / month\",\n      \"1-hour live brand session / month\",\n      \"Client review and approval\",\n      \"Scheduling and publishing\",\n      customerOsFeature,\n      \"1 custom lyric song / month\",\n      \"Service and FAQ content planning\",\n    ],\n  },\n  {\n    name: \"Growth\",\n    price: \"$249\",\n    detail: \"/mo\",\n    description:\n      \"More content for offers and seasonal campaigns.\",\n    channels: socialMediaChannels,\n    features: [\n      \"8 photo-and-text posts / month\",\n      \"8 video reels / month\",\n      \"Everything in Essential\",\n      \"4 custom lyric songs / month\",\n      \"Seasonal and offer planning\",\n    ],\n  },\n  {\n    name: \"Scale\",\n    price: \"From $499\",\n    detail: \"/mo\",\n    description:\n      \"Richer assets and a custom content strategy.\",\n    channels: socialMediaChannels,\n    features: [\n      \"Everything in Growth\",\n      \"Custom content cadence and channels\",\n      \"Brand videos up to 2 minutes\",\n      \"On-site content and original asset planning\",\n      \"High-touch strategy and support\",\n    ],\n  },\n];\n",
+    "membershipPlans": "export const membershipPlans: MembershipPlan[] = [\n  {\n    slug: \"essential-website\",\n    name: \"Essential Website\",\n    shortDescription: \"A custom website, managed for you. Free CRM included.\",\n    description:\n      \"FK Innovate creates and maintains one custom website for one brand, with up to 10 published content pages, unlimited eligible changes through a clear request queue, and a free CRM in Customer OS while the plan is active.\",\n    monthlyEquivalent: \"$25/mo\",\n    billingPrice: \"$300\",\n    billingDetail: \"billed annually\",\n    commitment: \"12-month commitment. No setup fee.\",\n    guarantee: \"15-day money-back guarantee.\",\n    href: \"/services/essential-website/\",\n    cta: \"Start onboarding\",\n    ctaHref: websiteOnboardingUrl(\"essential-website\"),\n    bestFor:\n      \"You want a professional, dependable website with a focused 10-page footprint and ongoing help when you need it.\",\n    features: [\n      \"One brand, one primary root domain, and one custom website\",\n      customerOsFeature,\n      \"Up to 10 published customer-facing content pages at a time\",\n      \"Custom design based on one approved creative direction\",\n      \"AI-assisted copy, logo, and licensed or generated images\",\n      \"Standard contact, quote-request, and inquiry forms\",\n      \"Hosting, SSL, backups, maintenance, and technical support\",\n      \"Website Stats dashboard for visitors, page views, traffic sources, and devices\",\n      \"Technical SEO and answer engine optimization (AEO)\",\n      \"20 self-service AI credits\u00b9 per month\",\n      \"Unlimited eligible website change requests\",\n      \"One active request or reviewable milestone at a time\",\n      \"Five-business-day turnaround for each active eligible request or milestone\",\n    ],\n    pricingSummary: {\n      description: \"Your business website, built and maintained.\",\n      bestFor: \"A focused website with ongoing updates.\",\n      features: [\n        \"One brand, primary domain, and custom website\",\n        \"One approved design direction\",\n        \"AI-assisted copy, logo, and images\",\n        \"Contact, quote, and inquiry forms\",\n        \"Hosting, SSL, backups, maintenance, and support\",\n        \"Visitor and traffic analytics\",\n        \"Technical SEO and AEO\",\n        \"20 self-service AI credits\u00b9 / month\",\n        \"Unlimited eligible updates; one active at a time\",\n        \"5-business-day turnaround per active request or milestone\",\n        \"Up to 10 live content pages\",\n      ],\n    },\n    examples: [\n      \"Replace copy, images, offers, or calls to action\",\n      \"Add a new service page by replacing an existing content page\",\n      \"Update a form, testimonial, gallery, team profile, or business detail\",\n    ],\n  },\n  {\n    slug: \"evolving-website\",\n    name: \"Evolving Web Application\",\n    badge: \"Most Popular\",\n    shortDescription: \"A web application that keeps evolving with your business.\",\n    description:\n      \"FK Innovate designs, hosts, maintains, and continuously improves one web application for one brand, including eligible integrations, backend database support, and single sign-on for users. Submit as many eligible requests as you need, and we work through your priorities one at a time.\",\n    monthlyEquivalent: \"$99/mo\",\n    billingPrice: \"$99\",\n    billingDetail: \"billed monthly\",\n    commitment: \"Cancel anytime. No setup fee.\",\n    guarantee: \"15-day money-back guarantee.\",\n    href: \"/services/website-design-hosting/\",\n    cta: \"Start onboarding\",\n    ctaHref: websiteOnboardingUrl(\"evolving-website\"),\n    bestFor:\n      \"You need a web application with connected tools, stored data, and user access, and want it to keep improving as your business needs change.\",\n    features: [\n      \"All Essential Website features\",\n      \"Unlimited eligible web application integrations\",\n      \"10 launch-ready blog posts, then one new blog post each month\",\n      \"24-hour turnaround for each active eligible request\",\n      \"100 self-service AI credits\u00b9 per month\",\n      \"Proactive content, conversion, analytics, technical SEO, and answer engine optimization (AEO) improvements\",\n      \"Backend database support and single sign-on (SSO) for users\",\n    ],\n    pricingSummary: {\n      description: \"Your web application, continuously improved.\",\n      bestFor: \"A web application with integrations, stored data, and user access.\",\n      features: [\n        \"All Essential Website features\",\n        \"Unlimited eligible web application integrations\",\n        \"10 launch-ready blog posts + 1 new post / month\",\n        \"24-hour turnaround per active eligible request\",\n        \"100 self-service AI credits\u00b9 / month\",\n        \"Proactive content, conversion, analytics, technical SEO, and AEO\",\n        \"Backend database and single sign-on (SSO)\",\n      ],\n    },\n    examples: [\n      \"Add a service or location page\",\n      \"Refresh photos, copy, offers, or calls to action\",\n      \"Build a customer or team portal with a backend database and user sign-on\",\n      \"Connect the application to approved scheduling, payment, CRM, or other business tools\",\n    ],\n  },\n  {\n    slug: \"technology-partner\",\n    name: \"Technology Partner\",\n    badge: \"Done for you\",\n    shortDescription: \"Your processes and technology, mapped and managed as one.\",\n    description:\n      \"Ongoing process and technology management for owner-operated businesses. We connect and improve the tools behind getting customers, delivering the work, and keeping customers coming back.\",\n    monthlyEquivalent: \"$499/mo\",\n    billingPrice: \"$499\",\n    billingDetail: \"billed monthly\",\n    commitment: \"Cancel anytime. No setup fee.\",\n    guarantee: \"15-day money-back guarantee.\",\n    href: \"/services/technology-partner/\",\n    cta: technologyPartnerOffer.cta,\n    ctaHref: technologyPartnerOffer.ctaHref,\n    bestFor:\n      \"Your business relies on several useful tools, but the owner still has to connect the dots, move information, and decide what should improve next.\",\n    features: [\n      \"All Evolving Web Application features, including integrations, database support, user sign-on, and blog production\",\n      \"Get, Win, and Keep process mapping with corresponding technologies\",\n      \"Initial process map and prioritized 90-day roadmap targeted within 15 calendar days\",\n      \"Administration of agreed customer systems\",\n      \"Configuration, integrations, automations, reporting, and light custom tools\",\n      \"Vendor coordination, monitoring, and ongoing optimization\",\n      \"500 self-service AI credits\u00b9 per month\",\n      \"Unlimited eligible requests, with one active improvement priority at a time\",\n    ],\n    pricingSummary: {\n      description: \"Your business processes and technology, managed together.\",\n      bestFor: \"Owners juggling disconnected tools and manual handoffs.\",\n      features: [\n        \"Everything in Evolving Web Application\",\n        \"Get, Win, Keep process and technology mapping\",\n        \"Process map and prioritized 90-day roadmap\",\n        \"Administration of agreed systems\",\n        \"Configuration, integrations, automation, reporting, and light custom tools\",\n        \"Vendor coordination, monitoring, and optimization\",\n        \"500 self-service AI credits\u00b9 / month\",\n        \"Unlimited eligible requests; one active priority\",\n      ],\n    },\n    examples: [\n      \"Connect ads, landing pages, Shopify, reviews, and consent-based follow-up\",\n      \"Coordinate a restaurant website, ordering, POS, loyalty, and review systems\",\n      \"Replace manual handoffs with integrations, dashboards, and light custom tools\",\n    ],\n  },\n];\n",
+    "voiceAiPricing": "export const voiceAiPricing = { monthly: 39.99, perMinute: 0.20 } as const;\n",
+    "voicePricingSummary": "export const voicePricingSummary = {\n  description: \"An AI receptionist for calls, intake, and team handoff.\",\n  billingNote: \"Free personalized demo. Live service is billed monthly plus usage.\",\n  scopeNote: \"Use on its own or with other services. Larger deployments are scoped separately.\",\n  features: [\n    \"Custom workflow setup and integrations\",\n    \"Call-flow testing and launch setup\",\n    \"Calendar booking and custom knowledge base\",\n    \"20+ languages and 10+ voices\",\n    \"Spam detection and dedicated phone numbers\",\n    \"Natural conversations with interruption support\",\n    \"Full call recording playback\",\n  ],\n};\n"
+  },
+  "articles": [
+    {
+      "slug": "pest-control-preparation-reminder-workflow",
+      "title": "'How to Send Pest Control Preparation Instructions Without Creating More Calls',",
+      "date": "'2026-10-20',",
+      "author": "'Jove Kuang',"
+    },
+    {
+      "slug": "daycare-tour-follow-up-process",
+      "title": "'How to Follow Up After a Daycare Tour Without Pressuring Families',",
+      "date": "'2026-10-06',",
+      "author": "'Jove Kuang',"
+    },
+    {
+      "slug": "shopify-abandoned-checkout-recovery-without-discounts",
+      "title": "'How to Recover Abandoned Shopify Checkouts Without Discounting Every Order',",
+      "date": "'2026-09-22',",
+      "author": "'Jove Kuang',"
+    },
+    {
+      "slug": "hvac-estimate-follow-up-process",
+      "title": "'How to Follow Up on HVAC Estimates Without Chasing Every Lead',",
+      "date": "'2026-09-08',",
+      "author": "'Jove Kuang',"
+    },
+    {
+      "slug": "how-to-turn-a-spreadsheet-into-custom-business-software",
+      "title": "'How to Turn a Spreadsheet Into Custom Business Software',",
+      "date": "'2026-08-06',",
+      "author": "'Jove Kuang',"
+    },
+    {
+      "slug": "what-is-a-managed-website-service-small-business",
+      "title": "'What Is a Managed Website Service? A Practical Guide for Small Businesses',",
+      "date": "'2026-07-09',",
+      "author": "'Jove Kuang',"
+    },
+    {
+      "slug": "evolving-website-and-technology-partner",
+      "title": "'Evolving Web Application and Technology Partner: Two Levels of Ongoing Support',",
+      "date": "'2026-06-03',",
+      "author": "'Jove Kuang',"
+    },
+    {
+      "slug": "introducing-voice-ai-service-new-software-small-business",
+      "title": "'Introducing FK Innovate Voice AI: Service Is the New Software for Small Business Calls',",
+      "date": "'2026-05-26',",
+      "author": "'Jove Kuang',"
+    },
+    {
+      "slug": "is-your-ai-assistant-working-for-you-or-a-hacker",
+      "title": "'Is Your AI Assistant Working for You or for a Hacker?',",
+      "date": "'2026-05-18',",
+      "author": "'Jove Kuang',"
+    },
+    {
+      "slug": "how-to-fix-ai-memory-loss-skill-specific-system-hermes-agent",
+      "title": "'How to Fix AI Memory Loss: Building a Skill-Specific System for Hermes Agent',",
+      "date": "'2026-04-27',",
+      "author": "'Jove Kuang',"
+    },
+    {
+      "slug": "how-would-you-build-your-team-of-ai-agents",
+      "title": "'The Right Way to Build a Team of AI Agents in 2026',",
+      "date": "'2026-04-24',",
+      "author": "'Jove Kuang',"
+    },
+    {
+      "slug": "why-a-technology-partner-is-cheaper-than-software-suite",
+      "title": "'Why a Technology Partner is Cheaper (and Faster) Than a Software Suite',",
+      "date": "'2026-03-10',",
+      "author": "'FK Innovate Team',"
+    },
+    {
+      "slug": "social-media-consistency-is-a-burden",
+      "title": "\"Social Media Consistency is a Burden\u2014Here's How We Take It Off Your Plate\",",
+      "date": "'2026-02-20',",
+      "author": "'FK Innovate Team',"
+    },
+    {
+      "slug": "modern-small-business-tech-paradox",
+      "title": "'The Modern Small Business Tech Paradox: More Software, Less Efficiency',",
+      "date": "'2026-02-02',",
+      "author": "'FK Innovate Team',"
+    },
+    {
+      "slug": "3-ways-ai-can-streamline-your-small-business",
+      "title": "'3 Ways AI Can Streamline Your Small Business (That You Don\\'t Have to Learn)',",
+      "date": "'2026-01-14',",
+      "author": "'FK Innovate Team',"
+    },
+    {
+      "slug": "hidden-cost-of-diy-digital-marketing",
+      "title": "'The Hidden Cost of \"DIY\" Digital Marketing for Small Businesses',",
+      "date": "'2025-12-12',",
+      "author": "'FK Innovate Team',"
+    },
+    {
+      "slug": "how-to-automate-operations-without-dashboards",
+      "title": "'How to Automate Your Operations Without Opening a Single Dashboard',",
+      "date": "'2025-10-30',",
+      "author": "'FK Innovate Team',"
+    },
+    {
+      "slug": "ai-results-without-ai-homework",
+      "title": "'AI Results Without the AI Homework: How to Delegate Your Tech Stack',",
+      "date": "'2025-09-18',",
+      "author": "'FK Innovate Team',"
+    },
+    {
+      "slug": "the-saas-lie-easy-to-use-software-stealing-time",
+      "title": "'The SaaS Lie: Why \"Easy-to-Use\" Software is Still Stealing Your Time',",
+      "date": "'2025-08-05',",
+      "author": "'FK Innovate Team',"
+    },
+    {
+      "slug": "why-your-small-business-doesnt-need-another-saas",
+      "title": "\"Why Your Small Business Doesn't Need Another SaaS Subscription\",",
+      "date": "'2025-06-22',",
+      "author": "'FK Innovate Team',"
+    },
+    {
+      "slug": "stop-innovating-your-business-into-the-ground",
+      "title": "'Stop \"Innovating\" Your Business into the Ground',",
+      "date": "'2025-05-14',",
+      "author": "'FK Innovate Team',"
+    }
+  ]
+}

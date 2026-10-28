@@ -1,0 +1,44 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import avsmImage from "@/assets/avsm-capital-site.png";
+import edenImage from "@/assets/eden-elevations-site.png";
+import { calendlyUrl } from "@/data/site";
+---
+
+<BaseLayout
+  title="AI for Fund Managers | Cyber Genie"
+  description="Human-led AI execution for real estate fund managers and GPs. We implement and run AI for your fund so you get results without managing the stack."
+  canonical="/campaigns/cfp-gp/"
+  robots="noindex, nofollow"
+>
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Campaign</p>
+      <h1 class="page-title">
+        <span class="headline-sentence headline-sentence-neutral">Run the fund.</span>
+        <span class="headline-sentence">Not the AI stack.</span>
+      </h1>
+      <p class="lead">Stop stitching together AI tools and start closing deals. We are the human partner who implements and runs AI for your fund.</p>
+      <div class="hero-actions"><a class="button button-primary" href={calendlyUrl}>Learn More</a></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container grid-3">
+      <div class="card"><h2>Get LPs</h2><p>Launch websites, authority content, and targeted outreach.</p></div>
+      <div class="card"><h2>Win LPs</h2><p>Answer investor questions faster with AI-assisted deal and OM workflows.</p></div>
+      <div class="card"><h2>Serve LPs</h2><p>Use AI deal desks and custom workflows to reduce repetitive investor communication.</p></div>
+    </div>
+  </section>
+  <section class="section section-alt">
+    <div class="container grid-2">
+      <a class="card media-card" href="https://edenelevations3.com/">
+        <img src={edenImage.src} alt="Eden Elevations 3 website preview" loading="lazy" />
+        <div class="media-card-body"><h2>Eden Elevations 3</h2></div>
+      </a>
+      <a class="card media-card" href="https://avsmcapital.com/">
+        <img src={avsmImage.src} alt="AVSM Capital website preview" loading="lazy" />
+        <div class="media-card-body"><h2>AVSM Capital</h2></div>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

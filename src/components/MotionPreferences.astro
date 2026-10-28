@@ -1,0 +1,13 @@
+<script>
+  const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const update = () => {
+    const paused = preference.matches || document.hidden;
+    document.querySelectorAll<SVGSVGElement>("svg.signal-field, svg.assurance-visual").forEach((svg) => {
+      if (paused) svg.pauseAnimations?.();
+      else svg.unpauseAnimations?.();
+    });
+  };
+  preference.addEventListener("change", update);
+  document.addEventListener("visibilitychange", update);
+  update();
+</script>

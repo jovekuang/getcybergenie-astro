@@ -1,0 +1,61 @@
+---
+import CustomerOsInclusion from "./CustomerOsInclusion.astro";
+const delivery = {
+  essential: {
+    title: "A working website, with the work handled.",
+    steps: [
+      ["Share the business", "Share your goals, access, and brand assets. We handle design, copy, and development."],
+      ["Review and launch", "You approve the site. We test pages and forms, configure hosting, and prepare launch."],
+      ["Keep it current", "Queue eligible changes. We maintain the site and deliver each active request within five business days."],
+    ],
+  },
+  evolving: {
+    title: "A web application that keeps working as the business changes.",
+    steps: [
+      ["Set the priorities", "Together, we agree the application scope, data needs, and user access."],
+      ["Build and connect", "We build and test the application, database, single sign-on, and eligible integrations. You review and approve."],
+      ["Improve every month", "We maintain the application, publish included content, and deliver queued improvements."],
+    ],
+  },
+  voice: {
+    title: "A phone agent built, connected, and tested for your business.",
+    steps: [
+      ["Define the call", "Share services, booking rules, access, and escalation contacts. We build the agreed call flow."],
+      ["Connect and test", "We build required integrations and test booking, routing, data capture, and handoffs."],
+      ["Approve and go live", "Approve the demo. We handle configuration, launch preparation, and ongoing support for the agreed service."],
+    ],
+  },
+  marketing: {
+    title: "A consistent social presence, with production handled.",
+    steps: [
+      ["Share the story", "Share your goals, account access, and business assets. We plan the content."],
+      ["Review the content", "We create your plan’s posts and creative assets. You approve before publication."],
+      ["Stay visible", "We publish approved content at your plan’s cadence and adapt the next cycle to your priorities."],
+    ],
+  },
+  partner: {
+    title: "One team responsible for making the workflow work.",
+    steps: [
+      ["Map the outcome", "Share the bottleneck and platform access. We map the process and prioritize reviewable milestones."],
+      ["Deliver the improvement", "We configure, connect, build, and test within the agreed scope. You review each milestone."],
+      ["Keep it working", "We manage agreed systems and integrations, coordinate vendors, and keep one approved priority moving."],
+    ],
+  },
+} as const;
+interface Props { service: keyof typeof delivery; }
+const content = delivery[Astro.props.service];
+---
+<section class="section service-delivery">
+  <div class="container">
+    <div class="section-header">
+      <p class="eyebrow">What comes with the service</p>
+      <h2>{content.title}</h2>
+    </div>
+    <ol class="delivery-steps">
+      {content.steps.map(([title, description], index) => (
+        <li><span aria-hidden="true">0{index + 1}</span><h3>{title}</h3><p>{description}</p></li>
+      ))}
+    </ol>
+    <CustomerOsInclusion />
+  </div>
+</section>

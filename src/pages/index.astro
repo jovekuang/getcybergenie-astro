@@ -1,0 +1,249 @@
+---
+import { brand } from "@/data/brand";
+import Genie from "@/components/Genie.astro";
+import WorkCarousel from "@/components/WorkCarousel.astro";
+import IndustryCarousel from "@/components/IndustryCarousel.astro";
+import { positioning } from "@/data/positioning";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import AssuranceVisual from "@/components/AssuranceVisual.astro";
+import SignalField from "@/components/SignalField.astro";
+import { staticSeo } from "@/data/seo";
+import { appUrl, organizationSchema, websiteSchema } from "@/data/site";
+import {
+  individualServiceOffers,
+  membershipPlans,
+  outcomeCategories,
+  technologyPartnerOffer,
+} from "@/data/solutions";
+
+const journeyStages = [
+  {
+    name: "Get found",
+    summary: "Be visible where customers search and give them a clear reason to reach out.",
+    visual: "get",
+    href: `/solutions/${outcomeCategories[0].slug}/`,
+  },
+  {
+    name: "Win the work",
+    summary: "Respond faster, follow up consistently, and turn interest into booked work.",
+    visual: "win",
+    href: `/solutions/${outcomeCategories[1].slug}/`,
+  },
+  {
+    name: "Keep them coming back",
+    summary: "Deliver a smoother experience that earns repeat business and referrals.",
+    visual: "keep",
+    href: `/solutions/${outcomeCategories[2].slug}/`,
+  },
+] as const;
+
+const evolvingApplication = membershipPlans.find((plan) => plan.slug === "evolving-website")!;
+const essentialWebsite = membershipPlans.find((plan) => plan.name === "Essential Website")!;
+const technologyPartner = membershipPlans.find((plan) => plan.name === "Technology Partner")!;
+const serviceLinks = [
+  { name: essentialWebsite.name, href: essentialWebsite.href },
+  { name: evolvingApplication.name, href: evolvingApplication.href },
+  ...individualServiceOffers.map((offer) => ({ name: offer.name, href: offer.href })),
+];
+
+const assurances = [
+  {
+    title: "Built around your workflow",
+    description: "The system starts with how your business actually works.",
+    visual: "workflow",
+  },
+  {
+    title: "Managed after launch",
+    description: "We stay responsible as priorities and processes change.",
+    visual: "managed",
+  },
+  {
+    title: "One accountable partner",
+    description: "Strategy, design, software, and follow-through stay connected.",
+    visual: "partner",
+  },
+] as const;
+
+const technologyPartnerSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: technologyPartnerOffer.name,
+  url: `${brand.origin}/`,
+  description: technologyPartnerOffer.description,
+  serviceType: "Small business process and technology management",
+  provider: { "@id": `${brand.origin}/#organization` },
+  areaServed: "United States",
+  audience: { "@type": "BusinessAudience", audienceType: "Owner-operated businesses" },
+};
+---
+
+<BaseLayout
+  title={staticSeo.home.title}
+  description={staticSeo.home.description}
+  canonical="/"
+  jsonLd={[organizationSchema, websiteSchema, technologyPartnerSchema]}
+>
+  <section class="signal-hero outcome-hero">
+    <div class="signal-hero-art">
+      <SignalField variant="hero" animated={true} />
+    </div>
+    <div class="container signal-hero-grid">
+      <div class="signal-hero-copy">
+        <p class="cyber-eyebrow"><span aria-hidden="true"></span> Your business. Our follow-through.</p>
+        <h1>{positioning.headline.split("outcome,")[0]}<span class="outcome-headline-word"><span class="outcome-headline-highlight">outcome</span>,</span>{positioning.headline.split("outcome,")[1]}</h1>
+        <p class="outcome-hero-value">{positioning.value}</p>
+        <p class="cyber-hero-description">A better website. Calls answered. Less busywork. Tell us what needs doing, and we’ll build, connect, and manage the technology behind it.</p>
+        <div class="hero-actions">
+          <a class="button button-signal" href={`${appUrl}/login`}>
+            Let’s Get to Work
+          </a>
+          <a class="button button-signal button-signal-secondary" href={technologyPartnerOffer.ctaHref}>
+            Talk About Your Business
+          </a>
+        </div>
+
+      </div>
+      <div class="cyber-hero-character">
+        <div class="cyber-character-orbit" aria-hidden="true"></div>
+        <span class="cyber-character-note cyber-character-note-top">You set the goal.</span>
+        <Genie class="hero-genie" />
+        <span class="cyber-character-note cyber-character-note-bottom"><span aria-hidden="true">✓</span> We handle the work.</span>
+      </div>
+    </div>
+    <div class="container"><IndustryCarousel /></div>
+  </section>
+
+  <section class="signal-journey" aria-labelledby="journey-title">
+    <div class="container">
+      <div class="signal-section-heading">
+        <h2 id="journey-title">From first signal to lasting customer.</h2>
+      </div>
+      <div class="signal-stage-grid">
+        {journeyStages.map((stage) => (
+          <a class="signal-stage" href={stage.href}>
+            <div class="signal-stage-art">
+              <SignalField variant={stage.visual} />
+            </div>
+            <div class="signal-stage-copy">
+              <h3>{stage.name}</h3>
+              <p>{stage.summary}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="signal-assurance-band" id="how-it-works" aria-labelledby="assurance-title">
+    <div class="container">
+      <div class="signal-band-intro">
+        <h2 id="assurance-title">A subscription that comes with a team.</h2>
+        <p>You set the goal. We handle design, setup, integrations, and ongoing work within your chosen service.</p>
+      </div>
+      <div class="signal-assurance-grid">
+        {assurances.map((assurance, index) => (
+          <div class="signal-assurance">
+            <div class="signal-assurance-art">
+              <span class="signal-assurance-marker" aria-hidden="true">0{index + 1}</span>
+              <AssuranceVisual variant={assurance.visual} />
+            </div>
+            <div class="signal-assurance-copy">
+              <h3>{assurance.title}</h3>
+              <p>{assurance.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="signal-offers" id="technology-partner" aria-labelledby="offers-title">
+    <div class="container signal-offer-layout">
+      <div class="signal-offer-feature">
+        <p class="signal-kicker">Technology Partner</p>
+        <h2 id="offers-title">{technologyPartnerOffer.headline}</h2>
+        <p class="signal-offer-definition">{technologyPartnerOffer.supportingHeadline}</p>
+        <p>We map your processes, connect agreed tools, and manage ongoing improvements.</p>
+        <p class="signal-component-label">Ongoing ownership</p>
+        <ul class="signal-component-list">
+          {technologyPartnerOffer.ongoingOwnership.slice(0, 4).map((item) => <li>{item}</li>)}
+        </ul>
+        <a class="signal-text-link" href={technologyPartner.href}>
+          Explore Technology Partner <span aria-hidden="true">&#8594;</span>
+        </a>
+      </div>
+      <div class="signal-service-list signal-technology-list">
+        <p class="signal-list-label">One connected customer journey</p>
+        {technologyPartnerOffer.outcomes.map((outcome, index) => (
+          <a href={`/solutions/${outcomeCategories[index].slug}/`}>
+            <span>0{index + 1}</span>
+            <span class="signal-technology-copy">
+              <strong>{outcome.title}</strong>
+              <small>{outcome.description}</small>
+            </span>
+            <span class="signal-arrow" aria-hidden="true">&#8594;</span>
+          </a>
+        ))}
+        <a class="signal-pricing-link" href={technologyPartnerOffer.ctaHref}>
+          <span aria-hidden="true">$</span><strong>{technologyPartnerOffer.cta}</strong><span class="signal-arrow" aria-hidden="true">&#8594;</span>
+        </a>
+      </div>
+    </div>
+    <div class="container signal-customer-os-note">
+      <div>
+        <p class="signal-kicker">Included with every plan</p>
+        <strong>Your CRM is already included.</strong>
+      </div>
+      <p>Customer OS keeps contacts, opportunities, and follow-up organized. Included while any paid Cyber Genie service is active.</p>
+      <a class="signal-text-link" href="/solutions/keep-customers/customer-management/">Explore the included CRM <span aria-hidden="true">&#8594;</span></a>
+    </div>
+    <div class="container signal-starting-points">
+      <div>
+        <p class="signal-kicker">Focused ways to begin</p>
+        <p>Start with one service. Add others as your priorities grow.</p>
+      </div>
+      <div class="signal-service-list">
+        {serviceLinks.map((service, index) => (
+          <a href={service.href}>
+            <span>0{index + 1}</span><strong>{service.name}</strong><span class="signal-arrow" aria-hidden="true">&#8594;</span>
+          </a>
+        ))}
+        <a class="signal-pricing-link" href="/pricing/">
+          <span aria-hidden="true">$</span><strong>Compare pricing</strong><span class="signal-arrow" aria-hidden="true">&#8594;</span>
+        </a>
+      </div>
+    </div>
+    <div class="container signal-industry-route">
+      <p class="signal-kicker">Built around your business</p>
+      <p>
+        See the workflows we connect for your industry.
+      </p>
+      <a class="signal-text-link" href="/industries/">
+        Explore all industries <span aria-hidden="true">&#8594;</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="cyber-proof section" aria-labelledby="proof-title">
+    <div class="container">
+      <div class="cyber-section-intro">
+        <div><p class="signal-kicker">A little of our handiwork</p><h2 id="proof-title">Real businesses. Useful things, built.</h2></div>
+        <p>Websites and platforms shaped around the people who use them.</p>
+      </div>
+      <WorkCarousel />
+    </div>
+  </section>
+
+  <section class="signal-final-cta">
+    <SignalField variant="accent" />
+    <div class="container signal-final-cta-inner">
+      <div>
+        <p class="signal-kicker">Start with the friction</p>
+        <h2>Where does the work get stuck?</h2>
+      </div>
+      <a class="button button-signal" href={technologyPartnerOffer.ctaHref}>
+        Talk to a Technology Partner <span aria-hidden="true">&#8599;</span>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

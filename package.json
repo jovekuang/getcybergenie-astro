@@ -1,0 +1,41 @@
+{
+  "name": "cyber-genie-marketing",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev --host 0.0.0.0",
+    "build": "astro build",
+    "preview": "astro preview --host 0.0.0.0",
+    "predeploy": "npm run build",
+    "deploy": "wrangler pages deploy dist --project-name=cyber-genie-marketing --branch=main",
+    "deploy:list": "wrangler pages deployment list --project-name=cyber-genie-marketing",
+    "test:carousel": "node --experimental-strip-types --test tests/industry-carousel.test.mjs",
+    "audit:site": "python3 scripts/audit-outcome-site.py",
+    "test:api": "node --experimental-strip-types --test tests/api.test.mjs",
+    "test:runtime": "node scripts/test-runtime.mjs",
+    "test": "npm run test:carousel && npm run test:api",
+    "check": "npm run check:types && npm run build && npm run audit:site && npm test",
+    "dev:pages": "wrangler pages dev dist --ip 127.0.0.1 --port 8788",
+    "assets:brand": "node scripts/generate-brand-assets.mjs",
+    "test:browser": "node --test tests/browser.test.mjs",
+    "audit:visual": "node scripts/visual-audit.mjs",
+    "check:types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/manrope": "^5.3.0",
+    "astro": "^7.3.2",
+    "typescript": "^5.8.3"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "playwright": "1.62.1",
+    "sharp": "0.35.4",
+    "wrangler": "4.123.0"
+  }
+}

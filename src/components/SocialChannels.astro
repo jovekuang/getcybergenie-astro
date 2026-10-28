@@ -1,0 +1,63 @@
+---
+interface Props {
+  channels: string[];
+  idPrefix: string;
+}
+
+const { channels, idPrefix } = Astro.props;
+const icons: Record<string, string> = {
+  Facebook: "facebook",
+  Instagram: "instagram",
+  Threads: "threads",
+  LinkedIn: "linkedin",
+  TikTok: "tiktok",
+  YouTube: "youtube",
+  Pinterest: "pinterest",
+  "Google Business Profile": "googlemybusiness",
+};
+---
+
+<ul class="social-channel-list" role="list" aria-label="Social media channels" data-social-channels>
+  {channels.map((channel, index) => (
+    <li class="social-channel-item">
+      <button class="social-channel-trigger" type="button" aria-label={channel} aria-describedby={`${idPrefix}-${index}`} title={channel}>
+        <img src={`/icons/social/${icons[channel]}.svg`} width="20" height="20" alt="" aria-hidden="true" loading="lazy" />
+      </button>
+      <span class="social-channel-tooltip" role="tooltip" id={`${idPrefix}-${index}`} hidden>{channel}</span>
+    </li>
+  ))}
+</ul>
+
+<script>
+  let activeItem: HTMLElement | undefined;
+  let closeTimer: ReturnType<typeof setTimeout> | undefined;
+  const closeTooltip = () => {
+    clearTimeout(closeTimer);
+    const tooltip = activeItem?.querySelector<HTMLElement>('[role="tooltip"]');
+    if (tooltip) tooltip.hidden = true;
+    activeItem = undefined;
+  };
+  document.querySelectorAll<HTMLElement>("[data-social-channels] .social-channel-item").forEach((item) => {
+    const trigger = item.querySelector<HTMLButtonElement>("button")!;
+    const tooltip = item.querySelector<HTMLElement>('[role="tooltip"]')!;
+    const showTooltip = () => {
+      clearTimeout(closeTimer);
+      if (activeItem !== item) closeTooltip();
+      activeItem = item;
+      tooltip.hidden = false;
+    };
+    trigger.removeAttribute("title");
+    item.addEventListener("pointerenter", showTooltip);
+    item.addEventListener("pointerleave", () => {
+      if (document.activeElement === trigger) return;
+      closeTimer = setTimeout(() => { if (activeItem === item) closeTooltip(); }, 150);
+    });
+    trigger.addEventListener("focus", showTooltip);
+    trigger.addEventListener("blur", () => { if (activeItem === item && !item.matches(":hover")) closeTooltip(); });
+    trigger.addEventListener("click", showTooltip);
+  });
+  document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeTooltip(); });
+  document.addEventListener("pointerdown", (event) => {
+    if (!(event.target instanceof Element) || !event.target.closest(".social-channel-item")) closeTooltip();
+  });
+</script>

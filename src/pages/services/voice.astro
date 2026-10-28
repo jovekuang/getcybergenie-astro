@@ -1,0 +1,233 @@
+---
+import ServiceFaqSection from "@/components/ServiceFaqSection.astro";
+import { createFaqSchema } from "@/data/site";
+import ServiceDelivery from "@/components/ServiceDelivery.astro";
+import { customerOsFeature } from "@/data/positioning";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+import realtorImage from "@/assets/ai-service-realtor.png";
+import plumberImage from "@/assets/ai-service-plumber.png";
+import daycareImage from "@/assets/ai-service-day-care-owner.png";
+import { appUrl, calendlyUrl, createBreadcrumbSchema, voiceFeatures } from "@/data/site";
+import { voiceIndustries } from "@/data/voiceIndustries";
+
+const voiceFaqs = [
+  { id: "voice-setup", question: "Who configures and finalizes the voice agent?", answer: "Cyber Genie handles agent configuration and finalization. Share your business information, call rules, access, and approval; we build the call flow, test it with you, and prepare the approved agent for launch." },
+  { id: "voice-integrations", question: "Are custom integrations included in the standard Voice AI service?", answer: "Yes. Configuration and custom integrations needed for the agreed voice workflow are included in the standard Voice AI subscription, along with connected testing. You do not need a Technology Partner upgrade just to implement those integrations. Third-party subscriptions and usage charges remain separate." },
+  { id: "voice-larger-deployments", question: "When is a separately scoped Voice AI deployment needed?", answer: "Larger deployments involving multiple agents, locations, or departments are scoped separately. This does not change the integration work included for an agreed standard voice workflow." },
+];
+
+const voiceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "Cyber Genie Voice AI",
+  serviceType: "Managed AI phone answering service",
+  description: "Custom voice agent setup, configuration, required custom integrations for the agreed voice workflow, and testing are included in the standard subscription.",
+  provider: { "@type": "Organization", name: "Cyber Genie" },
+  areaServed: "United States",
+  offers: {
+    "@type": "Offer",
+    price: "39.99",
+    priceCurrency: "USD",
+    description: "$39.99 per month plus $0.20 per AI phone minute",
+  },
+};
+
+const voiceHeroUseCases = [
+  {
+    introPrefix: "I am a ",
+    introHighlight: "Realtor",
+    introSuffix: ",",
+    primaryActionHighlight: "answer incoming questions",
+    actionLead: " about my active listing, and ",
+    secondaryActionHighlight: "pick up leads",
+    actionRest: " while I am showing houses",
+    image: realtorImage,
+    imageAlt: "Professional realtor portrait",
+  },
+  {
+    introPrefix: "I am a ",
+    introHighlight: "Plumber",
+    introSuffix: ",",
+    primaryActionHighlight: "answer incoming questions",
+    actionLead: " about my service, and ",
+    secondaryActionHighlight: "collect project information",
+    actionRest: " when I am fixing a leak",
+    image: plumberImage,
+    imageAlt: "Professional plumber portrait",
+  },
+  {
+    introPrefix: "I own a ",
+    introHighlight: "Day Care",
+    introSuffix: "",
+    primaryActionHighlight: "answer incoming questions",
+    actionLead: " about my day care programs, and ",
+    secondaryActionHighlight: "schedule a tour",
+    actionRest: " while my staff takes care of the children",
+    image: daycareImage,
+    imageAlt: "Professional day care owner portrait",
+  },
+];
+---
+
+<BaseLayout
+  title="Voice AI Answering Service | Cyber Genie"
+  description="Done-for-you AI phone answering for small businesses. Agent setup, custom workflow integrations, and testing included. $39.99/month plus $0.20/minute."
+  canonical="/services/voice/"
+  jsonLd={[
+    voiceSchema,
+    createFaqSchema(voiceFaqs),
+    createBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "Voice AI", path: "/services/voice/" },
+    ]),
+  ]}
+>
+  <section class="hero voice-service-hero">
+    <div class="container voice-service-hero-grid">
+      <div class="voice-service-intro">
+        <h1>
+          <span class="headline-sentence headline-sentence-neutral">Miss fewer calls.</span>
+          <span class="headline-sentence">The agent and setup are handled.</span>
+        </h1>
+        <p class="lead">
+          An AI receptionist for routine questions, caller intake, approved bookings, and team handoffs.
+          We build, integrate, and test your agreed call workflow.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href={`${appUrl}/login?service=voice`}>Request a free demo</a>
+          <a class="button button-secondary" href="#how-it-works">See how it works</a>
+        </div>
+        <p class="voice-offer-note">
+          Complete the business intake and we'll prepare your personalized demo within 1 business day. Live service
+          starts at $39.99/month plus $0.20 per AI phone minute.
+        </p>
+      </div>
+      <div class="voice-hero-rotator" data-voice-hero-rotator aria-live="polite">
+        {voiceHeroUseCases.map((useCase, index) => (
+          <div
+            class:list={["voice-hero-slide", { "is-active": index === 0 }]}
+            data-voice-hero-slide
+            aria-hidden={index === 0 ? "false" : "true"}
+          >
+            <div class="voice-hero-portrait">
+              <Image src={useCase.image} alt={useCase.imageAlt} widths={[320, 480, 640]} sizes="(max-width: 860px) 80vw, 38vw" />
+            </div>
+            <p class="voice-role-example">
+              {useCase.introPrefix}<strong>{useCase.introHighlight}</strong>{useCase.introSuffix} Voice AI can
+              <strong> {useCase.primaryActionHighlight}</strong>{useCase.actionLead}<strong>{useCase.secondaryActionHighlight}</strong>{useCase.actionRest}.
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+    <script is:inline>
+      (() => {
+        const rotator = document.querySelector("[data-voice-hero-rotator]");
+        const slides = Array.from(document.querySelectorAll("[data-voice-hero-slide]"));
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        if (!rotator || slides.length <= 1 || prefersReducedMotion) {
+          return;
+        }
+
+        let activeIndex = 0;
+
+        window.setInterval(() => {
+          slides[activeIndex].classList.remove("is-active");
+          slides[activeIndex].setAttribute("aria-hidden", "true");
+          activeIndex = (activeIndex + 1) % slides.length;
+          slides[activeIndex].classList.add("is-active");
+          slides[activeIndex].setAttribute("aria-hidden", "false");
+        }, 5000);
+      })();
+    </script>
+  </section>
+
+  <ServiceDelivery service="voice" />
+
+  <section id="how-it-works" class="section section-alt">
+    <div class="container grid-2">
+      <div>
+        <p class="eyebrow">How It Works</p>
+        <h2 class="page-title" style="font-size: clamp(38px, 5vw, 58px);">From first ring to clean handoff.</h2>
+        <p class="lead">Routine calls get handled. Your team receives structured notes and escalations that need a human.</p>
+      </div>
+      <div class="visual-card call-flow-summary" aria-label="Voice AI call flow">
+        <div><strong>1</strong><span>Answer the call</span></div>
+        <div><strong>2</strong><span>Collect approved details</span></div>
+        <div><strong>3</strong><span>Book, route, or hand off</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2">
+      <div class="card">
+        <p class="eyebrow">Inbound</p>
+        <h2>Answer every routine call.</h2>
+        <ul class="check-list">
+          <li>Appointment and reservation scheduling</li>
+          <li>Information inquiries about hours, pricing, policies, and services</li>
+          <li>Customer service intake, triage, and routing</li>
+          <li>After-hours call capture with structured follow-up notes</li>
+        </ul>
+      </div>
+      <div class="card">
+        <p class="eyebrow">Outbound</p>
+        <h2>Reach out with consistency.</h2>
+        <ul class="check-list">
+          <li>Collection calls and payment reminders</li>
+          <li>Lead generation and qualification</li>
+          <li>Appointment confirmations and reactivation calls</li>
+          <li>Post-service check-ins and review requests</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">Pricing</p>
+        <h2>Start with one simple Voice AI plan.</h2>
+        <p>Agent configuration, required custom integrations for the agreed voice workflow, and testing are included. Larger deployments are scoped separately.</p>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <h2>Voice AI</h2>
+          <p class="price">$39.99<small>/mo + $0.20/min</small></p>
+          <ul class="check-list">
+            {voiceFeatures.filter((feature) => feature !== customerOsFeature).map((feature) => <li>{feature}</li>)}
+          </ul>
+          <div class="hero-actions"><a class="button button-primary" href={`${appUrl}/login?service=voice`}>Request a free demo</a></div>
+        </div>
+        <div class="card">
+          <h2>Larger Voice AI deployments</h2>
+          <p class="price">Custom</p>
+          <p>Talk through a separately scoped deployment when the operation needs multiple agents, locations, or departments. Required integrations for an agreed standard voice workflow are already included in Voice AI.</p>
+          <ul class="check-list">
+            <li>Coordination across multiple voice workflows and teams</li>
+            <li>Multiple agents, locations, or departments</li>
+            <li>Dedicated implementation planning</li>
+          </ul>
+          <div class="hero-actions"><a class="button button-secondary" href={calendlyUrl}>Book a discovery call</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">Industries</p>
+        <h2>See where Voice AI fits your industry.</h2>
+      </div>
+      <div class="industry-list">
+        {voiceIndustries.map((industry) => <a class="pill" href={`/industries/${industry.slug}/`}>{industry.name}</a>)}
+      </div>
+    </div>
+  </section>
+
+  <ServiceFaqSection title="Voice AI setup and integration questions" intro="What the standard service handles for your business." items={voiceFaqs} />
+</BaseLayout>

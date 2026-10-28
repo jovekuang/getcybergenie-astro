@@ -1,0 +1,155 @@
+---
+import Genie from "@/components/Genie.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { createBreadcrumbSchema, organizationSchema } from "@/data/site";
+import { staticSeo } from "@/data/seo";
+import { technologyPartnerOffer } from "@/data/solutions";
+
+const storySections = [
+  {
+    title: "Rooted in Real Business",
+    linkIntro: {
+      prefix: "Our work began as FK Innovate in ",
+      label: "commercial real estate",
+      href: "https://fkcapital.xyz/",
+    },
+    body: "Across our tenants, we saw rising costs, stretched teams, and technology that was hard to keep up with.",
+  },
+  {
+    title: "The Gap in the Market",
+    body: "Owners already had useful software. But moving information between websites, customer records, payments, and marketing still fell to them.",
+  },
+  {
+    title: "Why We Stepped In",
+    body: "We began with our own partners: mapping processes, connecting tools, and staying responsible as the business changed.",
+  },
+  {
+    title: "Built for Leaders Everywhere",
+    body: "Today, we support independent businesses and multi-location teams across industries, with technology built around their operations.",
+  },
+];
+
+const differentiators = [
+  {
+    icon: "🤝",
+    title: "Human Connection",
+    body: "Work with people who understand your business and stay accountable for the outcome.",
+  },
+  {
+    icon: "✨",
+    title: "Process Before Platforms",
+    body: "We understand how you get customers and deliver work before choosing or connecting the tools.",
+  },
+];
+
+const values = [
+  {
+    icon: "♡",
+    title: "We Invest in Your Success",
+    body: "Long-term partnerships matter more than quick sales.",
+  },
+  {
+    icon: "◎",
+    title: "Technology With Ownership",
+    body: "We coordinate agreed platforms, integrations, vendors, and improvements.",
+  },
+  {
+    icon: "▣",
+    title: "Built Around Real Operations",
+    body: "The solution fits how your operation runs, without unnecessary complexity.",
+  },
+];
+---
+
+<BaseLayout
+  title={staticSeo.about.title}
+  description={staticSeo.about.description}
+  canonical="/about/"
+  jsonLd={[
+    organizationSchema,
+    createBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "About Us", path: "/about/" },
+    ]),
+  ]}
+>
+  <section class="hero compact-hero">
+    <div class="container hero-centered headline-hero-centered">
+      <h1 class="compact-title">
+        <span class="headline-sentence headline-sentence-neutral">Expertise comes with the service.</span>
+        <span class="headline-sentence">So does the work.</span>
+      </h1>
+      <p class="lead">Agency-level service. Software-level pricing. Cyber Genie designs, connects, and manages technology around your business.</p>
+      <p class="brand-story-note">A new name for the same hands-on team. Cyber Genie by FK Innovate.</p>
+      <Genie class="about-genie" />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container about-narrow">
+      <div class="about-section-title">
+        <span class="about-title-icon">▣</span>
+        <h2>Our Story</h2>
+      </div>
+      <div class="about-story-list">
+        {storySections.map((section) => (
+          <div>
+            <h3>{section.title}</h3>
+            <p>
+              {section.linkIntro && (
+                <>
+                  {section.linkIntro.prefix}<a href={section.linkIntro.href} target="_blank" rel="noopener noreferrer">{section.linkIntro.label}</a>.{" "}
+                </>
+              )}
+              {section.body}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container about-narrow">
+      <div class="section-header center">
+        <h2>What Makes Us Different</h2>
+      </div>
+      <div class="grid-2">
+        {differentiators.map((item) => (
+          <div class="card about-feature-card">
+            <span class="about-feature-icon">{item.icon}</span>
+            <h2>{item.title}</h2>
+            <p>{item.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container about-narrow">
+      <div class="section-header center">
+        <h2>Our Values</h2>
+      </div>
+      <div class="grid-3">
+        {values.map((item) => (
+          <div class="about-value">
+            <span class="about-value-icon">{item.icon}</span>
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section marketing-cta-section">
+    <div class="container hero-centered">
+      <h2>Ready to make your tools work together?</h2>
+      <p>Let’s find the first useful improvement.</p>
+      <div class="hero-actions">
+        <a class="button button-secondary" href={technologyPartnerOffer.ctaHref}>{technologyPartnerOffer.cta}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

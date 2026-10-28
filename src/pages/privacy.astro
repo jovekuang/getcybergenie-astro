@@ -1,0 +1,74 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { createBreadcrumbSchema } from "@/data/site";
+
+// Draft legal copy requires owner or legal review before production release.
+---
+
+<BaseLayout
+  title="Privacy Policy | Cyber Genie"
+  description="How Cyber Genie collects, uses, shares, and protects information submitted through its website and services."
+  canonical="/privacy/"
+  jsonLd={createBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Privacy Policy", path: "/privacy/" },
+  ])}
+>
+  <section class="hero compact-hero">
+    <div class="container legal-page-heading">
+      <h1 class="compact-title">Privacy policy.</h1>
+      <p class="lead">This policy describes the information Cyber Genie handles when you visit the site, contact us, create an account, or use a service.</p>
+      <p class="legal-effective-date"><strong>Effective and last updated:</strong> October 27, 2026</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container legal-content">
+      <p><strong>Service operator:</strong> Cyber Genie is the public brand of FK Innovation Partners LLC, the existing company behind FK Innovate. References to “we,” “us,” and “our” mean that legal entity. Existing customer agreements remain with the same company.</p>
+      <h2>Who this policy covers</h2>
+      <p>Cyber Genie operates this website and the Cyber Genie services described here. This policy applies to information handled through the marketing site, inquiry and onboarding forms, customer accounts, connected services, and work performed for customers.</p>
+
+      <h2>Information we collect</h2>
+      <p>We collect information you provide directly, including contact and business information, account and onboarding information, service requests, approved content and files, project details, property information, creative preferences, and payment-status information.</p>
+      <p>We may automatically receive limited technical information needed to operate and protect the service, such as an IP address, browser and device details, referring page, timestamps, site activity, and server or security logs.</p>
+      <p>When you connect or use a third-party service through Cyber Genie, we may receive the account, authorization, activity, or service information needed to provide the feature you requested. The Gmail-specific information we handle is described below.</p>
+
+      <h2>How we use information</h2>
+      <p>We use information to respond to inquiries, provide and improve services, prepare demonstrations, authenticate accounts, process requests, communicate about work, maintain security, measure site performance, and meet legal obligations.</p>
+
+      <h2>Cookies and third-party media</h2>
+      <p>Cyber Genie does not currently place advertising or behavior-tracking cookies on this marketing site. Hosting and security providers may use technologies that are necessary to deliver and protect the site. Video previews remain local until you choose to play them. Playing a video connects to YouTube's privacy-enhanced service, which may receive device or usage information under <a href="https://policies.google.com/privacy" rel="noreferrer">Google's Privacy Policy</a>. Links to services such as Calendly take you to another provider, whose privacy practices apply.</p>
+
+      <h2>Service providers</h2>
+      <p>We may use service providers for hosting, scheduling, communications and email delivery, analytics, authentication, payments, AI processing, and other infrastructure. They receive only the information reasonably needed to perform their services and handle it under their own agreements and privacy obligations.</p>
+
+      <h2>Sale and targeted advertising</h2>
+      <p>Cyber Genie does not sell personal information or share it for cross-context behavioral advertising. If that practice changes, we will update this policy and provide any notice or choice required by applicable law before using information for the new purpose.</p>
+
+      <h2>Google account and Gmail data</h2>
+      <p>Connecting Gmail to Cyber Genie is optional and separate from signing in. When you connect Gmail for campaign follow-ups, we use the access you authorize to identify an existing email conversation, send approved follow-up messages in that conversation, and detect replies, delivery failures, and authorization changes so the campaign can stop when appropriate.</p>
+      <p>We store the connected account identifier, authorization status, message and thread identifiers, limited email header metadata, and an encrypted authorization token. We do not use Gmail data for advertising, sell it, or allow people to read message content except when necessary to provide or secure the feature, comply with law, or respond to a support request you initiate. Our use and transfer of information received from Google APIs adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy" rel="noreferrer">Google API Services User Data Policy</a>, including its Limited Use requirements.</p>
+      <p>You may disconnect Gmail from the existing FK Innovate app’s CRM Settings at any time. You may also revoke access through your Google Account permissions. Disconnecting pauses affected campaigns and deletes the stored Gmail authorization token when it is no longer used by another workspace you control.</p>
+
+      <h2>Customer content and AI processing</h2>
+      <p>Information or content submitted for an AI-assisted feature may be processed by the systems supporting that feature. Customers should not submit regulated, unusually sensitive, or unnecessary personal information unless Cyber Genie has expressly agreed to support that use.</p>
+
+      <h2>Retention and security</h2>
+      <p>We retain information for as long as reasonably needed to provide the service, maintain business and security records, resolve disputes, and meet legal obligations. We use reasonable administrative and technical safeguards, but no online system can guarantee absolute security.</p>
+
+      <h2>Your choices</h2>
+      <p>You may ask about your information, request a correction, or request deletion where applicable. To request deletion of account or Google-connected data, use the Cyber Genie contact page and identify the account and workspace involved. Some records may be retained when required for security, billing, legal, or legitimate business purposes.</p>
+
+      <h2>Browser privacy signals</h2>
+      <p>Because Cyber Genie does not currently sell personal information or share it for targeted advertising, Do Not Track and Global Privacy Control signals do not change how this marketing site operates. If our practices change or a browser signal becomes legally applicable to our processing, we will honor it as required.</p>
+
+      <h2>Children's privacy</h2>
+      <p>Cyber Genie's website and services are intended for businesses and are not directed to children under 13. We do not knowingly collect personal information from children under 13. If you believe a child has provided personal information, use the contact page so we can review and delete it where appropriate.</p>
+
+      <h2>Changes to this policy</h2>
+      <p>We may update this policy as our services or privacy practices change. We will post the revised policy here and update the date above. When a change is material, we may also provide notice through the affected service or by direct communication when appropriate.</p>
+
+      <h2>Contact</h2>
+      <p>Use the <a href="/contact/">Cyber Genie contact page</a> for privacy questions or requests.</p>
+    </div>
+  </section>
+</BaseLayout>

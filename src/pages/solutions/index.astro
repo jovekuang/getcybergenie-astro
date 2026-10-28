@@ -1,0 +1,77 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { staticSeo } from "@/data/seo";
+import { createBreadcrumbSchema } from "@/data/site";
+import {
+  customerOsFaqs,
+  outcomeCategories,
+  solutionItemsByCategory,
+  technologyPartnerOffer,
+} from "@/data/solutions";
+
+const seo = staticSeo.solutions;
+---
+
+<BaseLayout
+  title={seo.title}
+  description={seo.description}
+  canonical="/solutions/"
+  jsonLd={[
+    createBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "Solutions", path: "/solutions/" },
+    ]),
+  ]}
+>
+  <section class="hero">
+    <div class="container hero-centered headline-hero-centered">
+      <h1 class="page-title">
+        <span class="headline-sentence headline-sentence-neutral">Choose the customer outcome.</span>
+        <span class="headline-sentence">We design the system around it.</span>
+      </h1>
+      <p class="lead">
+        Tell us what should work better. We build and manage the solution within your agreed service.
+        Customer OS CRM is included while a paid service is active.
+      </p>
+      <div class="hero-actions">
+        <a class="button button-primary" href={technologyPartnerOffer.ctaHref}>{technologyPartnerOffer.cta}</a>
+        <a class="button button-secondary" href="/pricing/">Compare Service Options</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container outcome-grid">
+      {outcomeCategories.map((category) => (
+        <a class="outcome-card" href={`/solutions/${category.slug}/`}>
+          <h2>{category.role}</h2>
+          <p>{category.description}</p>
+          <div class="mini-link-list">
+            {solutionItemsByCategory(category.slug).map((item) => (
+              <span>{item.title}</span>
+            ))}
+          </div>
+          <span class="learn-more">Explore {category.name} <span aria-hidden="true">→</span></span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="section solutions-faq-section" aria-labelledby="solutions-faq-title">
+    <div class="container faq-grid">
+      <div class="faq-intro">
+        <p class="eyebrow">Before choosing a service</p>
+        <h2 id="solutions-faq-title">Start with the business problem.</h2>
+        <p>Bring the problem, not a software specification.</p>
+      </div>
+      <div class="faq-list">
+        {customerOsFaqs.map((faq) => (
+          <details class="faq-item" id={faq.id}>
+            <summary>{faq.question}</summary>
+            <p>{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

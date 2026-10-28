@@ -1,0 +1,8 @@
+---
+import artwork from "../../public/brand-mark.svg?raw";
+interface Props { class?: string; }
+const { class: className = "" } = Astro.props;
+const paths = artwork.match(/<path[\s\S]*?<\/svg>/)?.[0].replace(/<\/svg>$/, "") ?? "";
+const viewBox = artwork.match(/viewBox="([^"]+)"/)?.[1];
+---
+<svg class:list={["genie", className]} viewBox={viewBox} fill="currentColor" aria-hidden="true" focusable="false" set:html={paths} />

@@ -1,0 +1,285 @@
+---
+import { getImage, Image } from "astro:assets";
+import CustomerOsInclusion from "@/components/CustomerOsInclusion.astro";
+import RetailJourney from "@/components/RetailJourney.astro";
+import ServiceFaqSection from "@/components/ServiceFaqSection.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { industrySeo } from "@/data/seo";
+import { createBreadcrumbSchema, createServiceSchema } from "@/data/site";
+import { getIndustryOutcomeSections, membershipPlans, technologyPartnerOffer } from "@/data/solutions";
+import { voiceIndustries } from "@/data/voiceIndustries";
+
+export function getStaticPaths() {
+  return voiceIndustries.map((industry) => ({
+    params: { industrySlug: industry.slug },
+    props: { industry },
+  }));
+}
+
+const { industry } = Astro.props;
+const industryIndex = voiceIndustries.findIndex((candidate) => candidate.slug === industry.slug);
+const relatedIndustries = Array.from({ length: 4 }, (_, offset) =>
+  voiceIndustries[(industryIndex + offset + 1) % voiceIndustries.length]
+);
+const outcomeSections = getIndustryOutcomeSections(industry);
+const seo = industrySeo(industry);
+const socialImage = industry.heroImage
+  ? await getImage({
+      src: industry.heroImage,
+      width: 1200,
+      height: 630,
+      fit: "cover",
+      format: "webp",
+      quality: 82,
+    })
+  : undefined;
+const serviceDescription = industry.pageIntro ??
+  `Managed websites, processes, and technology that help ${industry.name.toLowerCase()} get, win, and keep customers while improving the work behind the customer experience.`;
+const serviceSchema = {
+  ...createServiceSchema({
+    name: industry.serviceName ?? `Website and technology management for ${industry.name}`,
+    description: serviceDescription,
+    serviceType: `Managed websites and technology management for ${industry.name}`,
+    path: `/industries/${industry.slug}/`,
+  }),
+  keywords: industry.keywords,
+};
+
+const planFit = [
+  {
+    plan: membershipPlans[0],
+    description: "A custom website, up to 10 content pages, and ongoing queued changes.",
+  },
+  {
+    plan: membershipPlans[1],
+    description: "One evolving web application with integrations, a backend database, and user single sign-on.",
+  },
+  {
+    plan: membershipPlans[2],
+    description: "Process mapping and ongoing management of agreed platforms, integrations, and improvements.",
+  },
+];
+const recommendedServices = industry.serviceRecommendations ?? planFit.map(({ plan, description }) => ({ name: plan.name, href: plan.href, description }));
+---
+
+<BaseLayout
+  title={seo.title}
+  description={seo.description}
+  canonical={`/industries/${industry.slug}/`}
+  image={socialImage?.src ?? seo.image}
+  imageAlt={seo.imageAlt}
+  jsonLd={[
+    serviceSchema,
+    createBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "Industries", path: "/industries/" },
+      { name: industry.name, path: `/industries/${industry.slug}/` },
+    ]),
+  ]}
+>
+  <section class:list={["hero", { "industry-visual-hero": industry.heroImage }]}>
+    <div class="container industry-hero-content">
+      <div class:list={{ "industry-hero-copy": industry.heroImage }}>
+        <p class="eyebrow">{industry.name}</p>
+        <h1 class="page-title">{industry.heroTitle ?? `Get, win, and keep customers for ${industry.name}.`}</h1>
+        <p class="lead">
+          {industry.pageIntro ??
+            `Cyber Genie turns the customer journey and operating process for ${industry.name.toLowerCase()} into a better website, connected workflow, or Technology Partner relationship.`}
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href={technologyPartnerOffer.ctaHref}>{technologyPartnerOffer.cta}</a>
+          <a class="button button-secondary" href="/pricing/">Compare Service Options</a>
+        </div>
+      </div>
+    </div>
+    {industry.heroImage && (
+      <div class="industry-hero-media">
+        <Image
+          src={industry.heroImage}
+          alt={industry.heroImageAlt ?? `${industry.name} customer experience`}
+          class="industry-hero-image"
+          widths={[960, 1440, 1920]}
+          sizes="100vw"
+          loading="eager"
+        />
+      </div>
+    )}
+  </section>
+
+  {industry.journeyIllustration === 'commerce' && (
+    <section class="retail-journey-section" aria-label="A connected retail customer journey">
+      <div class="container"><RetailJourney /></div>
+    </section>
+  )}
+
+  <section class="section section-alt">
+    <div class="container grid-2">
+      <div>
+        <h2 class="section-title">Where disconnected work tends to show up.</h2>
+      </div>
+      <div class="card">
+        <ul class="check-list">
+          {industry.painPoints.map((painPoint) => <li>{painPoint}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-3">
+      {outcomeSections.map((section) => (
+        <div class="card outcome-stage-card">
+          <p class="eyebrow">{section.category.name}</p>
+          <h2>{section.headline}</h2>
+          <div class="industry-solution-list">
+            {section.entries.map(({ item, displayTitle, useCase }) => (
+              <a class="industry-solution-item" href={`/solutions/${section.category.slug}/${item.slug}/`}>
+                <strong>{displayTitle ?? item.title}</strong>
+                <span>{useCase}</span>
+              </a>
+            ))}
+          </div>
+          <a class="learn-more" href={`/solutions/${section.category.slug}/`}>
+            {section.linkLabel ?? `Explore ${section.category.name}`} <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  {industry.featureSection && (
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-header industry-section-header">
+          <h2>{industry.featureSection.title}</h2>
+          <p>{industry.featureSection.description}</p>
+        </div>
+        <div class="grid-2 industry-feature-grid">
+          {industry.featureSection.items.map((item) => (
+            <div class="industry-feature-item">
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {industry.integrationSection && (
+    <section class="section">
+      <div class="container">
+        <div class="section-header industry-section-header">
+          <h2>{industry.integrationSection.title}</h2>
+          <p>{industry.integrationSection.description}</p>
+        </div>
+        <div class="grid-3 integration-system-grid">
+          {industry.integrationSection.systems.map((system) => (
+            <div class="card integration-system-card">
+              <span>{system.label}</span>
+              <h3>{system.name}</h3>
+              <p>{system.description}</p>
+              {system.links && (
+                <div class="integration-system-links">
+                  {system.links.map((link) => (
+                    <a href={link.href} target="_blank" rel="noopener noreferrer">
+                      {link.label} <span aria-hidden="true">↗</span>
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+        <p class="integration-note">{industry.integrationSection.note}</p>
+      </div>
+    </section>
+  )}
+
+  {industry.deliverySteps && (
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-header"><h2>From business priorities to working improvements.</h2></div>
+        <ol class="retail-delivery-steps">
+          {industry.deliverySteps.map((step, index) => (
+            <li><span>{String(index + 1).padStart(2, '0')}</span><h3>{step.title}</h3><p>{step.description}</p></li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Choose a focused service or a Technology Partner.</h2>
+        <p>You share requirements, access, and approvals. We deliver within the agreed scope.</p>
+      </div>
+      <div class="grid-3">
+        {recommendedServices.map(({ name, href, description }) => (
+          <a class="card linked-card" href={href}>
+            <h3>{name}</h3>
+            <p>{description}</p>
+            <span class="learn-more">See plan details <span aria-hidden="true">→</span></span>
+          </a>
+        ))}
+      </div>
+      <CustomerOsInclusion compact />
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container cta-band">
+      <div>
+        <p class="eyebrow">Technology Partner</p>
+        <h2>{industry.whiteGloveCta?.title ?? "Want the whole customer workflow handled?"}</h2>
+        <p>{industry.whiteGloveCta?.description ??
+          "We map the process, connect agreed tools, and manage ongoing improvements."}</p>
+      </div>
+      <a class="button button-primary" href={technologyPartnerOffer.ctaHref}>{technologyPartnerOffer.cta}</a>
+    </div>
+  </section>
+
+  {industry.showVoiceAi !== false && <section class="section">
+    <div class="container grid-2">
+      <div>
+        <p class="eyebrow">Phone answering, handled</p>
+        <h2 class="section-title">{`Managed Voice AI for ${industry.name}`}</h2>
+        <p class="lead">
+          We build, integrate, and test your AI receptionist for the agreed call workflow. You provide rules, access, and approval.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-secondary" href="/services/voice/">View Voice AI</a>
+        </div>
+      </div>
+      <div class="card">
+        <p class="eyebrow">Common calls</p>
+        <h2>{industry.voiceAiSection?.callsTitle ?? "The calls this service handles."}</h2>
+        <ul class="check-list">
+          {industry.callExamples.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>}
+
+  <ServiceFaqSection
+    title={`Questions about managed services for ${industry.name}.`}
+    intro="Integration, workflow, and service boundaries."
+    items={industry.faq.slice(0, 4).map((item, index) => ({ ...item, id: `industry-question-${index + 1}` }))}
+  />
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">Related industries</p>
+        <h2>Explore other industries.</h2>
+      </div>
+      <div class="industry-list">
+        {relatedIndustries.map((item) => <a class="pill" href={`/industries/${item.slug}/`}>{item.name}</a>)}
+      </div>
+      <div class="hero-actions">
+        <a class="button button-primary" href={technologyPartnerOffer.ctaHref}>{technologyPartnerOffer.cta}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

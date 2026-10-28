@@ -1,0 +1,724 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import plumberImage from "@/assets/ai-service-plumber.png";
+import { calendlyUrl } from "@/data/site";
+
+const processCards = [
+  {
+    title: "Response",
+    copy: "Instant AI response by phone and text so incoming leads do not sit unanswered.",
+  },
+  {
+    title: "Qualify",
+    copy: "Smart questions separate real opportunities from low-fit requests and rank them by priority.",
+  },
+  {
+    title: "Action Plan",
+    copy: "High-scoring leads get clear owner next steps, including outreach and onsite meeting scheduling.",
+  },
+  {
+    title: "Follow Up",
+    copy: "Lower-scoring leads stay in a nurture path until timing, budget, or fit improves.",
+  },
+];
+
+const installedWorkflows = [
+  {
+    title: "Phone and text response",
+    copy: "Incoming calls, missed calls, forms, and purchased leads trigger a fast AI reply path before the customer moves on.",
+  },
+  {
+    title: "Qualification questions",
+    copy: "The AI asks about service need, location, urgency, photos, timing, and decision context so the owner can judge fit quickly.",
+  },
+  {
+    title: "Priority scoring",
+    copy: "Each lead is scored and ranked so the owner sees which opportunities deserve personal attention first.",
+  },
+  {
+    title: "Owner action calendar",
+    copy: "Qualified leads become action items, callbacks, and onsite meeting slots instead of scattered notes.",
+  },
+  {
+    title: "Automatic onsite scheduling",
+    copy: "When a lead passes the right score, the system can guide them toward a booked onsite meeting.",
+  },
+  {
+    title: "Nurture for lower-fit leads",
+    copy: "Leads that are not ready or not high priority still receive follow-up instead of being forgotten.",
+  },
+];
+
+const rolloutSteps = [
+  {
+    step: "01",
+    title: "Define the scoring rules",
+    copy: "We map profitable jobs, bad-fit requests, service areas, urgency signals, and what qualifies an onsite visit.",
+  },
+  {
+    step: "02",
+    title: "Build the AI response flow",
+    copy: "AI voice, text-back, form routing, qualification questions, and priority scoring are configured around the sales process.",
+  },
+  {
+    step: "03",
+    title: "Connect the action plan",
+    copy: "Qualified leads route to owner tasks, callbacks, onsite meeting scheduling, and nurture paths.",
+  },
+];
+---
+
+<BaseLayout
+  title="Lead Qualification System for Home Service Businesses | Cyber Genie"
+  description="A campaign landing page for home service owners who need faster lead response, cleaner qualification, and better local demand without managing more software."
+  canonical="/campaigns/home-service-lead-qualification/"
+  robots="noindex, nofollow"
+>
+  <section class="lead-campaign-hero">
+    <div class="container lead-campaign-hero-grid">
+      <div>
+        <p class="campaign-label">Home Service Growth System</p>
+        <h1>Stop buying leads your team cannot <span>qualify fast enough.</span></h1>
+        <p class="campaign-lead">
+          Cyber Genie builds a four-step AI system that responds instantly, qualifies the request, creates an owner action plan, and follows up when the lead is not ready yet.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href={calendlyUrl}>Build My Lead System</a>
+          <a class="button button-secondary" href="#workflow">See the workflow</a>
+        </div>
+      </div>
+      <div class="lead-command-panel" aria-label="Lead qualification workflow preview">
+        <div class="flow-stage flow-stage-response">
+          <span>Response</span>
+          <strong>All platforms and sources</strong>
+          <small>Calls, texts, forms, referrals, ads, and marketplaces get an instant reply</small>
+        </div>
+        <div class="flow-connector" aria-hidden="true">
+          <span></span>
+        </div>
+        <div class="flow-stage flow-stage-qualify">
+          <span>Qualify</span>
+          <strong>Score: 86%</strong>
+          <small>Asked service, timing, photos, budget, and urgency</small>
+        </div>
+        <div class="flow-connector flow-connector-delay" aria-hidden="true">
+          <span></span>
+        </div>
+        <div class="action-calendar">
+          <div class="calendar-header">
+            <img src={plumberImage.src} alt="Home service owner reviewing prioritized lead actions" />
+            <div>
+              <span>Action Plan</span>
+              <strong>Prioritized today</strong>
+            </div>
+          </div>
+          <div class="calendar-row is-priority">
+            <span>9:30 AM</span>
+            <strong>Call high-score lead</strong>
+          </div>
+          <div class="calendar-row">
+            <span>11:00 AM</span>
+            <strong>Onsite estimate held</strong>
+          </div>
+        </div>
+        <div class="flow-connector flow-connector-late" aria-hidden="true">
+          <span></span>
+        </div>
+        <div class="flow-stage flow-stage-follow-up">
+          <span>Follow Up</span>
+          <strong>Nurture lower-score leads</strong>
+          <small>Keep timing, budget, and fit warm until the next opportunity</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container problem-strip">
+      {processCards.map((card) => (
+        <div>
+          <span class="metric">{card.title}</span>
+          <p>{card.copy}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section section-alt" id="workflow">
+    <div class="container campaign-split">
+      <div>
+        <p class="campaign-label">The Fix</p>
+        <h2>Response, qualification, action plan, and follow-up in one flow.</h2>
+        <p>
+          The system works across phone calls, texts, web forms, and paid lead sources. It answers immediately, asks the right questions, ranks the lead, and creates the next action for the owner.
+        </p>
+      </div>
+      <div class="workflow-list">
+        <div>
+          <span>1</span>
+          <p><strong>Response:</strong> AI answers by phone and text so no incoming lead sits untouched.</p>
+        </div>
+        <div>
+          <span>2</span>
+          <p><strong>Qualify:</strong> AI asks relevant questions and scores whether the lead is real, urgent, and worth chasing.</p>
+        </div>
+        <div>
+          <span>3</span>
+          <p><strong>Action Plan:</strong> High-priority leads become owner tasks, callbacks, and onsite meeting opportunities.</p>
+        </div>
+        <div>
+          <span>4</span>
+          <p><strong>Follow Up:</strong> Lower-scoring leads move into nurture so future work is still captured.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <p class="campaign-label">What Gets Installed</p>
+        <h2>One practical system for response, qualification, action plans, and follow-up.</h2>
+        <p>Built for owner-led home service businesses where the same people are selling, scheduling, quoting, and doing the work.</p>
+      </div>
+      <div class="campaign-card-grid">
+        {installedWorkflows.map((workflow) => (
+          <div class="campaign-card">
+            <h3>{workflow.title}</h3>
+            <p>{workflow.copy}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container campaign-split">
+      <div>
+        <p class="campaign-label">Local Demand</p>
+        <h2>Use paid leads better while building the leads you own.</h2>
+        <p>
+          Paid lead sources can still work when the four-step system is fast enough. The long-term win is pairing response, qualification, action plans, and follow-up with owned local demand.
+        </p>
+        <ul class="check-list">
+          <li>Service pages for the jobs with the best fit and margin</li>
+          <li>Review requests and project proof that build trust over time</li>
+          <li>Campaign tracking that shows which sources create qualified action plans</li>
+        </ul>
+      </div>
+      <div class="local-search-board">
+        <div class="search-row is-top">
+          <span>Search-ready service page</span>
+          <strong>High intent</strong>
+        </div>
+        <div class="search-row">
+          <span>Review request sent</span>
+          <strong>Trust</strong>
+        </div>
+        <div class="search-row">
+          <span>Action plan created</span>
+          <strong>Priority</strong>
+        </div>
+        <div class="search-row">
+          <span>Follow-up queued</span>
+          <strong>Nurture</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <p class="campaign-label">Implementation</p>
+        <h2>Launch the first version without turning the owner into a software admin.</h2>
+      </div>
+      <div class="rollout-grid">
+        {rolloutSteps.map((item) => (
+          <div class="rollout-step">
+            <span>{item.step}</span>
+            <h3>{item.title}</h3>
+            <p>{item.copy}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="campaign-cta">
+    <div class="container campaign-cta-inner">
+      <div>
+        <p class="campaign-label">Next Step</p>
+        <h2>Turn incoming requests into ranked action plans.</h2>
+        <p>Bring the current lead sources, service list, and biggest qualification headaches. We will map the first version around the response, qualification, action plan, and follow-up workflow.</p>
+      </div>
+      <a class="button button-primary" href={calendlyUrl}>Schedule a Strategy Call</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .lead-campaign-hero {
+    overflow: hidden;
+    padding: 88px 0 76px;
+    background:
+      linear-gradient(135deg, rgba(251, 250, 248, 0.98), rgba(255, 255, 255, 0.92) 56%, rgba(239, 250, 255, 0.95)),
+      radial-gradient(circle at 86% 16%, rgba(20, 166, 224, 0.16), transparent 32%);
+  }
+
+  .lead-campaign-hero-grid,
+  .campaign-split {
+    display: grid;
+    grid-template-columns: minmax(0, 1.04fr) minmax(340px, 0.96fr);
+    gap: 48px;
+    align-items: center;
+  }
+
+  .campaign-label {
+    display: inline-flex;
+    width: fit-content;
+    margin: 0 0 16px;
+    border: 1px solid rgba(55, 66, 194, 0.18);
+    border-radius: 999px;
+    background: rgba(55, 66, 194, 0.07);
+    color: var(--primary);
+    padding: 7px 11px;
+    font-size: 12px;
+    font-weight: 850;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .lead-campaign-hero h1,
+  .campaign-split h2,
+  .campaign-cta h2 {
+    margin: 0 0 18px;
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+    letter-spacing: 0;
+    line-height: 1.02;
+  }
+
+  .lead-campaign-hero h1 {
+    max-width: 760px;
+    font-size: clamp(46px, 6.3vw, 76px);
+  }
+
+  .lead-campaign-hero h1 span {
+    color: var(--primary);
+  }
+
+  .campaign-split h2,
+  .campaign-cta h2 {
+    font-size: clamp(32px, 4vw, 48px);
+  }
+
+  .campaign-lead,
+  .campaign-split p,
+  .campaign-cta p {
+    max-width: 690px;
+    color: var(--muted);
+    font-size: clamp(17px, 1.7vw, 20px);
+    line-height: 1.58;
+  }
+
+  .lead-command-panel {
+    position: relative;
+    display: grid;
+    gap: 0;
+    overflow: hidden;
+    border: 1px solid rgba(55, 66, 194, 0.18);
+    border-radius: 8px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(244, 247, 255, 0.88)),
+      radial-gradient(circle at 82% 20%, rgba(20, 166, 224, 0.2), transparent 30%);
+    padding: 18px;
+    box-shadow: 0 22px 60px rgba(41, 35, 29, 0.1);
+  }
+
+  .flow-stage,
+  .action-calendar {
+    position: relative;
+    z-index: 2;
+    border: 1px solid rgba(55, 66, 194, 0.14);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.84);
+    box-shadow: 0 12px 28px rgba(41, 35, 29, 0.055);
+  }
+
+  .flow-stage {
+    display: grid;
+    gap: 4px;
+    min-height: 82px;
+    padding: 14px 16px;
+    animation: stage-glow 9.6s ease-in-out infinite;
+  }
+
+  .flow-stage-qualify {
+    animation-delay: 2.4s;
+  }
+
+  .flow-stage-follow-up {
+    animation-delay: 7.2s;
+  }
+
+  .flow-stage span,
+  .calendar-header span {
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .flow-stage strong,
+  .calendar-header strong {
+    color: var(--foreground);
+    font-size: 18px;
+    line-height: 1.24;
+  }
+
+  .flow-stage small {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  .flow-connector {
+    position: relative;
+    z-index: 1;
+    width: 2px;
+    height: 26px;
+    margin: 4px auto;
+    border-radius: 999px;
+    background: rgba(55, 66, 194, 0.2);
+  }
+
+  .flow-connector::before,
+  .flow-connector::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid rgba(55, 66, 194, 0.34);
+    border-bottom: 2px solid rgba(55, 66, 194, 0.34);
+    transform: translateX(-50%) rotate(45deg);
+  }
+
+  .flow-connector::before {
+    top: -4px;
+  }
+
+  .flow-connector::after {
+    bottom: -2px;
+  }
+
+  .flow-connector span {
+    position: absolute;
+    left: 50%;
+    top: -6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--primary);
+    box-shadow: 0 0 0 8px rgba(55, 66, 194, 0.12);
+    transform: translateX(-50%);
+    animation: lead-transfer 7.2s ease-in-out infinite;
+  }
+
+  .flow-connector-delay span {
+    animation-delay: 2.4s;
+  }
+
+  .flow-connector-late span {
+    animation-delay: 4.8s;
+  }
+
+  .action-calendar {
+    display: grid;
+    gap: 8px;
+    padding: 12px 14px;
+    animation: stage-glow 9.6s ease-in-out infinite;
+    animation-delay: 4.8s;
+  }
+
+  .calendar-header {
+    display: grid;
+    grid-template-columns: 46px 1fr;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .calendar-header img {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: rgba(55, 66, 194, 0.08);
+    object-fit: cover;
+    object-position: center 18%;
+  }
+
+  .calendar-row {
+    display: grid;
+    grid-template-columns: 76px 1fr;
+    gap: 10px;
+    align-items: center;
+    min-height: 38px;
+    border: 1px solid rgba(55, 66, 194, 0.12);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.72);
+    padding: 10px;
+  }
+
+  .calendar-row.is-priority {
+    border-color: rgba(20, 166, 224, 0.34);
+    background: rgba(239, 250, 255, 0.86);
+  }
+
+  .calendar-row span {
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 850;
+  }
+
+  .calendar-row strong {
+    color: var(--foreground);
+    font-size: 13px;
+    line-height: 1.3;
+  }
+
+  @keyframes lead-transfer {
+    0%,
+    20% {
+      transform: translate(-50%, 0);
+      opacity: 0.2;
+    }
+
+    45% {
+      transform: translate(-50%, 13px);
+      opacity: 1;
+    }
+
+    70%,
+    100% {
+      transform: translate(-50%, 26px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes stage-glow {
+    0%,
+    100% {
+      border-color: rgba(55, 66, 194, 0.14);
+      transform: translateY(0);
+    }
+
+    18% {
+      border-color: rgba(55, 66, 194, 0.38);
+      transform: translateY(-2px);
+    }
+  }
+
+  .search-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .search-row span {
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .search-row strong {
+    color: var(--success);
+    font-size: 14px;
+  }
+
+  .problem-strip {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .problem-strip div,
+  .campaign-card,
+  .rollout-step,
+  .local-search-board {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface);
+    box-shadow: 0 12px 34px rgba(41, 35, 29, 0.055);
+  }
+
+  .problem-strip div {
+    padding: 24px;
+  }
+
+  .metric {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--primary);
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+    font-size: clamp(29px, 2.7vw, 36px);
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .problem-strip p,
+  .campaign-card p,
+  .rollout-step p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.58;
+  }
+
+  .workflow-list {
+    display: grid;
+    gap: 12px;
+  }
+
+  .workflow-list div {
+    display: grid;
+    grid-template-columns: 42px 1fr;
+    gap: 14px;
+    align-items: start;
+    border-left: 4px solid var(--primary);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 18px;
+  }
+
+  .workflow-list span,
+  .rollout-step span {
+    display: grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(55, 66, 194, 0.1);
+    color: var(--primary);
+    font-weight: 850;
+  }
+
+  .workflow-list p {
+    margin: 0;
+    font-size: 16px;
+  }
+
+  .workflow-list strong {
+    color: var(--foreground);
+  }
+
+  .campaign-card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .campaign-card {
+    padding: 24px;
+  }
+
+  .campaign-card h3,
+  .rollout-step h3 {
+    margin: 0 0 11px;
+    font-size: 20px;
+    line-height: 1.24;
+  }
+
+  .local-search-board {
+    display: grid;
+    gap: 10px;
+    padding: 18px;
+  }
+
+  .search-row {
+    min-height: 58px;
+    border: 1px solid rgba(55, 66, 194, 0.14);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.74);
+    padding: 14px;
+  }
+
+  .search-row.is-top {
+    border-color: rgba(20, 166, 224, 0.32);
+    background: rgba(239, 250, 255, 0.86);
+  }
+
+  .rollout-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .rollout-step {
+    padding: 24px;
+  }
+
+  .rollout-step span {
+    width: 42px;
+    height: 42px;
+    margin-bottom: 18px;
+  }
+
+  .campaign-cta {
+    padding: 74px 0;
+    background: #211d19;
+    color: white;
+  }
+
+  .campaign-cta-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 28px;
+    align-items: center;
+  }
+
+  .campaign-cta p {
+    color: rgba(255, 255, 255, 0.74);
+  }
+
+  .campaign-cta .campaign-label {
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+  }
+
+  .campaign-cta .button-primary {
+    background: white;
+    color: var(--primary);
+    box-shadow: none;
+  }
+
+  @media (max-width: 860px) {
+    .lead-campaign-hero {
+      padding: 58px 0;
+    }
+
+    .lead-campaign-hero-grid,
+    .campaign-split,
+    .problem-strip,
+    .campaign-card-grid,
+    .rollout-grid,
+    .campaign-cta-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .lead-campaign-hero h1 {
+      font-size: clamp(40px, 13vw, 58px);
+    }
+
+    .campaign-cta-inner .button {
+      width: fit-content;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .flow-stage,
+    .flow-connector span,
+    .action-calendar {
+      animation: none;
+    }
+  }
+</style>

@@ -1,0 +1,51 @@
+---
+import Genie from "@/components/Genie.astro";
+import { positioning } from "@/data/positioning";
+import { outcomeCategories } from "@/data/solutions";
+import { voiceIndustries } from "@/data/voiceIndustries";
+import { appUrl } from "@/data/site";
+import { brand } from "@/data/brand";
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand-block">
+      <a class="brand" href="/">
+        <Genie class="brand-symbol" />
+        <span class="brand-name">{brand.name}</span>
+      </a>
+      <p>{positioning.headline}<br />{positioning.value}</p>
+    </div>
+    <div>
+      <p class="footer-heading">What We Do</p>
+      <div class="footer-links">
+        <a href="/services/technology-partner/">Technology Partner</a>
+        {outcomeCategories.map((category) => <a href={`/solutions/${category.slug}/`}>{category.name}</a>)}
+        <a href="/pricing/">Pricing</a>
+      </div>
+    </div>
+    <div>
+      <p class="footer-heading">Industries</p>
+      <div class="footer-links">
+        <a href="/industries/">All Industries</a>
+        {voiceIndustries.slice(0, 4).map((industry) => (
+          <a href={`/industries/${industry.slug}/`}>{industry.name}</a>
+        ))}
+      </div>
+    </div>
+    <div>
+      <p class="footer-heading">Company</p>
+      <div class="footer-links">
+        <a href="/about/">About</a>
+        <a href="/blog/">Insights</a>
+        <a href="/contact/">Contact</a>
+        <a href={`mailto:${brand.publicEmail}`}>{brand.publicEmail}</a>
+        <a href={`${appUrl}/login`}>Sign In</a>
+      </div>
+    </div>
+  </div>
+  <div class="container legal">
+    <span>&copy; {new Date().getFullYear()} {brand.name}<br /><span class="brand-continuity">{brand.continuity}</span></span>
+    <span class="legal-links"><a href="/terms/">Terms</a><a href="/privacy/">Privacy</a></span>
+  </div>
+</footer>

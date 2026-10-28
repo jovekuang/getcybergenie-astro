@@ -1,0 +1,74 @@
+---
+import { brand } from "@/data/brand";
+import { appUrl } from "@/data/site";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { calendlyUrl, createBreadcrumbSchema } from "@/data/site";
+import { customerOsCore, membershipPlans, technologyPartnerOffer } from "@/data/solutions";
+import { staticSeo } from "@/data/seo";
+
+const essential = membershipPlans.find((plan) => plan.slug === "essential-website")!;
+const evolving = membershipPlans.find((plan) => plan.slug === "evolving-website")!;
+---
+
+<BaseLayout
+  title={staticSeo.contact.title}
+  description={staticSeo.contact.description}
+  canonical="/contact/"
+  jsonLd={createBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Contact", path: "/contact/" },
+  ])}
+>
+  <section class="hero compact-hero">
+    <div class="container hero-centered">
+      <h1 class="compact-title">Tell us what should work better.</h1>
+      <p class="lead">Show us where the work gets stuck. We’ll help find the right starting point.</p>
+      <a class="contact-email" href={`mailto:${brand.publicEmail}`}>{brand.publicEmail}</a>
+      <p class="portal-continuity">Already a customer? Your existing FK Innovate account still works.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container contact-option-grid">
+      <article class="card contact-option contact-option-featured">
+        <p class="customer-os-status">Done for you</p>
+        <h2>{technologyPartnerOffer.name}</h2>
+        <p>Process mapping, connected tools, and ongoing management across agreed business systems.</p>
+        <a class="button button-primary" href={technologyPartnerOffer.ctaHref}>{technologyPartnerOffer.cta}</a>
+      </article>
+      <div class="contact-options-intro">
+        <h2>Prefer to begin with one or two parts?</h2>
+        <p>Start with the service you need now.</p>
+      </div>
+      <article class="card contact-option">
+        <h2>Essential Website</h2>
+        <p>A focused custom website with up to 10 published pages and ongoing changes.</p>
+        <a class="button button-primary" href={essential.ctaHref}>Start onboarding</a>
+      </article>
+      <article class="card contact-option">
+        <h2>{evolving.name}</h2>
+        <p>One evolving application with integrations, a backend database, single sign-on, and recurring content.</p>
+        <a class="button button-primary" href={evolving.ctaHref}>Start onboarding</a>
+      </article>
+      <article class="card contact-option">
+        <h2>Voice AI</h2>
+        <p>A personalized demo within 1 business day of intake. Agent setup, required workflow integrations, and testing are handled.</p>
+        <a class="button button-secondary" href={`${appUrl}/login?service=voice`}>Request a free demo</a>
+      </article>
+      <article class="card contact-option">
+        <h2>Social Media Management</h2>
+        <p>Choose your content cadence and channels.</p>
+        <a class="button button-secondary" href="/services/marketing/">View social plans</a>
+      </article>
+      <article class="card contact-option">
+        <h2>Not sure yet?</h2>
+        <p>Talk through the bottleneck without committing to a larger engagement.</p>
+        <a class="button button-secondary" href={calendlyUrl}>Talk through the process</a>
+      </article>
+      <div class="contact-options-intro">
+        <h2>{customerOsCore.name} is included.</h2>
+        <p>CRM and self-service tools, included while any paid Cyber Genie service is active. <a href="/solutions/keep-customers/customer-management/">Explore Customer OS</a>.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

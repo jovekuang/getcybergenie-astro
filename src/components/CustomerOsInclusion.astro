@@ -1,0 +1,11 @@
+---
+import { customerOsInclusion } from "@/data/positioning";
+interface Props { compact?: boolean; }
+const { compact = false } = Astro.props;
+---
+<aside class:list={["customer-os-benefit", { "customer-os-benefit-compact": compact }]} aria-label="Included Customer OS">
+  <strong>{customerOsInclusion.title}</strong>
+  <p class="customer-os-benefit-summary">{customerOsInclusion.summary}</p>
+  <p>{customerOsInclusion.availability}</p>
+  <a href="/solutions/keep-customers/customer-management/">Explore the included CRM <span aria-hidden="true">→</span></a>
+</aside>
