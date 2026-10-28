@@ -11,3 +11,6 @@ outputs/
 .dev.vars
 .dev.vars.*
 !.dev.vars.example
+
+# Local conversation handoff (not for GitHub)
+/AGENTS.md

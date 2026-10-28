@@ -12,10 +12,10 @@
 .cyber-eyebrow { display: flex; align-items: center; gap: 10px; font-size: 12px !important; font-weight: 700; letter-spacing: .045em; color: var(--primary-dark) !important; margin: 0 0 26px !important; }
 .cyber-eyebrow > span { width: 7px; height: 7px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 0 5px var(--warm); }
 .signal-hero-copy .cyber-hero-description { font-size: 16px !important; line-height: 1.8 !important; color: var(--muted); max-width: 510px !important; margin-top: 18px !important; }
+.outcome-hero .signal-hero-art { opacity: .07; mask-image: linear-gradient(to right, transparent 35%, #000 80%); }
+.outcome-hero .hero-grid-lines { opacity: .3; }
 .cyber-hero-character { position: relative; display: grid; place-items: center; min-height: 360px; isolation: isolate; }
 .hero-genie { position: relative; z-index: 1; width: min(100%, 280px); max-height: 330px; color: var(--foreground); transform: rotate(-3deg); }
-.cyber-character-orbit { position: absolute; width: 345px; aspect-ratio: 1; max-width: 100%; border: 1px solid #b9d8cc; border-radius: 50%; background: radial-gradient(ellipse, #e7f5f0 10%, #e7f5f022 70%); transform: rotate(-18deg); }
-.cyber-character-orbit::before { content: ""; position: absolute; inset: -15px 20px; border: 1px dashed #c9d8d0; border-radius: 50%; transform: rotate(42deg); }
 .cyber-character-note { position: absolute; z-index: 2; font-size: 12px; font-weight: 600; background: var(--surface); padding: 10px 14px; border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 4px 12px #18282306; white-space: nowrap; }
 .cyber-character-note-top { top: 10px; left: 0; transform: rotate(-5deg); }
 .cyber-character-note-bottom { right: 0; bottom: 16px; transform: rotate(3deg); }
@@ -40,10 +40,10 @@
 }
 @media (max-width: 760px) {
   .outcome-hero .signal-hero-grid { grid-template-columns: 1fr; gap: 36px; }
+  .outcome-hero .signal-hero-art { mask-image: linear-gradient(to bottom, transparent 40%, #000 65%, transparent 85%); }
   .outcome-hero .signal-hero-copy h1 { max-width: 640px; white-space: normal; }
   .cyber-hero-character { width: min(310px, 85%); min-height: 270px; margin-inline: auto; }
   .hero-genie { width: 200px; height: 240px; }
-  .cyber-character-orbit { width: 250px; }
   .cyber-character-note-top { top: 0; }
   .cyber-character-note-bottom { bottom: 0; }
   .cyber-section-intro { display: block; }
