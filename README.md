@@ -2,6 +2,8 @@
 
 The complete Astro marketing site for **Cyber Genie**, at **https://getcybergenie.com**. Based on FK Innovate's audited `fc69a67` snapshot, in a separate repository and Cloudflare Pages project. The original marketing site and the application stay independent.
 
+Review preview: https://cyber-genie-v1.cyber-genie-marketing.pages.dev/
+
 ## Development
 
 Use Node >=22.12 and the committed lockfile.

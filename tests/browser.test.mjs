@@ -2,6 +2,10 @@ import {test,before,after} from 'node:test';
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 const base=process.env.TEST_BASE_URL??'http://127.0.0.1:8788';
+const testHost = new URL(base).hostname;
+if (!['localhost', '127.0.0.1'].includes(testHost) && !testHost.endsWith('.pages.dev')) {
+  throw new Error('Submission tests must target a local or pages.dev dry-run preview, never the live custom domain.');
+}
 let browser;
 before(async()=>{browser=await chromium.launch({headless:true,...(process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH}:{})});});
 after(async()=>{await browser?.close();});

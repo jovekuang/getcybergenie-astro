@@ -45,6 +45,10 @@ Before launch:
 
 Free forwarding is receive-only; outgoing replies initially come from the existing mailbox. A later Google Workspace transition replaces the root MX, creates the `hello` mailbox/alias, and revisits SPF/DKIM/DMARC. Resend sender authentication must continue to work. Do not operate two unrelated root mailbox providers simultaneously.
 
+## Full-length campaign sample
+
+The original full-length YouTube sample is private. The review site shows its existing poster with a sample-request link; the public Reel remains playable. Do not make the private video public or unlisted without explicit owner authorization. Enable the full-length player only after its public availability or an approved replacement is verified.
+
 ## Approval and launch order
 
 1. Review the preview: all page families, prices, character, mobile navigation, forms and legal copy. Agree the final production commit.

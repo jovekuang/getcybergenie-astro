@@ -49,3 +49,13 @@ All samples are within the plan's LCP 2.5s and CLS 0.1 targets. Recheck on the r
 - Perform the 24/72-hour checks after actual launch; no future checks have already occurred.
 
 The hosted review preview is deliberately non-indexable and its forms are dry runs. See `launch-runbook.md` for the release sequence and rollback.
+
+## Hosted review verification
+
+Review URL: https://cyber-genie-v1.cyber-genie-marketing.pages.dev/
+
+The hosted Worker passed the same 75-route, 42-redirect, 404, noindex and dry-run API checks. Existing app login, Voice AI demo-entry URL and Calendly booking URL returned HTTP 200; no authenticated app actions or bookings were performed.
+
+The campaign made zero YouTube requests before a visitor clicked its local poster. The public Reel successfully played after click. The original full-length sample (`JkMBX868x60`) reported “This video is private” to an anonymous viewer. Its embed and private-video outbound link were replaced with the existing poster and an explicit sample-request link; the video's privacy was not changed. Restoring inline full-length playback requires owner authorization and a publicly playable sample. The original video identifier remains in source for that later change.
+
+GitHub CI verified the clean-checkout build, types, site audit, unit tests, actual Pages runtime and browser journeys on Linux. Astro type initialization is explicit, rather than relying on an existing local cache. Submission test scripts reject live custom-domain targets to prevent accidental test emails or customer records.

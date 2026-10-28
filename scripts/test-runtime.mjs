@@ -1,6 +1,10 @@
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 const base=process.env.TEST_BASE_URL??'http://127.0.0.1:8788';
+const testHost = new URL(base).hostname;
+if (!['localhost', '127.0.0.1'].includes(testHost) && !testHost.endsWith('.pages.dev')) {
+  throw new Error('Submission tests must target a local or pages.dev dry-run preview, never the live custom domain.');
+}
 const baseline=JSON.parse(await readFile('tests/fixtures/source-baseline.json','utf8'));
 const api=(path,body,headers={})=>fetch(base+path,{method:'POST',headers:{'Content-Type':'application/json',Origin:base,...headers},body:JSON.stringify(body)});
 for(const route of baseline.routes){const response=await fetch(base+route.path);assert.equal(response.status,route.path==='/404.html'?404:200,route.path);assert.equal(response.headers.get('X-Robots-Tag'),'noindex, nofollow',route.path);}
