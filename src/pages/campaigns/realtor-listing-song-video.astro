@@ -10,11 +10,9 @@ const campaignPath = "/campaigns/realtor-listing-song-video/";
 const campaignTitle = "Custom Property Listing Song & Video for Realtors | Cyber Genie";
 const campaignDescription =
   "Give your property listing its own custom song, full-length 1080p video, and 60-second vertical Reel for $500.";
-// Anonymous playback check: this full-length sample is private. Keep private until owner authorizes otherwise.
-const fullLengthSamplePublic = false;
-const sampleRequestUrl = `mailto:${brand.publicEmail}?subject=${encodeURIComponent("Full-length property listing video sample")}`;
+const youtubeVideoId = "6YQfJk85AP0";
 const youtubeEmbedUrl =
-  "https://www.youtube-nocookie.com/embed/JkMBX868x60?autoplay=1&rel=0";
+  `https://www.youtube-nocookie.com/embed/${youtubeVideoId}?autoplay=1&rel=0`;
 const reelEmbedUrl =
   "https://www.youtube-nocookie.com/embed/-iSQ3Md2Xcw?autoplay=1&rel=0";
 const youtubePosterImage = await getImage({
@@ -377,10 +375,10 @@ const jsonLd = [
         <p>
           “Where the Light Comes Home” pairs an original song with a complete property story for 2865 Longspur Way.
         </p>
-        {fullLengthSamplePublic ? <a href="https://youtu.be/JkMBX868x60">Open on YouTube <span aria-hidden="true">↗</span></a> : <a href={sampleRequestUrl}>Request the full-length sample <span aria-hidden="true">↗</span></a>}
+        <a href={`https://youtu.be/${youtubeVideoId}`}>Open on YouTube <span aria-hidden="true">↗</span></a>
       </div>
       <div class="campaign-video-frame">
-        {fullLengthSamplePublic ? <iframe
+        <iframe
           src={youtubeEmbedUrl}
           srcdoc={youtubePoster}
           title="Where the Light Comes Home: 2865 Longspur Way"
@@ -388,10 +386,7 @@ const jsonLd = [
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerpolicy="strict-origin-when-cross-origin"
           allowfullscreen
-        ></iframe> : <div class="campaign-sample-poster">
-          <Image src={heroImage} alt="Where the Light Comes Home property listing sample" widths={[640, 960]} sizes="(max-width: 860px) 92vw, 60vw" loading="lazy" />
-          <div><span>Where the Light Comes Home</span><a href={sampleRequestUrl}>Request the full-length sample <span aria-hidden="true">↗</span></a></div>
-        </div>}
+        ></iframe>
       </div>
     </div>
   </section>
@@ -969,12 +964,6 @@ const jsonLd = [
     border: 1px solid rgba(255, 255, 255, 0.2);
     background: #050607;
   }
-
-  .campaign-sample-poster { position: absolute; inset: 0; }
-  .campaign-sample-poster > img { width: 100%; height: 100%; object-fit: cover; opacity: .7; }
-  .campaign-sample-poster > div { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: end; gap: 12px; padding: clamp(16px, 3vw, 32px); background: linear-gradient(transparent 15%, rgba(8, 15, 12, .94)); }
-  .campaign-sample-poster > div > span { font-family: Manrope, Inter, sans-serif; font-size: clamp(14px, 2vw, 23px); font-weight: 700; color: white; }
-  .campaign-sample-poster a { align-self: flex-start; color: white; text-decoration: underline; text-underline-offset: 4px; font-size: 13px; font-weight: 600; line-height: 1.5; }
 
   .campaign-video-frame iframe {
     width: 100%;

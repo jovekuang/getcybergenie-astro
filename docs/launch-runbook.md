@@ -47,7 +47,7 @@ Free forwarding is receive-only; outgoing replies initially come from the existi
 
 ## Full-length campaign sample
 
-The original full-length YouTube sample is private. The review site shows its existing poster with a sample-request link; the public Reel remains playable. Do not make the private video public or unlisted without explicit owner authorization. Enable the full-length player only after its public availability or an approved replacement is verified.
+The owner-approved full-length replacement is `https://youtu.be/6YQfJk85AP0`; the campaign embeds it through YouTube's privacy-enhanced host behind a local click-to-load poster. The public Reel remains in place. The original private video was left unchanged. Verify anonymous playback when replacing either sample; do not change video privacy without owner authorization.
 
 ## Approval and launch order
 
