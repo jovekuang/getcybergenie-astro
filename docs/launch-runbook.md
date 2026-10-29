@@ -19,6 +19,14 @@ Review deployment forms never send email or write CRM records, even with product
 
 See `verification.md` for the release checks. For a later deployment, retain the configured production bindings and keep the preview protections in place.
 
+### App-link cutover: October 28, 2026
+
+Jove approved the marketing app-link update and production deployment. Commit `e4637bc` changes only the shared `brand.appUrl` to `https://app.getcybergenie.com`; sign-in, Get Started and Voice links retain their paths and query parameters. The commit was pushed to main and deployed to production `bf533a1f-1835-4270-a9d0-217678a67d23` (`https://bf533a1f.cyber-genie-marketing.pages.dev`). Previous production `1a6a4589-79d2-4b71-ba83-22fbacbd379a`, source `f6a1056`, is the rollback baseline.
+
+Verification: types/build/site audit and 24 tests passed; all 75 built HTML pages were checked for old app-origin links. Live homepage and Voice links point to the new app, including `?service=voice`; the marketing homepage remains `noindex, nofollow`. Production bindings, forms, indexing, DNS and old marketing redirects were not changed. No production forms were resubmitted for this link-only update.
+
+In the separate app project, the new hostname was set primary with owner approval, valid HTTPS and existing-owner Google login/refresh were verified, and auth/backend app origins were updated. Lovable temporarily 302-redirects the old app to the new one. No permanent app forwarding was configured; that remains a separate owner step after outstanding billing/email/invitation canaries.
+
 ## Production configuration
 
 Set server-side bindings in the **cyber-genie-marketing** Pages project's production environment. Do not put secrets in GitHub source, browser code, screenshots, reports, or `PUBLIC_*` variables.
