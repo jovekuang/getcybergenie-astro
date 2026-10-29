@@ -2,7 +2,7 @@ import { voiceIndustries } from "./voiceIndustries";
 
 export const positioning = {
   headline: "Get the outcome, not the software.",
-  value: "Agency-level service. Software-level pricing.",
+  value: "More done. Less to manage.",
   audience: "Built for busy small-business owners.",
 } as const;
 

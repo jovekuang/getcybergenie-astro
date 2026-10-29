@@ -280,7 +280,7 @@ export const socialMediaPlans: SocialMediaPlan[] = [
       "Custom content cadence and channels",
       "Brand videos up to 2 minutes",
       "On-site content and original asset planning",
-      "High-touch strategy and support",
+      "Content strategy and support",
     ],
   },
 ];
@@ -691,7 +691,7 @@ export const solutionItems: SolutionItem[] = [
     whiteGloveOutcome: "We keep your business present and credible without making you manage a content calendar.",
     whiteGlove: [
       "Plan content around your services, seasons, and customer questions.",
-      "Create posts, updates, and newsletters using AI plus human review.",
+      "Create posts, updates, and newsletters using AI-assisted production, quality checks, and client approval.",
       "Keep the cadence moving while you stay focused on the business.",
     ],
     selfServeNote: "Managed social content plans include guided onboarding, client approval, scheduling, and publishing.",
@@ -716,7 +716,7 @@ export const solutionItems: SolutionItem[] = [
       "Route paid inquiries into calls, texts, forms, and booking workflows.",
       "Report on qualified opportunities, not vanity traffic.",
     ],
-    selfServeNote: "Advertising is a guided or white-glove workflow because offer, tracking, and follow-up need coordination.",
+    selfServeNote: "Advertising workflows connect the agreed offer, tracking, and follow-up, with review at key approval points.",
     industryUseCases: [
       "Send urgent or high-value service traffic to a page built for conversion.",
       "Make sure paid inquiries trigger fast call, text, or form follow-up.",
@@ -737,7 +737,7 @@ export const solutionItems: SolutionItem[] = [
       "Route unhappy feedback to a private recovery path.",
       "Reuse strong proof across your website, social media, and sales follow-up.",
     ],
-    selfServeNote: "Review workflows are available as part of the marketing layer and can be paired with white-glove follow-up.",
+    selfServeNote: "Review workflows are available as part of the marketing layer, with automated requests and routing for responses that need attention.",
     industryUseCases: [
       "Ask for reviews right after a successful appointment, job, or service visit.",
       "Build social proof for customers comparing you against competitors.",
@@ -846,7 +846,7 @@ export const solutionItems: SolutionItem[] = [
       "Send polite follow-up after estimates, proposals, and consultations.",
       "Surface stalled opportunities before they are forgotten.",
     ],
-    selfServeNote: "Quote follow-up is usually white-glove because tone, timing, and approval rules matter.",
+    selfServeNote: "Quote follow-up uses agreed messages, timing, and approval rules, with exceptions routed for review.",
     industryUseCases: [
       "Follow up on estimates that were sent but not accepted.",
       "Prompt customers who asked for pricing but did not book.",
@@ -867,7 +867,7 @@ export const solutionItems: SolutionItem[] = [
       "Draft replies and next-step prompts for review or automation.",
       "Flag unanswered questions and missing information before follow-up.",
     ],
-    selfServeNote: "Sales assistant workflows are configured around each business and usually start as guided or white-glove.",
+    selfServeNote: "Sales assistant workflows use approved business information and response rules, with clear escalation points.",
     industryUseCases: [
       "Summarize why a customer called and what they need next.",
       "Draft callback notes, reply suggestions, and follow-up reminders.",
@@ -910,7 +910,7 @@ export const solutionItems: SolutionItem[] = [
       "Trigger reminders, status messages, and internal alerts.",
       "Keep customer-facing communication consistent and professional.",
     ],
-    selfServeNote: "Project updates are white-glove or guided because each business has different stages and promises.",
+    selfServeNote: "Project updates follow agreed stages, templates, and triggers, with approval steps for changes that need review.",
     industryUseCases: [
       "Send appointment, arrival, delay, completion, and next-step updates.",
       "Keep customers informed during multi-step jobs or projects.",

@@ -26,7 +26,7 @@ const wordmark = (color) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 
 await write('public/brand-logo.svg', wordmark('#182823'));
 await write('public/branding/wordmark-reversed.svg', wordmark('#ffffff'));
 const cards = [
- ['default', ['Get the outcome,', 'not the software.'], 'Agency-level service. Software-level pricing.'],
+ ['default', ['Get the outcome,', 'not the software.'], 'More done. Less to manage.'],
  ['essential-website', ['Your website.', 'Taken care of.'], 'Essential Website · $300 billed annually'],
  ['evolving-website', ['Your web application.', 'Always improving.'], 'Evolving Web Application · $99/month'],
  ['technology-partner', ['Your tools, connected.', 'The work, handled.'], 'Technology Partner · $499/month'],

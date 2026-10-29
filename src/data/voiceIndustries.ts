@@ -1295,7 +1295,7 @@ export const voiceIndustries: VoiceIndustry[] = [
     managedSeoTitle: 'Shopify & Social Media Management for Online Retailers | Cyber Genie',
     seoDescription: 'Managed social media, Shopify store improvements, connected workflows, and custom website features for online retailers. We handle setup and ongoing work.',
     keywords: 'Shopify store management, social media management for online retailers, ecommerce workflows, Shopify shopping experience, custom ecommerce website features',
-    hero: 'Connect product storytelling, a smoother shopping experience, and the work behind each order with a team that handles implementation.',
+    hero: 'Connect product storytelling, a smoother shopping experience, and the workflows behind each order through managed technology and automation.',
     heroTitle: 'Your products deserve a better shopping experience.',
     pageIntro: 'We manage social media, improve your Shopify store, and connect the workflows behind it—with custom website features when your business needs more.',
     serviceName: 'Shopify, social media, and customer workflow management for online retailers',
@@ -1341,7 +1341,7 @@ export const voiceIndustries: VoiceIndustry[] = [
     ],
     featureSection: {
       title: 'The work we take off your plate.',
-      description: 'Agency-level service. Software-level pricing. Choose the service and scope that fit your store; our team handles the agreed implementation and ongoing work.',
+      description: 'More done. Less to manage. Choose the service and scope that fit your store, with connected workflows, automation, and expert oversight.',
       items: [
         { title: 'Social media that supports the store', description: 'We manage product storytelling, launch and promotion content, and consistent publishing within your selected social plan. Each campaign gives shoppers a clear route to relevant products.' },
         { title: 'A store that is easier to shop', description: 'We improve product and collection organization, navigation, mobile usability, product information, and merchandising, then test the agreed changes through the shopping journey.' },

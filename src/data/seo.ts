@@ -39,7 +39,7 @@ export const staticSeo = {
   about: {
     title: "About Cyber Genie | Small Business Technology Partner",
     description:
-      "Meet the team behind Cyber Genie’s managed business services: website delivery, agent configuration, integrations, and ongoing care at subscription pricing.",
+      "See how Cyber Genie connects websites, AI, automation, and agreed workflows, with expert oversight and ongoing management.",
   },
   contact: {
     title: "Talk to a Small Business Technology Partner | Cyber Genie",
