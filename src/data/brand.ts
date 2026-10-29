@@ -5,7 +5,7 @@ export const brand = {
   legalName: "FK Innovation Partners LLC",
   legacyName: "FK Innovate",
   continuity: "Cyber Genie by FK Innovate",
-  appUrl: "https://app.fkinnovate.com",
+  appUrl: "https://app.getcybergenie.com",
   calendlyUrl: "https://calendly.com/jove-fkcapital/30min",
   socialProfiles: ["https://www.linkedin.com/company/fkinnovate"],
 } as const;
