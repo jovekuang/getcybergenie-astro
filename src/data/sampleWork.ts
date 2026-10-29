@@ -1,5 +1,6 @@
 import avsmCapitalImage from "@/assets/sample-work/avsm-capital.png";
 import edenCareImage from "@/assets/sample-work/edencare360.png";
+import edenElevationsImage from "@/assets/sample-work/eden-elevations-3.jpg";
 import firstAchieversImage from "@/assets/sample-work/first-achievers.png";
 import singineersImage from "@/assets/sample-work/singineers.png";
 import theWarehouseImage from "@/assets/sample-work/the-warehouse.png";
@@ -34,5 +35,11 @@ export const sampleWork = [
     url: "https://firstachieverschildcare.com/",
     image: firstAchieversImage,
     description: "Childcare and enrollment website",
+  },
+  {
+    name: "Eden Elevations 3",
+    url: "https://edenelevations3.com/",
+    image: edenElevationsImage,
+    description: "Multifamily investment website",
   },
 ] as const;
