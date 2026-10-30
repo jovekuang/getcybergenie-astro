@@ -1,5 +1,11 @@
 # Cyber Genie v1 verification
 
+## Metricool visit pixel — October 29, 2026
+
+The owner requested the Metricool image pixel with hash `e39bc09b28080aac12c5fc4bab22fe3f` and production publication. The shared layout inserts a decorative, invisible 1px image on `getcybergenie.com` and `www.getcybergenie.com`. A runtime hostname check prevents requests from Pages previews, localhost, and other hosts. The privacy page discloses Metricool visit and geographic measurement and links to its privacy policy.
+
+Verification before publication: types, 75-page build, site audit, and all 24 carousel/API tests passed. Every built page contains exactly one integration. Executing the built tracker script confirmed one image on each production hostname and none on the Pages preview, localhost, loopback, or a lookalike hostname. No form, DNS, indexing, or production-binding settings were changed.
+
 ## Social profile links — October 29, 2026
 
 Source commit `e33f113` adds accessible footer links for the verified LinkedIn, Facebook, Instagram, and Threads profiles. All use the `getcybergenie` handle; LinkedIn uses `/company/getcybergenie/`. The same centralized list supplies Organization schema `sameAs` values. Existing platform SVG icons are reused, with 44px link targets, keyboard focus indicators, and reduced-motion styling.

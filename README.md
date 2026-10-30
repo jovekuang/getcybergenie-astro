@@ -43,7 +43,7 @@ The baseline fixture locks 75 routes, 71 sitemap entries, all 42 legacy redirect
 
 The approved C7 thumbs-up master lives in `branding/source/`. `npm run assets:brand` creates the trimmed monochrome SVG/PNG, reverse versions, wordmarks, favicons, and five Open Graph cards. SVG paths are preserved; no unapproved exploratory artwork is included. The inline genie inherits `currentColor`.
 
-Shared visual tokens and retained motion rules are in `src/styles.css`; new mascot and layout components are in `src/styles/cyber-genie.css`. Inter body and Manrope headings are locally hosted. No advertising or tracking platform was added.
+Shared visual tokens and retained motion rules are in `src/styles.css`; new mascot and layout components are in `src/styles/cyber-genie.css`. Inter body and Manrope headings are locally hosted. The owner-requested Metricool visit pixel loads on the apex and www production hosts; Pages previews and localhost do not load it. It is configured in `src/components/MetricoolPixel.astro` and disclosed on the privacy page.
 
 ## Deployment
 

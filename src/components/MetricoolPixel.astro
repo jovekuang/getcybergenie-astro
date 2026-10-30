@@ -1,0 +1,22 @@
+---
+import { brand } from "@/data/brand";
+
+const productionHost = new URL(brand.origin).hostname;
+const trackingHosts = [productionHost, `www.${productionHost}`];
+const pixelUrl = "https://tracker.metricool.com/c3po.jpg?hash=e39bc09b28080aac12c5fc4bab22fe3f";
+---
+
+<script is:inline define:vars={{ trackingHosts, pixelUrl }}>
+  // Keep preview deployments and local checks out of live website analytics.
+  if (trackingHosts.includes(window.location.hostname)) {
+    const pixel = document.createElement("img");
+    pixel.src = pixelUrl;
+    pixel.width = 1;
+    pixel.height = 1;
+    pixel.alt = "";
+    pixel.setAttribute("aria-hidden", "true");
+    pixel.setAttribute("data-metricool-pixel", "");
+    pixel.style.cssText = "position:absolute;width:1px;height:1px;opacity:0;pointer-events:none";
+    document.body.appendChild(pixel);
+  }
+</script>
