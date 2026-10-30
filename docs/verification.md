@@ -1,5 +1,19 @@
 # Cyber Genie v1 verification
 
+## Social profile links — October 29, 2026
+
+Source commit `e33f113` adds accessible footer links for the verified LinkedIn, Facebook, Instagram, and Threads profiles. All use the `getcybergenie` handle; LinkedIn uses `/company/getcybergenie/`. The same centralized list supplies Organization schema `sameAs` values. Existing platform SVG icons are reused, with 44px link targets, keyboard focus indicators, and reduced-motion styling.
+
+Production deployment: `https://784e0966.cyber-genie-marketing.pages.dev`. The owner explicitly approved publishing these links while retaining manual responsibility for Instagram's remaining bio, website link, and business category. Previous production `e7ff48aa-36a9-404a-9541-c93a77449180`, source `0f14648`, is the rollback baseline. Review deployment: `https://6bd57ed4.cyber-genie-marketing.pages.dev`.
+
+Verification: types, 75-page build, site audit, 24 carousel/API tests, local Pages runtime, and hosted review runtime passed. GitHub CI passed for `e33f113`: https://github.com/jovekuang/getcybergenie-astro/actions/runs/41009471658. Production root, www, About, and Pricing returned 200 with all four correct footer URLs and icons; the live footer was visually verified. No production forms were submitted. The browser viewport override did not apply, so this release does not claim a new mobile visual audit.
+
+This release did not change indexing settings, DNS, production bindings, prices, or form behavior. Read-only post-release observations: the apex homepage, About, and Pricing had no `X-Robots-Tag`; www and the Pages deployment retained `noindex, nofollow`. Older indexing notes below are historical snapshots.
+
+Public social profile status at release: LinkedIn, Facebook, and Threads have their new names, handles, official logo, and current intro/website details; LinkedIn and Facebook also have new banners. Instagram's new name, handle, and logo are saved, with its remaining fields handed to the owner. The matching Metricool brand name and custom logo are also updated. Private screenshots and release logs are in ignored `outputs/social-rebrand/`.
+
+## Initial v1 checks — October 28, 2026
+
 Verified locally October 28, 2026. Source snapshot: `jovekuang/fk-innovate-astro` at `fc69a67`. The original repository's tracked files were not changed.
 
 | Check | Result |
