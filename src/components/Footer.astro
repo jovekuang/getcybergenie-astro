@@ -1,5 +1,6 @@
 ---
 import Genie from "@/components/Genie.astro";
+import SocialProfileLinks from "@/components/SocialProfileLinks.astro";
 import { positioning } from "@/data/positioning";
 import { outcomeCategories } from "@/data/solutions";
 import { voiceIndustries } from "@/data/voiceIndustries";
@@ -15,6 +16,7 @@ import { brand } from "@/data/brand";
         <span class="brand-name">{brand.name}</span>
       </a>
       <p>{positioning.headline}<br />{positioning.value}</p>
+      <SocialProfileLinks />
     </div>
     <div>
       <p class="footer-heading">What We Do</p>
