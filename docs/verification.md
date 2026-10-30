@@ -6,6 +6,8 @@ The owner requested the Metricool image pixel with hash `e39bc09b28080aac12c5fc4
 
 Verification before publication: types, 75-page build, site audit, and all 24 carousel/API tests passed. Every built page contains exactly one integration. Executing the built tracker script confirmed one image on each production hostname and none on the Pages preview, localhost, loopback, or a lookalike hostname. No form, DNS, indexing, or production-binding settings were changed.
 
+Published source `2092a80` to production deployment https://81b4ee87.cyber-genie-marketing.pages.dev. GitHub CI passed: https://github.com/jovekuang/getcybergenie-astro/actions/runs/41013839399. Live browser checks on the homepage and privacy page confirmed the exact Metricool image loaded successfully with natural dimensions 1×1. The Pages hostname created no tracking image. Metricool's Verify flow completed with “Your website is now connected!” and its Web connection now shows `getcybergenie.com`. Screenshot evidence is in ignored `outputs/qa/metricool/metricool-connected.png`. The previous production deployment `784e0966-0987-4999-aa5a-02cf30625b55` is the rollback baseline.
+
 ## Social profile links — October 29, 2026
 
 Source commit `e33f113` adds accessible footer links for the verified LinkedIn, Facebook, Instagram, and Threads profiles. All use the `getcybergenie` handle; LinkedIn uses `/company/getcybergenie/`. The same centralized list supplies Organization schema `sameAs` values. Existing platform SVG icons are reused, with 44px link targets, keyboard focus indicators, and reduced-motion styling.
