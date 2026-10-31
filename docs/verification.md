@@ -12,6 +12,8 @@ Keyword enrollment is deferred: the owner prefers YES to START, but the app repl
 
 Pre-release rollback baseline: production `8daada58-e629-4ede-b33d-1603cc2b57d9`, source `3e6e90c`. No DNS, indexing settings, existing production bindings, pricing or customer-app implementation were changed.
 
+Source `dd09731` was pushed to main and deployed to the permitted review branch: https://148b41d0.cyber-genie-marketing.pages.dev (alias https://cyber-genie-v1.cyber-genie-marketing.pages.dev). All 8 browser journeys and the full runtime checks passed against that hosted dry-run preview. GitHub CI passed: https://github.com/jovekuang/getcybergenie-astro/actions/runs/41233289242. Production deployment was rejected by automatic approval review because the project's separate owner approval to publish was required; production remains unchanged, pending that approval.
+
 ## Metricool visit pixel — October 29, 2026
 
 The owner requested the Metricool image pixel with hash `e39bc09b28080aac12c5fc4bab22fe3f` and production publication. The shared layout inserts a decorative, invisible 1px image on `getcybergenie.com` and `www.getcybergenie.com`. A runtime hostname check prevents requests from Pages previews, localhost, and other hosts. The privacy page discloses Metricool visit and geographic measurement and links to its privacy policy.
