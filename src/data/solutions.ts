@@ -100,7 +100,7 @@ export type SolutionPageDetail = {
 };
 
 export const customerOsDefinition =
-  "Customer OS includes a free CRM to organize contacts, track opportunities, and manage follow-up tasks, plus self-service tools for website activity and customer-growth work.";
+  "Customer OS includes a free CRM to organize contacts, track opportunities, and manage follow-up tasks, with role-based access for owners, managers, and staff plus self-service tools for website activity and customer-growth work.";
 
 export const customerOsCore = {
   name: "Customer OS",
@@ -202,7 +202,7 @@ export const customerOsFaqs: ServiceFaq[] = [
     id: "starting-small",
     question: "Is Customer OS included with my service?",
     answer:
-      "Yes. Even Essential Website at $25/month, billed annually at $300, includes a free CRM in Customer OS for contacts, opportunities, and follow-up tasks, plus website activity tools. Access remains included at no additional cost while any paid Cyber Genie service is active.",
+      "Yes. Even Essential Website at $25/month, billed annually at $300, includes a free CRM in Customer OS for contacts, opportunities, and follow-up tasks, plus website activity tools. Owners can invite Managers and Staff to shared work, and Website Stats included with a website plan are visible to all three roles. Access remains included at no additional cost while any paid Cyber Genie service is active.",
   },
   {
     id: "custom-software-fit",
@@ -880,15 +880,16 @@ export const solutionItems: SolutionItem[] = [
     shortTitle: "CRM",
     outcome: "keep-customers",
     coreOffer: "customer-ops",
-    description: "An included workspace for contacts, opportunities, follow-up tasks, notes, and customer context.",
+    description: "An included workspace for contacts, opportunities, follow-up tasks, notes, and shared customer context with role-based team access.",
     proof: "Every active Cyber Genie customer gets a practical CRM foundation without adding another subscription.",
     whiteGloveOutcome: "We keep the standard CRM useful and can extend it when your operating workflow needs more.",
     whiteGlove: [
       "Structure customer records around your real workflow.",
+      "Set up Owner, Manager, and Staff access around each person's responsibilities.",
       "Turn calls, texts, forms, and notes into useful tasks or updates.",
       "Send owner-friendly summaries of what needs attention.",
     ],
-    selfServeNote: "Customer OS is included while any Cyber Genie paid service is active. Technology Partner can manage specialized CRM tools, custom records, permissions, automations, dashboards, and connected business rules.",
+    selfServeNote: "Customer OS is included while any Cyber Genie paid service is active. Owners can manage Manager and Staff access, while each role sees the shared work and controls appropriate to it. Technology Partner can manage specialized CRM tools, custom records, permissions, automations, dashboards, and connected business rules.",
     industryUseCases: [
       "Keep contact details, service history, requests, and notes organized.",
       "Give the team context before the next visit or conversation.",
