@@ -1,5 +1,6 @@
 ---
 import Genie from "@/components/Genie.astro";
+import SmsConsent from "@/components/SmsConsent.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { createBreadcrumbSchema } from "@/data/site";
 import {
@@ -85,6 +86,7 @@ import {
                 <input id="company" name="company" type="text" autocomplete="organization" required maxlength="160" />
               </div>
             </div>
+            <SmsConsent id="onboarding-sms-consent" />
           </fieldset>
 
           <fieldset class="onboarding-step" data-step data-step-name="Current website" hidden>
@@ -307,6 +309,16 @@ import {
       const step = steps[index];
       const messages: string[] = [];
 
+      if (index === 0) {
+        const consent = form.elements.namedItem("smsConsent") as HTMLInputElement;
+        const phone = form.elements.namedItem("phone") as HTMLInputElement;
+        if (consent.checked && !/^(?:1)?[2-9]\d{2}[2-9]\d{6}$/.test(phone.value.replace(/[\s()+.-]/g, ""))) {
+          const message = "Enter a valid US mobile number to receive texts, or leave SMS consent unchecked.";
+          addError(phone, message);
+          messages.push(message);
+        }
+      }
+
       step.querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>("input[required], textarea[required], select[required]").forEach((field) => {
         if (!field.value.trim() || !field.checkValidity()) {
           const label = step.querySelector<HTMLLabelElement>(`label[for="${field.id}"]`)?.textContent?.trim() ?? "This field";
@@ -408,6 +420,7 @@ import {
         lastName: formData.get("lastName"),
         email: formData.get("email"),
         phone: formData.get("phone"),
+        smsConsent: (form.elements.namedItem("smsConsent") as HTMLInputElement).checked,
         company: formData.get("company"),
         hasWebsite: formData.get("hasWebsite"),
         websiteUrl: formData.get("websiteUrl"),

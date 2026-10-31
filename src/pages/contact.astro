@@ -5,6 +5,8 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import { calendlyUrl, createBreadcrumbSchema } from "@/data/site";
 import { customerOsCore, membershipPlans, technologyPartnerOffer } from "@/data/solutions";
 import { staticSeo } from "@/data/seo";
+import SmsConsent from "@/components/SmsConsent.astro";
+import { sms } from "@/data/sms";
 
 const essential = membershipPlans.find((plan) => plan.slug === "essential-website")!;
 const evolving = membershipPlans.find((plan) => plan.slug === "evolving-website")!;
@@ -24,7 +26,30 @@ const evolving = membershipPlans.find((plan) => plan.slug === "evolving-website"
       <h1 class="compact-title">Tell us what should work better.</h1>
       <p class="lead">Show us where the work gets stuck. We’ll help find the right starting point.</p>
       <a class="contact-email" href={`mailto:${brand.publicEmail}`}>{brand.publicEmail}</a>
+      <p><a href={`tel:${sms.phone}`}>Call {sms.displayPhone}</a> or <a href="#message">send us a message</a>.</p>
       <p class="portal-continuity">Already a customer? Your existing FK Innovate account still works.</p>
+    </div>
+  </section>
+
+  <section class="section" id="message" aria-labelledby="message-title">
+    <div class="container contact-form-container">
+      <h2 id="message-title">Send us a message.</h2>
+      <p>Tell us what you need help with. If you prefer text updates about your request, you can opt in below.</p>
+      <noscript><style>#contact-form { display: none; }</style><p>Email <a href={`mailto:${brand.publicEmail}`}>{brand.publicEmail}</a> or call <a href={`tel:${sms.phone}`}>{sms.displayPhone}</a> to reach us.</p></noscript>
+      <form id="contact-form" method="post" action="/api/contact">
+        <div class="onboarding-honeypot" aria-hidden="true"><label for="contact-website">Leave this blank</label><input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off" /></div>
+        <input type="hidden" name="startedAt" />
+        <div class="contact-form-fields">
+          <div class="form-field"><label for="contact-name">Name</label><input id="contact-name" name="name" autocomplete="name" required maxlength="160" /></div>
+          <div class="form-field"><label for="contact-email">Email</label><input id="contact-email" name="email" type="email" autocomplete="email" required maxlength="160" /></div>
+          <div class="form-field"><label for="contact-phone">Mobile phone <span>Optional</span></label><input id="contact-phone" name="phone" type="tel" autocomplete="tel" maxlength="40" /><p class="contact-field-note">Providing a number alone does not opt you in to texts.</p></div>
+          <div class="form-field"><label for="contact-message">How can we help?</label><textarea id="contact-message" name="message" rows="5" required maxlength="2400"></textarea></div>
+        </div>
+        <SmsConsent id="contact-sms-consent" />
+        <p class="contact-field-note">We use your information to respond to your request. Submitting an inquiry does not place an order. See our <a href="/privacy/">Privacy Policy</a> and <a href="/terms/">Terms</a>.</p>
+        <button class="button button-primary" type="submit">Send message</button>
+      </form>
+      <p id="contact-status" role="status" aria-live="polite" tabindex="-1" hidden></p>
     </div>
   </section>
 
@@ -72,3 +97,45 @@ const evolving = membershipPlans.find((plan) => plan.slug === "evolving-website"
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("#contact-form");
+  const status = document.querySelector<HTMLElement>("#contact-status");
+  if (form && status) {
+    const startedAt = form.elements.namedItem("startedAt") as HTMLInputElement;
+    const phone = form.elements.namedItem("phone") as HTMLInputElement;
+    const consent = form.elements.namedItem("smsConsent") as HTMLInputElement;
+    startedAt.value = String(Date.now());
+    const validatePhone = () => {
+      phone.setCustomValidity(consent.checked && !/^(?:1)?[2-9]\d{2}[2-9]\d{6}$/.test(phone.value.replace(/[\s()+.-]/g, "")) ? "Enter a valid US mobile number to receive text messages, or leave SMS consent unchecked." : "");
+    };
+    phone.addEventListener("input", validatePhone);
+    consent.addEventListener("change", validatePhone);
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      validatePhone();
+      if (!form.reportValidity()) return;
+      const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+      button.disabled = true;
+      status.hidden = true;
+      const data = new FormData(form);
+      try {
+        const response = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...Object.fromEntries(data), smsConsent: consent.checked }) });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.message || "Your message could not be sent. Please try again.");
+        status.textContent = result.dryRun ? "Preview only. No request was sent and no SMS consent was recorded." : "Thank you. Your message has been sent to Cyber Genie. We’ll follow up about your request.";
+        form.hidden = true;
+      } catch (error) { status.textContent = error instanceof Error ? error.message : "Your message could not be sent. Please try again."; }
+      status.hidden = false;
+      status.focus();
+      button.disabled = false;
+    });
+  }
+</script>
+<style>
+  .contact-form-container { max-width: 780px; }
+  .contact-form-fields { display: grid; gap: 1.25rem; margin-top: 2rem; }
+  .contact-field-note { font-size: .875rem; line-height: 1.6; color: #57655F; margin-top: .5rem; }
+  #contact-form button { margin-top: 1rem; }
+  #contact-status { padding: 1.25rem; border: 1px solid #DDE5DF; border-radius: 12px; background: #E7F5F0; }
+</style>

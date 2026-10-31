@@ -1,4 +1,5 @@
 import { isPreview, productionHost, validatedOrigin } from "../_shared/request-policy.ts";
+import { readSmsConsent, smsConsentRecord } from "../_shared/sms-consent.ts";
 import {
   capabilityOptions,
   applicationCapabilityValues,
@@ -28,6 +29,7 @@ type Submission = {
   lastName: string;
   email: string;
   phone: string;
+  smsConsent: boolean;
   company: string;
   hasWebsite: "yes" | "no";
   websiteUrl: string;
@@ -122,6 +124,7 @@ const validateSubmission = (payload: Record<string, unknown>) => {
   const lastName = readString(payload, "lastName", 80, errors, true);
   const email = readString(payload, "email", 160, errors, true).toLowerCase();
   const phone = readString(payload, "phone", 40, errors);
+  const smsConsent = readSmsConsent(payload, phone, errors);
   const company = readString(payload, "company", 160, errors, true);
   const hasWebsiteValue = readString(payload, "hasWebsite", 3, errors, true);
   const hasWebsite = hasWebsiteValue === "yes" || hasWebsiteValue === "no" ? hasWebsiteValue : null;
@@ -196,6 +199,7 @@ const validateSubmission = (payload: Record<string, unknown>) => {
       lastName,
       email,
       phone,
+      smsConsent,
       company,
       hasWebsite: hasWebsite ?? "no",
       websiteUrl,
@@ -233,6 +237,7 @@ const buildEmail = (submission: Submission) => {
     ["Name", `${submission.firstName} ${submission.lastName}`],
     ["Email", submission.email],
     ["Phone", submission.phone || "Not provided"],
+    ["SMS consent", smsConsentRecord(submission.smsConsent, "https://getcybergenie.com/onboarding/website/")],
     ["Business", submission.company],
     ["Existing website", submission.hasWebsite === "yes" ? "Yes" : "No"],
     ["Website URL", submission.websiteUrl || "Not applicable"],

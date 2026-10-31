@@ -1,5 +1,17 @@
 # Cyber Genie v1 verification
 
+## Customer-care SMS consent — October 31, 2026
+
+Owner requested marketing-site corrections for A2P registration and supplied (925) 397-0073. The contact page now has a public inquiry form with an optional, unchecked SMS consent checkbox; the existing onboarding form uses the same disclosure. Consent identifies Cyber Genie / FK Innovation Partners LLC, limits messages to customer care, and includes variable frequency, rates, automated technology, STOP/HELP, optional consent and policy links. Privacy and Terms now include the corresponding SMS program sections and mobile/consent non-sharing language. The listing-package form explicitly does not enroll anyone in SMS.
+
+Contact inquiries use the existing internal Resend delivery bindings. Both contact and onboarding notifications retain explicit consent (or a no-consent warning), exact disclosure/version, sender number, source and server receipt time. This is a manual record, not a Twilio subscriber integration or automatic SMS confirmation. Phone entry alone never grants consent. Previews remain dry-run; missing configuration and delivery failures fail truthfully. Production binding names were verified without reading their values. No production test inquiry or SMS was sent in this release.
+
+Validation: types, 75-page build, route/commercial audit, 6 carousel tests, 29 API tests, 8 browser journeys and local Cloudflare runtime checks passed. Contact and onboarding submissions were tested only on the dry-run preview; provider acceptance, failures and consent evidence were separately tested with mocked delivery. Privacy, Terms, Contact and Onboarding were checked at 320, 390 and 1440px with no horizontal overflow or WCAG A/AA violations. The broader axe best-practice scan reports the pre-existing shared skip-link landmark advisory; it is outside this change. Screenshots were saved under ignored `outputs/qa/sms/` and the contact form was visually inspected.
+
+Keyword enrollment is deferred: the owner prefers YES to START, but the app reply/consent/suppression flow is not ready or verified. The public site offers website-checkbox opt-in only and does not advertise a working YES or verbal opt-in flow. `docs/sms-campaign.md` contains the website registration wording and future YES implementation handoff. No Twilio campaign was edited or submitted. Twilio's published rules say an approved campaign cannot be edited; if both methods are wanted, finish YES and register both together rather than assuming it can be added later.
+
+Pre-release rollback baseline: production `8daada58-e629-4ede-b33d-1603cc2b57d9`, source `3e6e90c`. No DNS, indexing settings, existing production bindings, pricing or customer-app implementation were changed.
+
 ## Metricool visit pixel — October 29, 2026
 
 The owner requested the Metricool image pixel with hash `e39bc09b28080aac12c5fc4bab22fe3f` and production publication. The shared layout inserts a decorative, invisible 1px image on `getcybergenie.com` and `www.getcybergenie.com`. A runtime hostname check prevents requests from Pages previews, localhost, and other hosts. The privacy page discloses Metricool visit and geographic measurement and links to its privacy policy.

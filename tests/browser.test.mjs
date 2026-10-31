@@ -76,3 +76,32 @@ test('campaign inquiry posts through Pages and confirms preview without a CRM re
  await page.locator('.campaign-form-submit').click();await page.locator('[data-listing-form-success]').waitFor({state:'visible'});assert.match(await page.locator('[data-listing-form-success]').innerText(),/No request was sent/);
  await page.close();
 });
+test('contact SMS consent is optional and unchecked; no consent is inferred from an inquiry',async()=>{
+ const page=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce'});
+ await page.goto(base+'/contact/#message');
+ const consent=page.locator('#contact-sms-consent');
+ assert.equal(await consent.isChecked(),false);
+ assert.equal(await consent.getAttribute('required'),null);
+ for(const [name,value] of Object.entries({name:'Preview Owner',email:'preview@example.com',message:'Please help with my website.'}))await page.locator(`#contact-form [name="${name}"]`).fill(value);
+ await page.locator('#contact-form [name="startedAt"]').evaluate(e=>e.value=String(Date.now()-10000));
+ await page.locator('#contact-form button').click();
+ await page.locator('#contact-status').waitFor({state:'visible'});
+ assert.match(await page.locator('#contact-status').innerText(),/No request was sent and no SMS consent was recorded/);
+ await page.close();
+});
+test('contact SMS opt-in requires a phone and preserves the explicit checkbox choice',async()=>{
+ const page=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce'});
+ await page.goto(base+'/contact/#message');
+ for(const [name,value] of Object.entries({name:'Preview Owner',email:'preview@example.com',message:'Please text me about my website request.'}))await page.locator(`#contact-form [name="${name}"]`).fill(value);
+ await page.locator('#contact-sms-consent').check();
+ assert.equal(await page.locator('#contact-phone').evaluate(e=>e.checkValidity()),false);
+ await page.locator('#contact-phone').fill('2025550123');
+ assert.equal(await page.locator('#contact-phone').evaluate(e=>e.checkValidity()),true);
+ await page.locator('#contact-form [name="startedAt"]').evaluate(e=>e.value=String(Date.now()-10000));
+ const posted=page.waitForRequest(r=>r.url().endsWith('/api/contact')&&r.method()==='POST');
+ await page.locator('#contact-form button').click();
+ assert.equal((await posted).postDataJSON().smsConsent,true);
+ await page.locator('#contact-status').waitFor({state:'visible'});
+ assert.match(await page.locator('#contact-status').innerText(),/Preview only/);
+ await page.close();
+});

@@ -2,16 +2,18 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { onRequestPost as onboarding } from '../functions/api/website-onboarding.ts';
 import { onRequestPost as listing } from '../functions/api/realtor-listing-package.ts';
+import { onRequestPost as contact } from '../functions/api/contact.ts';
 import { onRequest as middleware } from '../functions/_middleware.ts';
 
 const origin = 'https://getcybergenie.com';
 const bodies = {
+  contact: () => ({ name: 'Test Owner', email: 'owner@example.com', message: 'Please help with my website.', smsConsent: false, startedAt: String(Date.now()-10000), website: '' }),
   onboarding: () => ({ firstName: 'Test', lastName: 'Owner', email: 'owner@example.com', company: 'A & B <Shop>', hasWebsite: 'no', businessDescription: 'Local services', estimatedPages: '1-5', outcomes: ['get-found-online'], materials: ['none-yet'], capabilities: ['contact-or-quote-forms'], visualDirections: ['warm-approachable'], startedAt: String(Date.now()-10000), website: '', plan: 'essential-website' }),
   listing: () => ({ name: 'Test Owner', email: 'owner@example.com', phone: '5551234567', propertyAddress: '123 Example Street', musicalStyle: 'pop', specialRequests: '', originatingPage: `${origin}/campaigns/realtor-listing-song-video/`, idempotencyKey: 'review-test-id', startedAt: String(Date.now()-10000), website: '' }),
 };
-const request = (name, payload, host=origin, headers={}) => new Request(`${host}/api/${name === 'listing' ? 'realtor-listing-package' : 'website-onboarding'}`, { method: 'POST', headers: { 'Content-Type': 'application/json', Origin: host, ...headers }, body: JSON.stringify(payload) });
+const request = (name, payload, host=origin, headers={}) => new Request(`${host}/api/${name === 'listing' ? 'realtor-listing-package' : name === 'contact' ? 'contact' : 'website-onboarding'}`, { method: 'POST', headers: { 'Content-Type': 'application/json', Origin: host, ...headers }, body: JSON.stringify(payload) });
 const configured = { RESEND_API_KEY:'test-only', ONBOARDING_TO_EMAIL:'recipient@example.com', ONBOARDING_FROM_EMAIL:'Cyber Genie <onboarding@getcybergenie.com>', FK_CRM_CAPTURE_URL:'https://crm.example.com/capture', FK_CRM_FORM_TOKEN:'test-only-form-token' };
-for (const [name, handler, dryKey, limit] of [['onboarding',onboarding,'ONBOARDING_DRY_RUN',50000],['listing',listing,'CRM_CAPTURE_DRY_RUN',20000]]) {
+for (const [name, handler, dryKey, limit] of [['onboarding',onboarding,'ONBOARDING_DRY_RUN',50000],['listing',listing,'CRM_CAPTURE_DRY_RUN',20000],['contact',contact,'ONBOARDING_DRY_RUN',10000]]) {
   test(`${name}: preview validates without sending, even with live-looking bindings`, async (t) => {
     let called=false;
     t.mock.method(globalThis,"fetch",async()=>{called=true;throw new Error("Preview called a provider");});
@@ -47,6 +49,30 @@ for (const [name, handler, dryKey, limit] of [['onboarding',onboarding,'ONBOARDI
     const r=await handler({request:request(name,bodies[name]()),env:configured});
     assert.equal(r.status,502);assert.doesNotMatch(await r.text(),/private-provider-message|test-only/);
     t.mock.restoreAll();
+  });
+}
+for (const [name, handler] of [['contact',contact],['onboarding',onboarding]]) {
+  test(`${name}: never infers consent from a phone number; records exact consent only on explicit opt-in`, async(t)=>{
+    const sent=[];
+    t.mock.method(globalThis,'fetch',async(url,init)=>{sent.push(JSON.parse(init.body));return Response.json({id:'accepted'});});
+    for(const smsConsent of [undefined,false,true]) {
+      const result=await handler({request:request(name,{...bodies[name](),phone:'2025550123',smsConsent,consentText:'forged',consentTimestamp:'forged'}),env:configured});
+      assert.equal(result.status,200);
+    }
+    assert.match(sent[0].text,/NOT OPTED IN/); assert.match(sent[1].text,/NOT OPTED IN/);
+    assert.match(sent[2].text,/OPTED IN to customer-care SMS only/);
+    assert.match(sent[2].text,/I agree to receive customer-care text messages from Cyber Genie/);
+    assert.match(sent[2].text,/Disclosure version: 2026-10-31/);
+    assert.match(sent[2].text,/Received at \(UTC\): \d{4}-\d{2}-\d{2}T/);
+    assert.doesNotMatch(sent[2].text,/forged/);
+    assert.equal(sent[2].reply_to,'owner@example.com');
+    t.mock.restoreAll();
+  });
+  test(`${name}: opt-in requires a usable phone and boolean consent`, async()=>{
+    for(const change of [{smsConsent:true},{smsConsent:true,phone:'abc'},{smsConsent:true,phone:'2025550123x'},{smsConsent:'false',phone:'2025550123'},{smsConsent:'true',phone:'2025550123'}]) {
+      const result=await handler({request:request(name,{...bodies[name](),...change}),env:configured});
+      assert.equal(result.status,400);
+    }
   });
 }
 test('onboarding: safe email escapes input, preserves Reply-To and receives provider acceptance', async (t) => {
