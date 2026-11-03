@@ -16,6 +16,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run check
+      - run: npm run review:case-studies:build
+      - run: npm run check:case-study-boundary
       - run: npx playwright install --with-deps chromium
       - name: Verify Pages runtime and customer journeys
         shell: bash

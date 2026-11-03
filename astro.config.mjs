@@ -48,6 +48,7 @@ export default defineConfig({
   integrations: [
     sitemap({
       filter: (page) =>
+        !page.includes("/_review/") &&
         !page.includes("/onboarding/") &&
         (!page.includes("/campaigns/") ||
           page.includes("/campaigns/realtor-listing-song-video/")),

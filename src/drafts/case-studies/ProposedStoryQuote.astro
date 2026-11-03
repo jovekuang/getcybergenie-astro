@@ -1,0 +1,13 @@
+---
+interface Props {
+  text: string;
+  name: string;
+  approvalName: string;
+}
+const { text, name, approvalName } = Astro.props;
+---
+<figure class="case-story-quote" data-quote-approval="pending">
+  <p class="case-kicker">Proposed client quote</p>
+  <blockquote><p>“{text}”</p></blockquote>
+  <figcaption><strong>{name}</strong><span>Draft wording · Awaiting {approvalName}’s approval</span></figcaption>
+</figure>

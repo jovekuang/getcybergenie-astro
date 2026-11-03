@@ -23,7 +23,11 @@
     "assets:brand": "node scripts/generate-brand-assets.mjs",
     "test:browser": "node --test tests/browser.test.mjs",
     "audit:visual": "node scripts/visual-audit.mjs",
-    "check:types": "astro sync && tsc --noEmit"
+    "check:types": "astro sync && tsc --noEmit",
+    "review:case-studies:build": "astro build --config astro.case-studies.config.mjs",
+    "review:case-studies": "ASTRO_PREVIEW_BACKGROUND=1 astro preview --config astro.case-studies.config.mjs --ignore-lock --host 127.0.0.1 --port 4347",
+    "check:case-study-boundary": "node scripts/check-case-study-boundary.mjs",
+    "review:case-studies:deploy": "npm run review:case-studies:build && wrangler pages deploy outputs/case-study-review --project-name=cyber-genie-marketing --branch=case-studies-review"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

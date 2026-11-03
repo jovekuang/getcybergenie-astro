@@ -1,0 +1,21 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { caseStudies } from "./studies";
+import "./review.css";
+---
+<BaseLayout title="Case study review | Cyber Genie" description="Unlisted review of five draft client stories. Client consent is pending." robots="noindex, nofollow, noarchive, nosnippet">
+  <div class="review-notice"><div class="container"><span class="review-dot"></span> Unlisted draft review <span>Client consent pending · Not indexed</span></div></div>
+  <section class="case-index container">
+    <p class="case-kicker">Cyber Genie / Client stories</p>
+    <h1>Real businesses.<br /><span>Work taken care of.</span></h1>
+    <p class="case-index-intro">Five stories of websites, creative work, and connected tools built around the people running the business.</p>
+    <div class="case-index-grid">
+      {caseStudies.map(study => <a class="case-preview-card" href={`/_review/case-studies/${study.slug}/`}>
+        <div class={`case-card-image ${study.theme}`}><Image src={study.image} alt={study.imageAlt} widths={[480, 800, 1200]} sizes="(max-width: 760px) 92vw, 46vw" /></div>
+        <div class="case-card-copy"><p class="case-kicker">{study.sector}</p><h2>{study.client} <span aria-hidden="true">↗</span></h2><p>{study.summary}</p><span class="case-text-link">Review the case study <span aria-hidden="true">→</span></span></div>
+      </a>)}
+    </div>
+    <p class="case-review-note">These drafts are shared by direct link for owner and client review. They are not indexed, listed in the sitemap, or linked from the marketing site. Client consent is pending, and all proposed quotes await approval.</p>
+  </section>
+</BaseLayout>
