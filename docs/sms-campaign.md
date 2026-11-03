@@ -1,5 +1,21 @@
 # Cyber Genie customer-care SMS campaign
 
+## November 3, 2026 — submitted, correction required
+
+The owner approved completing the YES launch and application. The app implementation and its 24 SMS tests were inspected. Live program enrollment was initially disabled, as was `CYBER_GENIE_SMS_SEND_ENABLED`; the marketing site did not yet advertise YES.
+
+- Published the exact app disclosure version `2026-10-31-yes-v1` at https://getcybergenie.com/contact/#message and added keyword enrollment to https://getcybergenie.com/terms/#sms. Source `8fa076a`; production https://6ec3c31c.cyber-genie-marketing.pages.dev. Types/build/site audit and 35 carousel/API tests passed; GitHub CI passed at https://github.com/jovekuang/getcybergenie-astro/actions/runs/41722203759. Previous production was `c1d7434a-facb-4465-bab5-7e6efb01849d`, source `e75ce08`.
+- Owner expressly approved publication, activation of the existing enrollment/opt-out setup, and use of the `jove@fkcapital.xyz` app session. The existing release flag was replaced with `true` through Lovable's secure Secrets form. No credentials were rotated or read. Program enrollment was enabled with disclosure effective time `2026-11-03T21:31:42.647807Z`; live admin readback showed enrollment and app confirmations enabled. All subscriber/event/outbox counts remained zero; no handset test or test SMS occurred.
+- Verified original service `MGda654ee680c4ecda758ca3720ffe21ab` contained only `+19253970073`, with the intended inbound POST and status webhook URLs and exact YES/STOP/HELP replies. Enabled Advanced Opt-Out on that service after the public disclosure was verified. Reserved keywords were retained.
+- Completed and saved the existing AI-assisted application as **Customer Care / keyword opt-in only**. Web-form and verbal/IVR methods were deselected; website checkbox email records are separate and do not automatically enroll app subscribers. Description, actual code-based confirmation/HELP/STOP sample messages, policy URLs, and consent narrative were updated. Embedded links and phone numbers were selected. Twilio's checker reported the campaign looked good.
+- The Console's **Review and submit** action submitted directly, without a separate fee-confirmation screen. Campaign **`CMcb18bb27c340f78cb73509af2787761c`** now exists and reads **In review**. This is not approval or permission to send A2P traffic. Brand `BN210329a0cf30f8778ad40327a3a89fba` reads Approved.
+
+**Material post-submission discrepancy:** despite the form URL naming the original configured service, the AI-assisted submission created/assigned a different service, **`MG407ad5ebe07f9ab570f603884a2ae554`**, named `CUSTOMER_CARE A2P Messaging Service`. It has no assigned phone numbers. The dedicated campaign `Opt in message` and `Opt in keywords` display `-`; the complete YES workflow and confirmation are present in the consent narrative and sample messages, while campaign HELP/STOP fields show defaults. The pending campaign's menu exposes Delete only, so no self-service edit was available. Do not delete/recreate this campaign, move the phone, or change the app's bound service blindly to compensate.
+
+A correction request is prepared in ignored `outputs/qa/sms/twilio-campaign-correction-request-2026-11-03.txt`, asking Twilio Support to correct this same pending registration's service association and YES metadata without another paid campaign. Sending that request requires the owner's explicit messaging authorization. Screenshots of submission, the empty assigned-number list, and live app activation are saved under `/private/tmp/` for this chat. No second campaign was submitted. Fee posting has not been independently verified.
+
+The remainder of this file is the October 31 preparation record; its pre-launch statements are historical.
+
 Prepared October 31, 2026. This file is an implementation/registration handoff, not evidence of Twilio configuration or carrier approval. The website changes do not submit an A2P registration or configure the separate customer app.
 
 ## Identity and scope
