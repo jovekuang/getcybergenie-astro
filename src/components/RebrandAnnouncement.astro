@@ -17,9 +17,12 @@ import { rebrandAnnouncement } from "@/data/rebrand";
       ))}
     </span>
   </a>
-  <button class="rebrand-announcement-toggle" type="button" aria-label="Pause announcement" aria-pressed="false">
+  <button class="rebrand-announcement-control rebrand-announcement-toggle" type="button" aria-label="Pause announcement" aria-pressed="false">
     <svg class="rebrand-pause-icon" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true"><path d="M3 2h3v10H3zm5 0h3v10H8z" /></svg>
     <svg class="rebrand-play-icon" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true"><path d="m4 2 8 5-8 5z" /></svg>
+  </button>
+  <button class="rebrand-announcement-control rebrand-announcement-close" type="button" aria-label="Close announcement">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="m3 3 8 8M11 3l-8 8" /></svg>
   </button>
 </aside>
 
@@ -33,14 +36,15 @@ import { rebrandAnnouncement } from "@/data/rebrand";
     font-size: 13px;
     line-height: 1.5;
   }
+  .rebrand-announcement[hidden] { display: none; }
   .rebrand-announcement-link { display: block; flex: 1; min-width: 0; overflow: hidden; }
   .rebrand-announcement-track { display: flex; width: max-content; animation: announcement-left 62s linear infinite; }
   .rebrand-announcement-copy { display: flex; align-items: center; flex: 0 0 auto; min-width: 100vw; gap: 26px; padding: 12px 26px; white-space: nowrap; }
   .rebrand-announcement-copy strong { font-weight: 700; }
   .rebrand-announcement-separator { color: #9de2c7; font-size: 10px; }
   .rebrand-announcement-story { text-decoration: underline; text-underline-offset: 3px; }
-  .rebrand-announcement-toggle { display: grid; place-items: center; flex: 0 0 44px; padding: 0; border: 0; border-left: 1px solid rgb(255 255 255 / .22); border-radius: 0; background: var(--primary-dark); color: inherit; cursor: pointer; }
-  .rebrand-announcement-toggle:hover { background: var(--primary); }
+  .rebrand-announcement-control { display: grid; place-items: center; flex: 0 0 44px; height: 44px; align-self: flex-start; padding: 0; border: 0; border-left: 1px solid rgb(255 255 255 / .22); border-radius: 0; background: var(--primary-dark); color: inherit; cursor: pointer; }
+  .rebrand-announcement-control:hover { background: var(--primary); }
   .rebrand-announcement :focus-visible { outline: 2px solid #fff; outline-offset: -4px; }
   .rebrand-play-icon { display: none; }
   [data-paused="true"] .rebrand-pause-icon { display: none; }
@@ -54,7 +58,7 @@ import { rebrandAnnouncement } from "@/data/rebrand";
   :global(.no-js) .rebrand-announcement-copy { width: 100%; min-width: 0; white-space: normal; flex-wrap: wrap; gap: 4px 14px; padding: 12px 20px; }
   :global(.no-js) .rebrand-announcement-copy + .rebrand-announcement-copy,
   :global(.no-js) .rebrand-announcement-separator,
-  :global(.no-js) .rebrand-announcement-toggle { display: none; }
+  :global(.no-js) .rebrand-announcement-control { display: none; }
   @media (prefers-reduced-motion: reduce) {
     .rebrand-announcement-track { display: block; animation: none; width: auto; }
     .rebrand-announcement-copy { width: 100%; min-width: 0; white-space: normal; flex-wrap: wrap; gap: 4px 14px; padding: 12px 20px; }
@@ -64,18 +68,29 @@ import { rebrandAnnouncement } from "@/data/rebrand";
   }
 </style>
 
-<script>
-  const announcement = document.querySelector<HTMLElement>("[data-rebrand-announcement]");
-  const toggle = announcement?.querySelector<HTMLButtonElement>(".rebrand-announcement-toggle");
+<script is:inline>
+(() => {
+  const announcement = document.querySelector("[data-rebrand-announcement]");
+  const dismissKey = "cyber-genie-rebrand-dismissed";
+  try {
+    if (announcement && sessionStorage.getItem(dismissKey) === "true") announcement.hidden = true;
+  } catch { /* The close control still works when browser storage is unavailable. */ }
+  const toggle = announcement?.querySelector(".rebrand-announcement-toggle");
   toggle?.addEventListener("click", () => {
     const paused = announcement?.dataset.paused !== "true";
     if (announcement) announcement.dataset.paused = String(paused);
     toggle.setAttribute("aria-pressed", String(paused));
     toggle.setAttribute("aria-label", paused ? "Resume announcement" : "Pause announcement");
   });
+  announcement?.querySelector(".rebrand-announcement-close")?.addEventListener("click", () => {
+    announcement.hidden = true;
+    try { sessionStorage.setItem(dismissKey, "true"); } catch { /* Dismiss this page even if storage is blocked. */ }
+    document.querySelector(".site-header .brand")?.focus();
+  });
   const updateVisibility = () => {
     if (announcement) announcement.dataset.backgroundPaused = String(document.hidden);
   };
   document.addEventListener("visibilitychange", updateVisibility);
   updateVisibility();
+})();
 </script>
