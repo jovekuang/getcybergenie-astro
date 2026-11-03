@@ -1,6 +1,8 @@
-# Client case studies: unlisted review
+# Client case studies: publication and review
 
-Status: client consent and exact quote approval remain pending. On November 2, 2026, Jove explicitly authorized committing, pushing, and deploying public review URLs with noindex and no incoming links from the marketing site. This supersedes the earlier local-only restriction for these five drafts.
+Current status (November 3, 2026): Jove confirmed that Aminata and Liza approved their stories and authorized publication and indexing. Their approved pages and quotes are now promoted to `/customer-stories/`; Edith, Bruce, and Ava remain pending, unlisted, and noindex. See [the publication record](customer-stories-publication.md).
+
+Historical unlisted-review authorization: On November 2, 2026, Jove explicitly authorized committing, pushing, and deploying public review URLs with noindex and no incoming links from the marketing site. This supersedes the earlier local-only restriction for these five drafts.
 
 ## Open the review
 
@@ -19,7 +21,11 @@ Public review hub: https://case-studies-review.cyber-genie-marketing.pages.dev/_
 - The Warehouse by Black Creek: /_review/case-studies/the-warehouse-by-black-creek/
 - Wabi Blobi: /_review/case-studies/wabi-blobi/
 
-## Publication boundary
+## Current publication boundary
+
+Only the two approved records and their media are imported by the production Customer Stories routes. The shared renderer is in `src/components/customer-stories/`, the approved records in `src/data/customer-stories/`, and approved media in `src/assets/customer-stories/`. Pending records and assets stay under `src/drafts/case-studies/` and are registered only by the separate review configuration. CI checks both the approved pages and exclusion of all pending stories and assets. The two original emailed review URLs redirect to their canonical public stories.
+
+## Historical review boundary before client approval
 
 The shared layout and content live under `src/drafts/case-studies/`, outside `src/pages/`. Only `astro.case-studies.config.mjs` registers these routes. The normal `npm run build` and deployment produce no draft pages or draft-only media. Review output goes to ignored `outputs/case-study-review/`, separately from deployable `dist/`. The pages have `noindex, nofollow, noarchive, nosnippet` and are excluded from the sitemap. They are absent from public navigation and portfolio links. The separate review deployment is public and unlisted, not access-controlled. The existing Pages middleware and preview headers enforce HTTP noindex on the review host in addition to the page robots metadata.
 

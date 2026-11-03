@@ -1,0 +1,57 @@
+import type { ImageMetadata } from "astro";
+
+export interface CaseStudy {
+  slug: string;
+  publication?: { date: string; consent: "approved" };
+  client: string;
+  person: string;
+  sector: string;
+  title: string;
+  intro: string;
+  summary: string;
+  image: ImageMetadata;
+  imageAlt: string;
+  theme: "care" | "property" | "childcare" | "venue" | "play";
+  imagePresentation?: "website" | "brand";
+  imageCaption?: string;
+  startingTitle?: string;
+  deliveryTitle?: string;
+  channelsIntro?: string;
+  storyQuotes?: { challenge?: string; publishing?: string; ongoing?: string };
+  support?: { kicker: string; title: string; body: string };
+  featureLabel?: string;
+  featureFlow?: { title: string; body: string }[];
+  featureImage?: ImageMetadata;
+  featureImageAlt?: string;
+  featureCaption?: string;
+  websiteLabel?: string;
+  channels?: string[];
+  services: string[];
+  challenge: string;
+  approach: string;
+  featureTitle: string;
+  featureBody: string;
+  video?: string;
+  poster?: ImageMetadata;
+  videoCaption?: string;
+  details: { title: string; body: string }[];
+  journeyTitle: string;
+  journey: { label: string; body: string }[];
+  outcome: string;
+  takeaway: string;
+  website: string;
+  guide?: ImageMetadata;
+  proposedQuote: {
+    text: string;
+    name: string;
+    role: string;
+    headshot: ImageMetadata;
+    imageKind?: "person" | "brand";
+    imageAlt?: string;
+    imagePosition?: string;
+    imageScale?: number;
+    imageOrigin?: string;
+    approvalName: string;
+    approval: "pending" | "approved";
+  };
+}

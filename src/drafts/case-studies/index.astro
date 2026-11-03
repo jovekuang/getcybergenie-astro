@@ -2,14 +2,15 @@
 import { Image } from "astro:assets";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { caseStudies } from "./studies";
-import "./review.css";
+import "@/styles/customer-stories.css";
 ---
-<BaseLayout title="Case study review | Cyber Genie" description="Unlisted review of five draft client stories. Client consent is pending." robots="noindex, nofollow, noarchive, nosnippet">
+<BaseLayout title="Case study review | Cyber Genie" description="Unlisted review of three draft client stories. Client consent is pending." robots="noindex, nofollow, noarchive, nosnippet">
   <div class="review-notice"><div class="container"><span class="review-dot"></span> Unlisted draft review <span>Client consent pending · Not indexed</span></div></div>
   <section class="case-index container">
     <p class="case-kicker">Cyber Genie / Client stories</p>
     <h1>Real businesses.<br /><span>Work taken care of.</span></h1>
-    <p class="case-index-intro">Five stories of websites, creative work, and connected tools built around the people running the business.</p>
+    <p class="case-index-intro">Three draft stories of websites, creative work, and connected tools built around the people running the business.</p>
+    <p class="case-review-note">Aminata’s and Liza’s approved stories are now in <a class="case-text-link" href="https://getcybergenie.com/customer-stories/">Customer Stories →</a>.</p>
     <div class="case-index-grid">
       {caseStudies.map(study => <a class="case-preview-card" href={`/_review/case-studies/${study.slug}/`}>
         <div class={`case-card-image ${study.theme}`}><Image src={study.image} alt={study.imageAlt} widths={[480, 800, 1200]} sizes="(max-width: 760px) 92vw, 46vw" /></div>

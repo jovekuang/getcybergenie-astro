@@ -105,3 +105,29 @@ test('contact SMS opt-in requires a phone and preserves the explicit checkbox ch
  assert.match(await page.locator('#contact-status').innerText(),/Preview only/);
  await page.close();
 });
+
+// Publishing consent is scoped: the public journey must stay inside the approved stories.
+test('customer stories are reachable on mobile and link only to approved stories',async()=>{
+ const page=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce'});
+ await page.goto(base+'/');
+ const homepageLinks=await page.locator('.customer-stories-feature .case-preview-card').evaluateAll(links=>links.map(link=>new URL(link.href).pathname));
+ const approved=['/customer-stories/first-achievers-childcare/','/customer-stories/the-warehouse-by-black-creek/'];
+ assert.deepEqual(homepageLinks,approved);
+ await page.locator('.nav-toggle').click();
+ await page.locator('.nav-links').getByRole('link',{name:'Customer Stories',exact:true}).click();
+ await page.waitForURL(base+'/customer-stories/');
+ assert.equal(await page.locator('.nav-toggle').getAttribute('aria-expanded'),'false');
+ assert.equal(await page.locator('.case-preview-card').count(),2);
+ await page.locator('.case-preview-card').first().click();
+ for(const path of approved){
+  await page.waitForURL(base+path);
+  assert.equal(await page.locator('h1').count(),1);
+  assert.equal(await page.locator('[data-quote-approval="approved"]').count(),3);
+  assert.equal(await page.locator('[data-quote-approval="pending"]').count(),0);
+  assert.doesNotMatch(await page.locator('main').innerText(),/Proposed client quote|Client consent pending|Draft for review/);
+  assert.equal(await page.locator('a[href*="/_review/case-studies/"]').count(),0);
+  await page.getByRole('link',{name:/^Next:/}).click();
+ }
+ await page.waitForURL(base+approved[0]);
+ await page.close();
+});

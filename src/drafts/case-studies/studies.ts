@@ -1,4 +1,3 @@
-import type { ImageMetadata } from "astro";
 import edenCareImage from "./media/edencare-current-site.jpg";
 import edenElevationsImage from "./media/eden-elevations-current-site.jpg";
 import edenCareVideo from "./media/edencare-hero.mp4?url";
@@ -9,70 +8,11 @@ import guideCover from "./media/guide-cover.jpg";
 import edithHeadshot from "./media/edith-edwards-headshot.jpg";
 import bruceHeadshot from "./media/bruce-edwards-headshot.jpg";
 
-import firstAchieversImage from "./media/first-achievers-current-site.jpg";
-import warehouseImage from "./media/warehouse-current-site.jpg";
-import aminataHeadshot from "./media/aminata-traore.jpg";
-import warehouseMark from "./media/warehouse-mark.png";
-import warehouseVideo from "./media/warehouse-hero.mp4?url";
-import warehousePoster from "./media/warehouse-poster.webp";
 import avaHeadshot from "./media/ava-zhao.webp";
 import wabiWebsite from "./media/wabi-blobi-current-site.jpg";
 import wabiPlay from "./media/wabi-blobi-play.webp";
 
-export interface CaseStudy {
-  slug: string;
-  client: string;
-  person: string;
-  sector: string;
-  title: string;
-  intro: string;
-  summary: string;
-  image: ImageMetadata;
-  imageAlt: string;
-  theme: "care" | "property" | "childcare" | "venue" | "play";
-  imagePresentation?: "website" | "brand";
-  imageCaption?: string;
-  startingTitle?: string;
-  deliveryTitle?: string;
-  channelsIntro?: string;
-  storyQuotes?: { challenge?: string; publishing?: string; ongoing?: string };
-  support?: { kicker: string; title: string; body: string };
-  featureLabel?: string;
-  featureFlow?: { title: string; body: string }[];
-  featureImage?: ImageMetadata;
-  featureImageAlt?: string;
-  featureCaption?: string;
-  websiteLabel?: string;
-  channels?: string[];
-  services: string[];
-  challenge: string;
-  approach: string;
-  featureTitle: string;
-  featureBody: string;
-  video?: string;
-  poster?: ImageMetadata;
-  videoCaption?: string;
-  details: { title: string; body: string }[];
-  journeyTitle: string;
-  journey: { label: string; body: string }[];
-  outcome: string;
-  takeaway: string;
-  website: string;
-  guide?: ImageMetadata;
-  proposedQuote: {
-    text: string;
-    name: string;
-    role: string;
-    headshot: ImageMetadata;
-    imageKind?: "person" | "brand";
-    imageAlt?: string;
-    imagePosition?: string;
-    imageScale?: number;
-    imageOrigin?: string;
-    approvalName: string;
-    approval: "pending";
-  };
-}
+import type { CaseStudy } from "@/data/customer-stories/types";
 
 export const caseStudies: CaseStudy[] = [
   {
@@ -186,188 +126,6 @@ export const caseStudies: CaseStudy[] = [
       approval: "pending",
     },
   },
-
-  {
-    "slug": "first-achievers-childcare",
-    "client": "First Achievers Childcare",
-    "person": "Aminata Traore",
-    "sector": "Childcare & early learning",
-    "title": "Aminata wanted a CRM that fit her day.",
-    "intro": "Aminata wanted prospective parents to be able to book a tour and hear back at the right moments. She needed a system built around her center’s day-to-day work, with the setup handled for her and room to grow as the business grows.",
-    "summary": "How Aminata connected her website, parent inquiries, tour scheduling, and automated follow-up in a CRM shaped around her childcare center.",
-    "image": firstAchieversImage,
-    "imageAlt": "Screenshot of the current First Achievers Childcare homepage, showing its programs introduction and Schedule a Tour link",
-    "theme": "childcare",
-    "imageCaption": "The current First Achievers Childcare homepage.",
-    "deliveryTitle": "What changed for Aminata.",
-    "storyQuotes": {
-      "challenge": "I wanted something built around our center, with the setup taken care of and room to grow when we need it.",
-      "ongoing": "I want parents to be able to book a tour, receive the right follow-up, and stay connected while I focus on our families."
-    },
-    "support": {
-      "kicker": "As the center grows",
-      "title": "She can ask for the next improvement.",
-      "body": "The system can grow with First Achievers. Aminata can explain what would make the next part of her work easier, and Cyber Genie can build the agreed improvement into the existing workflow. The service includes handling that configuration, so she has a team to turn to as new needs emerge."
-    },
-    "services": [
-      "Website design",
-      "Custom childcare CRM",
-      "Online tour scheduling",
-      "Automated follow-ups"
-    ],
-    "startingTitle": "She wanted useful support without a configuration project.",
-    "challenge": "For Aminata, the important work was welcoming families, organizing tours, and helping parents with the next step. Other childcare platforms offered more features than she had time to configure. She wanted the support that fit her center, with someone taking care of the setup.",
-    "approach": "We worked around that parent journey. The website and custom CRM connect inquiries, tour bookings, and follow-up, with Cyber Genie handling implementation and configuration. Aminata can use the workflow she needs now and ask for improvements as the center’s needs develop.",
-    "featureLabel": "The parent journey",
-    "featureTitle": "From “Can we visit?” to a thoughtful follow-up.",
-    "featureBody": "A parent can choose a tour time on the website. Behind it, the CRM keeps the family’s inquiry and visit together and supports confirmations and reminders. When staff mark the tour complete, the post-tour workflow helps the team continue the conversation as the family considers enrollment.",
-    "featureFlow": [
-      {
-        "title": "A parent schedules a tour",
-        "body": "The website connects the visit to the family’s inquiry."
-      },
-      {
-        "title": "The visit stays organized",
-        "body": "Confirmations, reminders, and the tour calendar support the team."
-      },
-      {
-        "title": "Follow-up continues",
-        "body": "After staff mark the tour complete, the CRM supports the next conversation."
-      }
-    ],
-    "featureCaption": "A connected path from a parent’s first inquiry to the next enrollment conversation.",
-    "details": [
-      {
-        "title": "A website built for prospective families",
-        "body": "Clear program information and a direct route to schedule a tour help parents take the next step toward visiting the center."
-      },
-      {
-        "title": "A CRM shaped around the center",
-        "body": "Inquiries, tours, family communication, and next steps live in a system built for Aminata’s workflow, with the setup handled by Cyber Genie."
-      },
-      {
-        "title": "Tour follow-up handled in the workflow",
-        "body": "The CRM supports visit confirmations, reminders, and post-tour messages, helping the team stay in touch as parents consider enrollment."
-      },
-      {
-        "title": "Room to grow without a configuration project",
-        "body": "The system can evolve with the center’s needs. Aminata can ask for the next improvement while Cyber Genie handles the implementation."
-      }
-    ],
-    "journeyTitle": "A clearer next step for the parent and the team.",
-    "journey": [
-      {
-        "label": "Discover the center",
-        "body": "Parents explore the website and choose a tour time."
-      },
-      {
-        "label": "Keep the visit connected",
-        "body": "The team sees the inquiry, scheduled tour, and communication together."
-      },
-      {
-        "label": "Follow up with context",
-        "body": "The CRM supports the follow-up while Aminata focuses on families and the center."
-      }
-    ],
-    "outcome": "Aminata now has a website and custom CRM that support the prospective-parent journey in one connected workflow. Tour scheduling and follow-up are built around the center’s needs, with Cyber Genie taking responsibility for setup and future improvements.",
-    "takeaway": "A system shaped around her center, with room to grow.",
-    "website": "https://firstachieverschildcare.com/",
-    "proposedQuote": {
-      "text": "Cyber Genie built around how we work. Parents can book tours, follow-ups are taken care of, and I can focus on our families as we grow.",
-      "name": "Aminata Traore",
-      "role": "Executive Director, First Achievers Childcare",
-      "headshot": aminataHeadshot,
-      "imagePosition": "35% 20%",
-      "imageScale": 2.5,
-      "imageOrigin": "10% 15%",
-      "approvalName": "Aminata",
-      "approval": "pending"
-    }
-  },
-  {
-    "slug": "the-warehouse-by-black-creek",
-    "client": "The Warehouse by Black Creek",
-    "person": "Liza Hill",
-    "sector": "Event venue · Devine, Texas",
-    "title": "Liza was opening a venue. Her website needed to grow with it.",
-    "intro": "Liza was preparing to launch The Warehouse by Black Creek in Devine, Texas. She needed an online presence before the doors opened and practical support for reservation requests as the new venue began welcoming guests.",
-    "summary": "How Liza built an online presence before launch, then added reservation support as the venue grew, using the system she already had.",
-    "image": warehouseImage,
-    "imageAlt": "Screenshot of the current Warehouse by Black Creek homepage, with its Gather well hero and event inquiry links",
-    "theme": "venue",
-    "imageCaption": "The current Warehouse by Black Creek homepage.",
-    "deliveryTitle": "What changed for Liza.",
-    "storyQuotes": {
-      "challenge": "I wanted people to discover the venue before we opened, with a website that could grow with us as we got started.",
-      "ongoing": "I wanted to manage reservation requests without buying another software subscription, adding another login, and having another system to connect."
-    },
-    "support": {
-      "kicker": "As inquiries arrive",
-      "title": "Keep the reservation work in the same setup.",
-      "body": "The reservation tools give staff a place to review requests, place holds, and confirm bookings, connected to customer records. For these agreed needs, Liza can avoid adding a separate venue platform such as Tripleseat, along with another subscription, login, and system to integrate."
-    },
-    "services": [
-      "Website design & launch",
-      "Search-ready foundations",
-      "Reservation request management",
-      "Connected venue calendar"
-    ],
-    "startingTitle": "The venue was taking shape. Its online presence could start early.",
-    "challenge": "Liza was creating a new event venue to fill a gap she saw in the Devine market. Before opening, she wanted people to be able to discover the space online. As launch approached, she also needed the website to keep up with the venue and give incoming inquiries a clear next step.",
-    "approach": "Cyber Genie joined the work from day one. We designed and launched the website ahead of the venue opening, then continued updating it as the business took shape. When managing reservation requests became the next priority, we added inquiry and calendar tools to the existing setup.",
-    "featureLabel": "A venue coming to life",
-    "featureTitle": "The website kept pace as the doors opened.",
-    "featureBody": "The early site gave Liza a home online before launch. As The Warehouse began hosting gatherings, the website evolved with current imagery, event information, and clear ways to inquire. The reservation workflow then gave staff a way to move interest into a tentative hold and, with their approval, a confirmed event.",
-    "video": warehouseVideo,
-    "poster": warehousePoster,
-    "videoCaption": "Original background video from The Warehouse website. This clip is silent; playback is optional.",
-    "details": [
-      {
-        "title": "A presence before the first event",
-        "body": "Design and website planning began before launch, giving the new venue a home online and a foundation for search visibility."
-      },
-      {
-        "title": "Updates as the venue took shape",
-        "body": "The website continued to evolve with the opening, with imagery and information that reflect the venue and the gatherings it is designed to host."
-      },
-      {
-        "title": "Reservation requests with a next step",
-        "body": "Staff can review inquiries, place tentative holds, and confirm bookings. Calendar time accounts for setup through cleanup, with connected customer records supporting follow-up."
-      },
-      {
-        "title": "Fewer systems to buy and connect",
-        "body": "Building these agreed workflows into the existing setup helps Liza avoid adding a separate venue platform such as Tripleseat for those needs, along with another subscription and login."
-      }
-    ],
-    "journeyTitle": "One team, from the first website to the next reservation.",
-    "journey": [
-      {
-        "label": "Build the presence",
-        "body": "Introduce the venue online before launch and establish clear ways to get in touch."
-      },
-      {
-        "label": "Keep it current",
-        "body": "Update the website as the venue opens and its needs become clearer."
-      },
-      {
-        "label": "Support the reservation",
-        "body": "Move inquiries into staff-managed holds and confirmed bookings, connected to the CRM."
-      }
-    ],
-    "outcome": "Liza now has a website that has grown alongside The Warehouse and tools that support reservation requests within the existing setup. For those agreed workflows, she can build on what she already has and avoid adding another standalone venue subscription and the integration work that comes with it.",
-    "takeaway": "A website and working tools that grow with the venue.",
-    "website": "https://thewarehousebyblackcreek.com/",
-    "proposedQuote": {
-      "text": "Cyber Genie has been with us from day one, helping us launch our website and manage reservation requests without adding another software subscription to the mix.",
-      "name": "Liza Hill",
-      "role": "The Warehouse by Black Creek",
-      "headshot": warehouseMark,
-      "imageKind": "brand",
-      "imageAlt": "The Warehouse by Black Creek logo",
-      "approvalName": "Liza",
-      "approval": "pending"
-    }
-  },
   {
     "slug": "wabi-blobi",
     "client": "Wabi Blobi",
@@ -457,5 +215,4 @@ export const caseStudies: CaseStudy[] = [
       "approval": "pending"
     }
   }
-,
 ];

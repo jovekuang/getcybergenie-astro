@@ -1,0 +1,30 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import StoryCards from "@/components/customer-stories/StoryCards.astro";
+import { publishedStories, customerStoryPath } from "@/data/customer-stories";
+import { brand } from "@/data/brand";
+import { createBreadcrumbSchema } from "@/data/site";
+const description = "Meet the small-business owners working with Cyber Genie to build better websites, simplify everyday work, and grow with technology taken care of.";
+const collectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Customer Stories | Cyber Genie",
+  description,
+  url: `${brand.origin}/customer-stories/`,
+  mainEntity: {
+    "@type": "ItemList",
+    itemListElement: publishedStories.map((study, index) => ({
+      "@type": "ListItem", position: index + 1, name: study.client,
+      url: `${brand.origin}${customerStoryPath(study.slug)}`,
+    })),
+  },
+};
+---
+<BaseLayout title="Customer Stories | Cyber Genie" description={description} canonical="/customer-stories/" jsonLd={[collectionSchema, createBreadcrumbSchema([{ name: "Home", path: "/" }, { name: "Customer Stories", path: "/customer-stories/" }])]}>
+  <section class="case-index container">
+    <p class="case-kicker">Customer Stories</p>
+    <h1>Real businesses.<br /><span>Work taken care of.</span></h1>
+    <p class="case-index-intro">Meet the owners behind the work. See how websites, connected tools, and ongoing support fit into the businesses they’re building.</p>
+    <StoryCards />
+  </section>
+</BaseLayout>

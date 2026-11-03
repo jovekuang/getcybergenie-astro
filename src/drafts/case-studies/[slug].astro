@@ -1,57 +1,14 @@
 ---
-import { Image } from "astro:assets";
-import BaseLayout from "@/layouts/BaseLayout.astro";
-import { caseStudies, type CaseStudy } from "./studies";
-import "./review.css";
-import ProposedStoryQuote from "./ProposedStoryQuote.astro";
+import CustomerStory from "@/components/customer-stories/CustomerStory.astro";
+import { caseStudies } from "./studies";
+import type { CaseStudy } from "@/data/customer-stories/types";
 export function getStaticPaths() {
-  return caseStudies.map(study => ({ params: { slug: study.slug }, props: { study } }));
+  return caseStudies.map((study, index) => ({
+    params: { slug: study.slug },
+    props: { study, other: caseStudies[(index + 1) % caseStudies.length] },
+  }));
 }
-interface Props { study: CaseStudy; }
-const { study } = Astro.props;
-const currentIndex = caseStudies.findIndex(item => item.slug === study.slug);
-const other = caseStudies[(currentIndex + 1) % caseStudies.length];
+interface Props { study: CaseStudy; other: CaseStudy; }
+const { study, other } = Astro.props;
 ---
-<BaseLayout title={`${study.client}: client story | Cyber Genie`} description={study.summary} robots="noindex, nofollow, noarchive, nosnippet">
-  <div class="review-notice"><div class="container"><span class="review-dot"></span> Unlisted draft review <span>Client consent pending · Not indexed</span></div></div>
-  <article class={`case-study ${study.theme}`}>
-    <header class="case-hero container">
-      <a class="case-back" href="/_review/case-studies/">← All draft case studies</a>
-      <p class="case-kicker">{study.client} / Client story</p>
-      <h1>{study.title}</h1>
-      <p class="case-lead">{study.intro}</p>
-      <div class="case-service-tags">{study.services.map(service => <span>{service}</span>)}</div>
-      <figure class:list={["case-site-frame", {"case-brand-frame": study.imagePresentation === "brand"}]}>{study.imagePresentation !== "brand" && <div class="case-browser-chrome" aria-hidden="true"><i></i><i></i><i></i><span>{new URL(study.website).hostname}</span></div>}<Image src={study.image} alt={study.imageAlt} widths={[640, 1000, 1600]} sizes="(max-width: 1200px) 92vw, 1152px" loading="eager" fetchpriority="high" /><figcaption>{study.imageCaption ?? `Selected website work for ${study.client}.`}</figcaption></figure>
-      <dl class="case-facts"><div><dt>Client</dt><dd>{study.client}</dd></div><div><dt>Working with</dt><dd>{study.person}</dd></div><div><dt>Industry</dt><dd>{study.sector}</dd></div><div><dt>Delivered by</dt><dd>Cyber Genie</dd></div></dl>
-    </header>
-    <section class="case-context container">
-      <div><p class="case-kicker">The starting point</p><h2>{study.startingTitle ?? (study.theme === "care" ? "A vision to bring to life." : "A website with a next step.")}</h2></div>
-      <div class="case-prose"><p>{study.challenge}</p>{study.storyQuotes?.challenge && <ProposedStoryQuote text={study.storyQuotes.challenge} name={study.proposedQuote.name} approvalName={study.proposedQuote.approvalName} />}<p>{study.approach}</p></div>
-    </section>
-    <section class="case-feature">
-      <div class="container case-feature-grid"><div><p class="case-kicker">A closer look / {study.featureLabel ?? "The hero"}</p><h2>{study.featureTitle}</h2><p>{study.featureBody}</p><a class="case-text-link" href={study.website} target="_blank" rel="noopener noreferrer">{study.websiteLabel ?? "Explore the client website"} <span aria-hidden="true">↗</span></a></div>
-        {study.video && study.poster ? <figure class="case-video"><video controls playsinline preload="none" poster={study.poster.src} aria-label={`${study.client} original website video, silent`}><source src={study.video} type="video/mp4" /><p>Your browser cannot play this video.</p></video><figcaption>{study.videoCaption}</figcaption></figure>
-        : study.featureFlow ? <figure class="case-flow"><p class="case-kicker">Workflow overview</p><ol>{study.featureFlow.map((step, index) => <li><span aria-hidden="true">0{index + 1}</span><div><h3>{step.title}</h3><p>{step.body}</p></div></li>)}</ol><figcaption>{study.featureCaption}</figcaption></figure>
-        : study.featureImage && <figure class="case-feature-photo"><Image src={study.featureImage} alt={study.featureImageAlt ?? study.client} widths={[480, 800, 1200]} sizes="(max-width: 760px) 92vw, 54vw" /><figcaption>{study.featureCaption}</figcaption></figure>}
-
-      </div>
-    </section>
-    <section class="container case-delivery"><p class="case-kicker">What we delivered</p><h2>{study.deliveryTitle ?? "The work behind the website."}</h2><div class="case-delivery-grid">{study.details.map((detail, index) => <div class="case-delivery-item"><span class="case-number">0{index + 1}</span><h3>{detail.title}</h3><p>{detail.body}</p></div>)}</div></section>
-    {study.guide && <section class="container case-guide"><Image src={study.guide} alt="Cover of the Eden Elevations 3 educational PDF, Keep More of What You Earn" width={280} /><div><p class="case-kicker">The lead magnet</p><h2>Something useful to take away.</h2><p>The tax guide gives visitors a clear reason to leave their details. The form captures that interest and connects it to the CRM, so the next conversation can start with what the person asked for.</p><p class="case-small">An educational resource from the client website. This case study describes its role in lead capture.</p></div></section>}
-    {(study.channels || study.support) && <section class="container case-channels" aria-labelledby="case-channels-heading"><p class="case-kicker">{study.support?.kicker ?? "The publishing setup"}</p><h2 id="case-channels-heading">{study.support?.title ?? "One place to plan the next post."}</h2><p>{study.support?.body ?? study.channelsIntro ?? "A shared platform for organizing content and scheduling across the brand’s social channels, with Cyber Genie helping with the plan and the creative work."}</p>{study.channels && <ul>{study.channels.map(channel => <li>{channel}</li>)}</ul>}{(study.storyQuotes?.ongoing || study.storyQuotes?.publishing) && <ProposedStoryQuote text={study.storyQuotes.ongoing ?? study.storyQuotes.publishing!} name={study.proposedQuote.name} approvalName={study.proposedQuote.approvalName} />}</section>}
-    <section class="container case-journey"><p class="case-kicker">How it comes together</p><h2>{study.journeyTitle}</h2><ol>{study.journey.map((step, index) => <li><span class="case-step">{index + 1}</span><h3>{step.label}</h3><p>{step.body}</p></li>)}</ol></section>
-    <section class="container case-outcome"><p class="case-kicker">The result</p><h2>{study.takeaway}</h2><p>{study.outcome}</p></section>
-    <section class="container case-quote" id="client-quote" aria-labelledby="client-quote-heading" data-quote-approval={study.proposedQuote.approval}>
-      <figure class="case-quote-card">
-        <div class="case-quote-portrait"><Image class:list={["case-quote-headshot", {"case-quote-brand-mark": study.proposedQuote.imageKind === "brand"}]} style={{objectPosition: study.proposedQuote.imagePosition, transform: study.proposedQuote.imageScale ? `scale(${study.proposedQuote.imageScale})` : undefined, transformOrigin: study.proposedQuote.imageOrigin}} src={study.proposedQuote.headshot} alt={study.proposedQuote.imageAlt ?? study.proposedQuote.name} widths={[160, 320, 640]} sizes={study.proposedQuote.imageScale ? "(max-width: 600px) 180px, 360px" : "(max-width: 600px) 72px, 144px"} /></div>
-        <div class="case-quote-content">
-          <h2 class="case-kicker" id="client-quote-heading">Proposed client quote</h2>
-          <blockquote><p>“{study.proposedQuote.text}”</p></blockquote>
-          <figcaption><strong>{study.proposedQuote.name}</strong><span>{study.proposedQuote.role}</span></figcaption>
-          <p class="case-quote-status">Draft wording · Awaiting {study.proposedQuote.approvalName}’s approval</p>
-        </div>
-      </figure>
-    </section>
-    <aside class="container case-review-footer"><p><strong>Draft for review.</strong> Client consent is pending. This story describes delivered work; it does not claim measured changes in leads, revenue, or bookings.</p><a class="case-text-link" href={`/_review/case-studies/${other.slug}/`}>Next: {other.client} <span aria-hidden="true">→</span></a></aside>
-  </article>
-</BaseLayout>
+<CustomerStory study={study} other={other} review={true} />

@@ -305,6 +305,18 @@
     {
       "path": "/terms/",
       "robots": "index,follow"
+    },
+    {
+      "path": "/customer-stories/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/customer-stories/first-achievers-childcare/",
+      "robots": "index,follow"
+    },
+    {
+      "path": "/customer-stories/the-warehouse-by-black-creek/",
+      "robots": "index,follow"
     }
   ],
   "redirects": [
@@ -349,9 +361,11 @@
     "/services/voice/roofing-contractors /industries/roofing-contractors/ 301",
     "/services/voice/roofing-contractors/ /industries/roofing-contractors/ 301",
     "/solutions/win-customers/ai-text /solutions/win-customers/ 301",
-    "/solutions/win-customers/ai-text/ /solutions/win-customers/ 301"
+    "/solutions/win-customers/ai-text/ /solutions/win-customers/ 301",
+    "/_review/case-studies/first-achievers-childcare/ https://getcybergenie.com/customer-stories/first-achievers-childcare/ 301",
+    "/_review/case-studies/the-warehouse-by-black-creek/ https://getcybergenie.com/customer-stories/the-warehouse-by-black-creek/ 301"
   ],
-  "sitemapCount": 72,
+  "sitemapCount": 75,
   "commercialSections": {
     "membershipTerms": "export const membershipTerms = {\n  brandDefinition:\n    \"One brand means one primary root domain, one visual identity, and one main website or application. A second brand or root domain requires a separate service plan.\",\n  commitment:\n    \"Evolving Web Application and Technology Partner are billed monthly with no long-term commitment. Cancel before the next billing date to stop the following month.\",\n  essentialCommitment:\n    \"Essential Website begins with a 12-month commitment paid annually and renews in 12-month periods. Cancel at least 30 days before renewal to stop the next term.\",\n  requestPolicy:\n    \"Unlimited requests means you may keep adding eligible work to your queue. FK Innovate works on one active request or milestone at a time, and you may reprioritize work that has not started.\",\n  eligibleRequest:\n    \"An eligible request is a clearly defined task within the plan's listed scope and its brand, domain, or application boundary.\",\n  reviewableMilestone:\n    \"A reviewable milestone is a testable part of a larger request that can be reviewed and approved on its own.\",\n  essentialDelivery:\n    \"Essential Website requests are completed within five business days after we receive the complete instructions, access, and assets needed to begin. Larger requests are divided into reviewable milestones, with each active milestone delivered within five business days.\",\n  delivery:\n    \"Evolving Web Application targets delivery of each active eligible request within 24 hours after receiving complete requirements, access, and assets. Technology Partner work follows the approved roadmap and one-active-priority queue; larger work is divided into reviewable milestones.\",\n  feedback:\n    \"Revisions are included while they support the approved objective. A different objective becomes a new queued request so the current priority can still be completed within the turnaround for its plan.\",\n  aiCredits:\n    \"Self-service AI credits let you make quick text, color, and other minor changes directly in the app without waiting for FK Innovate's request queue. The app shows the estimated credit use before each change. Credits reset monthly, do not roll over, and have no cash value.\",\n  planInheritance:\n    \"Included features carry forward from one plan to the next, but each plan keeps its own billing schedule, cancellation terms, turnaround, and request queue.\",\n  sharedManagedQueue:\n    \"Technology Partner includes Evolving Web Application development, integrations, database support, user sign-on, pages, and blog production. Application and Technology Partner requests share one active priority queue.\",\n  ownership:\n    \"The customer owns the approved final website, application code, and business content created for the engagement after all invoices are paid. FK Innovate retains its reusable tools, templates, and general know-how.\",\n  guarantee:\n    \"The 15-day money-back guarantee applies to the first paid term only. Request it in writing within 15 calendar days of the initial payment for a full refund of your initial payment. Service and hosting end when the refund is issued, customer-provided materials remain the customer's property, and FK-created deliverables are not transferred after a full refund. Renewals and requests made after the first 15 days are non-refundable.\",\n};\n",
     "websitePlanExclusions": "export const websitePlanExclusions = [\n  \"Management of business platforms and processes outside the primary web property\",\n  \"Cross-platform operating workflows that require ongoing administration\",\n  \"Native mobile apps, major data migrations, or undocumented legacy integrations\",\n  \"Regulated, compliance-heavy, or unusually security-sensitive workloads are not currently offered\",\n];\n",

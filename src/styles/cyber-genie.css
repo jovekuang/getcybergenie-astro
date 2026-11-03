@@ -64,3 +64,10 @@
 }
 .no-script-note { padding: 20px; margin: 24px 0; background: var(--warm); border: 1px solid var(--line); border-radius: var(--radius); line-height: 1.7; }
 .no-script-note a { color: var(--primary-dark); text-decoration: underline; }
+
+/* Keep the expanded navigation on one line just above the mobile breakpoint. */
+@media (min-width: 861px) and (max-width: 1024px) {
+  .nav-links { gap: 14px; }
+  .footer-grid { gap: 32px; }
+  .nav-links > a, .nav-dropdown-trigger, .nav-sign-in { white-space: nowrap; }
+}

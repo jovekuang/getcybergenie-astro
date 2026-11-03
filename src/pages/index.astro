@@ -1,6 +1,7 @@
 ---
 import { brand } from "@/data/brand";
 import Genie from "@/components/Genie.astro";
+import StoryCards from "@/components/customer-stories/StoryCards.astro";
 import WorkCarousel from "@/components/WorkCarousel.astro";
 import IndustryCarousel from "@/components/IndustryCarousel.astro";
 import { positioning } from "@/data/positioning";
@@ -229,6 +230,16 @@ const technologyPartnerSchema = {
         <p>Websites and platforms shaped around the people who use them.</p>
       </div>
       <WorkCarousel />
+    </div>
+  </section>
+
+  <section class="customer-stories-feature" aria-labelledby="customer-stories-title">
+    <div class="container">
+      <div class="customer-stories-heading">
+        <div><p class="case-kicker">Customer Stories</p><h2 id="customer-stories-title">Built around the people behind the business.</h2></div>
+        <a class="case-text-link" href="/customer-stories/">Explore Customer Stories <span aria-hidden="true">→</span></a>
+      </div>
+      <StoryCards headingLevel="h3" />
     </div>
   </section>
 
