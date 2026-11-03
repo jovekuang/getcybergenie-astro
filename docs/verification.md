@@ -1,5 +1,15 @@
 # Cyber Genie v1 verification
 
+## Rebranding story and announcement — November 3, 2026
+
+Added `/blog/fk-innovate-is-now-cyber-genie/`, based on the owner's rebranding email: origins helping FK Capital Partners' commercial tenants, the software-to-outcome mission, the founder's enterprise technology experience, and continuity for existing accounts and services. The article uses an approved-vector-derived cover, current publication date, Jove Kuang's author credit, canonical metadata, BlogPosting schema, blog listing and sitemap inclusion. Existing articles and commercial terms are preserved; the route fixture adds only the new article and increments the sitemap count.
+
+The shared `RebrandAnnouncement.astro` component appears above the navigation throughout the site. Its teal strip links to the story and scrolls left to right. Duplicated visual text is hidden from assistive technology. It pauses on hover, keyboard focus, manual control, and hidden tabs; reduced-motion preferences and JavaScript-free visits show a fully wrapped static message. Blog pages now retain 20px side margins on small screens.
+
+Verification: types, build, route/commercial audit, six carousel tests and 29 API tests passed. The final build contains 80 pages and 76 sitemap URLs. Focused browser checks passed at 320, 390, 793, 872 and 1440px for motion direction, pause/resume, mobile navigation, article links, canonical metadata, image loading and horizontal overflow. The article passed WCAG A/AA scans at 390px. Reduced-motion and JavaScript-free views were checked for complete readable text. Screenshots are in ignored `outputs/qa/rebrand-announcement/`.
+
+Pre-release production rollback baseline: `7e63c416-64e8-4737-af67-05fa50531ab0`, source `3938c5f`. No form submissions, DNS, production bindings, indexing settings, customer-app changes or email sends are included in this release.
+
 ## Customer-care SMS consent — October 31, 2026
 
 Owner requested marketing-site corrections for A2P registration and supplied (925) 397-0073. The contact page now has a public inquiry form with an optional, unchecked SMS consent checkbox; the existing onboarding form uses the same disclosure. Consent identifies Cyber Genie / FK Innovation Partners LLC, limits messages to customer care, and includes variable frequency, rates, automated technology, STOP/HELP, optional consent and policy links. Privacy and Terms now include the corresponding SMS program sections and mobile/consent non-sharing language. The listing-package form explicitly does not enroll anyone in SMS.

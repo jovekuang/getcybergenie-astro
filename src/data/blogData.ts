@@ -21,6 +21,7 @@ import blogShopifyCheckoutRecovery from '@/assets/blog-shopify-abandoned-checkou
 import blogDaycareTourFollowUp from '@/assets/blog-daycare-tour-follow-up-process.png';
 import blogPestControlPreparation from '@/assets/blog-pest-control-preparation-reminder-workflow.png';
 import blogPropertyMaintenanceIntake from '@/assets/blog-property-management-maintenance-request-intake.png';
+import blogRebrand from '@/assets/blog-fk-innovate-is-now-cyber-genie.png';
 
 export interface BlogPost {
   slug: string;
@@ -43,6 +44,58 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: 'fk-innovate-is-now-cyber-genie',
+    title: 'FK Innovate Is Now Cyber Genie: Same Mission, a New Chapter',
+    seoTitle: 'FK Innovate Is Now Cyber Genie | A New Chapter',
+    seoDescription: 'FK Innovate is now Cyber Genie. Founder Jove Kuang shares our story and mission to bridge the technology and AI gap for small-business owners.',
+    excerpt: 'A new name, the same mission: help small-business owners put technology and AI to work without having to become technology experts themselves.',
+    date: '2026-11-03',
+    author: 'Jove Kuang',
+    readTime: '4 min read',
+    image: blogRebrand,
+    category: 'Company News',
+    keywords: 'FK Innovate rebrand, FK Innovate is now Cyber Genie, Cyber Genie, small business technology, small business AI',
+    content: `FK Innovate is now Cyber Genie. I’m excited to share this next chapter, and grateful to everyone who helped us get here. Whether you’ve worked with us, tried a service, or simply shared your feedback, you’ve helped shape where we’re going.
+
+Where we started
+
+We started as part of FK Capital Partners, helping our commercial tenants with their technology needs. What began with those businesses revealed a much bigger problem.
+
+Small-business owners don’t lack software options. They’re overwhelmed by them. Subscriptions pile up, but finding time to learn, configure, and connect everything is another job entirely. A website may sit apart from the customer records. A missed call may never become a follow-up. Useful information can end up scattered across tools that don’t work together.
+
+Paying for software doesn’t always mean getting value from it.
+
+The outcome is the point
+
+Our mission is to deliver the outcome, not just the software. A better website. Calls answered. Less busywork. Technology should support the work of running a business, with a clear purpose and a process that connects the pieces.
+
+Today, Cyber Genie offers [websites](/services/essential-website/), [Voice AI](/services/voice/), [social media management](/services/marketing/), and [custom software and connected workflows](/services/technology-partner/). We configure and connect the technology around agreed priorities, use automation for routine work, and manage the systems with appropriate quality checks and expert oversight.
+
+That means starting with a useful business need, defining what is included, and building a workflow the business can actually use. It might be capturing an inquiry, routing a call, following up on an estimate, or keeping customer information connected. The goal is more done and less to manage.
+
+Bridging the technology and AI gap
+
+This mission is personal to me. Over the past 20 years, I’ve helped Fortune 500 companies put technology to work. I want to bring that experience to small-business owners, who rarely have the same teams, budgets, or time.
+
+We continue to dedicate our time and resources to bridging the technology and AI gap between corporate America and the millions of small-business owners who deserve the same opportunities. Access to another subscription is only part of the answer. Getting practical value also takes configuration, connected processes, and a clear understanding of where automation helps and where a person needs to make the decision.
+
+Especially in the AI era, smaller businesses deserve technology that helps them move forward without having to become technology experts themselves. Our focus is on useful, manageable systems that fit the business and its priorities.
+
+What the new name means for you
+
+Cyber Genie is the new name for FK Innovate. Your existing account and services remain in place. You can access your account at [app.getcybergenie.com](https://app.getcybergenie.com/) and explore our services here at [getcybergenie.com](/).
+
+You’ll still see “Cyber Genie by FK Innovate” as a connection to where we began. The legal service operator remains FK Innovation Partners LLC.
+
+As we grow, we’ll keep listening to our customers, improving what we already offer, and adding services where we can make a meaningful difference. Thank you for being part of this next chapter.
+
+What would you take off your plate?
+
+What’s one thing in your business you wish technology could take off your plate? [Tell us about your business](/contact/), and we can explore a focused starting point.
+
+Jove Kuang, Founder, Cyber Genie`,
+  },
   {
     slug: 'property-management-maintenance-request-intake-process',
     title: 'How to Collect Better Maintenance Requests Without Making Residents Repeat Themselves',

@@ -1,0 +1,81 @@
+---
+import { rebrandAnnouncement } from "@/data/rebrand";
+---
+
+<aside class="rebrand-announcement" aria-label="A new chapter for FK Innovate" data-rebrand-announcement>
+  <a class="rebrand-announcement-link" href={rebrandAnnouncement.href}>
+    <span class="sr-only">{rebrandAnnouncement.headline} {rebrandAnnouncement.mission} Read our story.</span>
+    <span class="rebrand-announcement-track" aria-hidden="true">
+      {[0, 1].map(() => (
+        <span class="rebrand-announcement-copy">
+          <strong>{rebrandAnnouncement.headline}</strong>
+          <span class="rebrand-announcement-separator">✦</span>
+          <span>{rebrandAnnouncement.mission}</span>
+          <span class="rebrand-announcement-story">Read our story →</span>
+          <span class="rebrand-announcement-separator">✦</span>
+        </span>
+      ))}
+    </span>
+  </a>
+  <button class="rebrand-announcement-toggle" type="button" aria-label="Pause announcement" aria-pressed="false">
+    <svg class="rebrand-pause-icon" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true"><path d="M3 2h3v10H3zm5 0h3v10H8z" /></svg>
+    <svg class="rebrand-play-icon" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true"><path d="m4 2 8 5-8 5z" /></svg>
+  </button>
+</aside>
+
+<style>
+  .rebrand-announcement {
+    display: flex;
+    flex: 0 0 auto;
+    min-width: 0;
+    background: var(--primary-dark);
+    color: #fff;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .rebrand-announcement-link { display: block; flex: 1; min-width: 0; overflow: hidden; }
+  .rebrand-announcement-track { display: flex; width: max-content; animation: announcement-right 62s linear infinite; }
+  .rebrand-announcement-copy { display: flex; align-items: center; flex: 0 0 auto; min-width: 100vw; gap: 26px; padding: 12px 26px; white-space: nowrap; }
+  .rebrand-announcement-copy strong { font-weight: 700; }
+  .rebrand-announcement-separator { color: #9de2c7; font-size: 10px; }
+  .rebrand-announcement-story { text-decoration: underline; text-underline-offset: 3px; }
+  .rebrand-announcement-toggle { display: grid; place-items: center; flex: 0 0 44px; padding: 0; border: 0; border-left: 1px solid rgb(255 255 255 / .22); border-radius: 0; background: var(--primary-dark); color: inherit; cursor: pointer; }
+  .rebrand-announcement-toggle:hover { background: var(--primary); }
+  .rebrand-announcement :focus-visible { outline: 2px solid #fff; outline-offset: -4px; }
+  .rebrand-play-icon { display: none; }
+  [data-paused="true"] .rebrand-pause-icon { display: none; }
+  [data-paused="true"] .rebrand-play-icon { display: block; }
+  .rebrand-announcement:hover .rebrand-announcement-track,
+  .rebrand-announcement:focus-within .rebrand-announcement-track,
+  [data-paused="true"] .rebrand-announcement-track,
+  [data-background-paused="true"] .rebrand-announcement-track { animation-play-state: paused; }
+  @keyframes announcement-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+  :global(.no-js) .rebrand-announcement-track { display: block; animation: none; width: auto; }
+  :global(.no-js) .rebrand-announcement-copy { width: 100%; min-width: 0; white-space: normal; flex-wrap: wrap; gap: 4px 14px; padding: 12px 20px; }
+  :global(.no-js) .rebrand-announcement-copy + .rebrand-announcement-copy,
+  :global(.no-js) .rebrand-announcement-separator,
+  :global(.no-js) .rebrand-announcement-toggle { display: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .rebrand-announcement-track { display: block; animation: none; width: auto; }
+    .rebrand-announcement-copy { width: 100%; min-width: 0; white-space: normal; flex-wrap: wrap; gap: 4px 14px; padding: 12px 20px; }
+    .rebrand-announcement-copy + .rebrand-announcement-copy,
+    .rebrand-announcement-separator,
+    .rebrand-announcement-toggle { display: none; }
+  }
+</style>
+
+<script>
+  const announcement = document.querySelector<HTMLElement>("[data-rebrand-announcement]");
+  const toggle = announcement?.querySelector<HTMLButtonElement>(".rebrand-announcement-toggle");
+  toggle?.addEventListener("click", () => {
+    const paused = announcement?.dataset.paused !== "true";
+    if (announcement) announcement.dataset.paused = String(paused);
+    toggle.setAttribute("aria-pressed", String(paused));
+    toggle.setAttribute("aria-label", paused ? "Resume announcement" : "Pause announcement");
+  });
+  const updateVisibility = () => {
+    if (announcement) announcement.dataset.backgroundPaused = String(document.hidden);
+  };
+  document.addEventListener("visibilitychange", updateVisibility);
+  updateVisibility();
+</script>

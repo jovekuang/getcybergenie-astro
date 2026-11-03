@@ -37,7 +37,7 @@ npm run audit:visual   # 24 representative pages at 320/390/768/1024/1440px
 
 `CHROMIUM_PATH` can select an already-installed browser. `TEST_BASE_URL` can target the hosted review preview. Browser checks must only target a dry-run preview; never run submission tests against the production custom domain.
 
-The baseline fixture locks 75 routes, 71 sitemap entries, all 42 legacy redirects, article identities, and the reviewed commercial terms. The source for current prices and terms remains `src/data/solutions.ts`. Brand, site origin, public email, app and booking URLs are in `src/data/brand.ts`.
+The baseline fixture locks the current routes, sitemap entries, legacy redirects, article identities, and reviewed commercial terms. The source for current prices and terms remains `src/data/solutions.ts`. Brand, site origin, public email, app and booking URLs are in `src/data/brand.ts`.
 
 ## Brand assets
 
