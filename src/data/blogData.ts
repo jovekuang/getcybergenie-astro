@@ -84,17 +84,15 @@ Especially in the AI era, smaller businesses deserve technology that helps them 
 
 What the new name means for you
 
-Cyber Genie is the new name for FK Innovate. Your existing account and services remain in place. You can access your account at [app.getcybergenie.com](https://app.getcybergenie.com/) and explore our services here at [getcybergenie.com](/).
+Cyber Genie is the new name for FK Innovate. Your existing account and services remain in place. You can access your account at [app.getcybergenie.com](https://app.getcybergenie.com/) and explore our services here at [getcybergenie.com](https://getcybergenie.com/).
 
 You’ll still see “Cyber Genie by FK Innovate” as a connection to where we began. The legal service operator remains FK Innovation Partners LLC.
 
 As we grow, we’ll keep listening to our customers, improving what we already offer, and adding services where we can make a meaningful difference. Thank you for being part of this next chapter.
 
-What would you take off your plate?
+Tell us what’s on your plate
 
-What’s one thing in your business you wish technology could take off your plate? [Tell us about your business](/contact/), and we can explore a focused starting point.
-
-Jove Kuang, Founder, Cyber Genie`,
+What’s one thing in your business you wish technology could take off your plate? [Tell us about your business](/contact/), and we can explore a focused starting point.`,
   },
   {
     slug: 'property-management-maintenance-request-intake-process',
