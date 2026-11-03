@@ -12,6 +12,9 @@ import avaHeadshot from "./media/ava-zhao.webp";
 import wabiWebsite from "./media/wabi-blobi-current-site.jpg";
 import wabiPlay from "./media/wabi-blobi-play.webp";
 
+import poolYetisWebsite from "./media/pool-yetis-current-site.jpg";
+import poolYetisWordmark from "./media/pool-yetis-wordmark.png";
+
 import type { CaseStudy } from "@/data/customer-stories/types";
 
 export const caseStudies: CaseStudy[] = [
@@ -212,6 +215,108 @@ export const caseStudies: CaseStudy[] = [
       "headshot": avaHeadshot,
       "imagePosition": "center",
       "approvalName": "Ava",
+      "approval": "pending"
+    }
+  },
+  {
+    "slug": "pool-yetis",
+    "client": "Pool Yetis",
+    "person": "Tim Young",
+    "sector": "Local pool care & repair",
+    "title": "Tim wanted every lead in one place.",
+    "intro": "Tim Young was finding prospective customers through Yelp, Angie’s List, and other lead platforms. He wanted one place to manage those inquiries, a text alert when a new lead arrived, and a way to keep the conversation going after the first reply.",
+    "summary": "How Tim brought leads from different platforms into one workspace, with immediate SMS alerts and a shared database for ongoing follow-up.",
+    "image": poolYetisWebsite,
+    "imageAlt": "The Pool Yetis homepage, with its blue wordmark, pool-care messaging, and illustrated Yeti mascot.",
+    "theme": "pool",
+    "imageCaption": "Pool Yetis’ public website introduces its local pool-care services.",
+    "services": [
+      "Lead consolidation",
+      "Custom lead workspace",
+      "Instant SMS alerts",
+      "Lead nurture plans",
+      "Promotional follow-up"
+    ],
+    "startingTitle": "More lead sources meant more places to check.",
+    "challenge": "Tim’s business was receiving inquiries through several platforms, each with its own place to find and manage leads. Moving between those inboxes could delay the first response. For a local service business, a prompt reply can make the difference between starting a conversation and losing the opportunity. After that initial reach-out, there was no shared place to keep the contact and plan the next follow-up.",
+    "approach": "Cyber Genie built a custom system around that lead journey. Inquiries from the connected sources flow into one platform, new leads trigger an immediate SMS alert to Tim, and the same workspace supports managing the conversation and staying in touch over time.",
+    "storyQuotes": {
+      "challenge": "I wanted to know when a new lead came in, without having to keep checking every platform.",
+      "ongoing": "I wanted a way to stay in touch after the first conversation, so a lead didn’t disappear just because they weren’t ready yet."
+    },
+    "featureLabel": "The lead journey",
+    "featureTitle": "A new inquiry. A text to Tim. One place to take it from there.",
+    "featureBody": "The system brings inquiries from different connected lead platforms into a shared view. As a new lead comes in, it sends Tim an SMS notification, whichever connected source the inquiry came from. Tim can then review and manage the lead through one interface, with the contact available for future follow-up.",
+    "websiteLabel": "Explore Pool Yetis",
+    "featureFlow": [
+      {
+        "title": "Bring the lead together",
+        "body": "Inquiries from Yelp, Angie’s List, and other connected sources enter the shared platform."
+      },
+      {
+        "title": "Notify Tim right away",
+        "body": "An SMS alert lets Tim know that a new lead has arrived."
+      },
+      {
+        "title": "Manage the conversation",
+        "body": "One interface gives Tim a place to review and manage leads from different sources."
+      },
+      {
+        "title": "Keep the contact connected",
+        "body": "A shared lead database supports nurture plans and promotional follow-up over time."
+      }
+    ],
+    "featureCaption": "From a new inquiry to the next follow-up, across the connected lead sources.",
+    "deliveryTitle": "What changed for Tim.",
+    "details": [
+      {
+        "title": "One place for leads from different sources",
+        "body": "A custom workspace brings inquiries together, so Tim can manage leads across connected platforms through a single interface."
+      },
+      {
+        "title": "An immediate alert for a new inquiry",
+        "body": "The system sends Tim a text as a new lead arrives, helping him notice the opportunity without checking each platform’s inbox."
+      },
+      {
+        "title": "A database beyond the first reply",
+        "body": "Contacts stay in one place after the initial reach-out, giving Tim a foundation for building ongoing customer relationships."
+      },
+      {
+        "title": "Follow-up that continues over time",
+        "body": "Tim can set up nurture plans to reach back out over a period of time, or reconnect with leads through promotional offers."
+      }
+    ],
+    "support": {
+      "kicker": "After the first reply",
+      "title": "The conversation can continue when the timing is right.",
+      "body": "Not every prospective customer is ready to book immediately. With the contact in a shared database, Tim can set up a nurture plan that reaches back out over time, or share a promotional offer later. The inquiry remains part of a relationship he can keep building."
+    },
+    "journeyTitle": "One lead journey, beyond the first reply.",
+    "journey": [
+      {
+        "label": "Capture the interest",
+        "body": "Bring inquiries from different lead sources into the shared platform."
+      },
+      {
+        "label": "Start the conversation",
+        "body": "Notify Tim by SMS and give him one interface to review and manage the lead."
+      },
+      {
+        "label": "Stay in touch",
+        "body": "Keep the contact in the database and use nurture plans or promotional follow-up to reconnect."
+      }
+    ],
+    "takeaway": "One workspace for the next lead and the next conversation.",
+    "outcome": "Tim has a connected way to manage leads from different sources, receive an SMS alert when a new inquiry arrives, and continue following up after the first reach-out. The custom system brings acquisition, lead management, and ongoing nurture into one place, built around how his local business works.",
+    "website": "https://www.poolyetis.com/",
+    "proposedQuote": {
+      "text": "Cyber Genie brought our leads into one place. I get a text when a new inquiry arrives, and I can keep following up without juggling different platforms.",
+      "name": "Tim Young",
+      "role": "Pool Yetis",
+      "headshot": poolYetisWordmark,
+      "imageKind": "brand",
+      "imageAlt": "Pool Yetis wordmark",
+      "approvalName": "Tim",
       "approval": "pending"
     }
   }

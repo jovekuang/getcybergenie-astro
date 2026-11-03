@@ -4,12 +4,12 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import { caseStudies } from "./studies";
 import "@/styles/customer-stories.css";
 ---
-<BaseLayout title="Case study review | Cyber Genie" description="Unlisted review of three draft client stories. Client consent is pending." robots="noindex, nofollow, noarchive, nosnippet">
+<BaseLayout title="Case study review | Cyber Genie" description="Unlisted review of draft client stories. Client consent is pending." robots="noindex, nofollow, noarchive, nosnippet">
   <div class="review-notice"><div class="container"><span class="review-dot"></span> Unlisted draft review <span>Client consent pending · Not indexed</span></div></div>
   <section class="case-index container">
     <p class="case-kicker">Cyber Genie / Client stories</p>
     <h1>Real businesses.<br /><span>Work taken care of.</span></h1>
-    <p class="case-index-intro">Three draft stories of websites, creative work, and connected tools built around the people running the business.</p>
+    <p class="case-index-intro">Draft stories of websites, creative work, and connected tools built around the people running the business.</p>
     <p class="case-review-note">Aminata’s and Liza’s approved stories are now in <a class="case-text-link" href="https://getcybergenie.com/customer-stories/">Customer Stories →</a>.</p>
     <div class="case-index-grid">
       {caseStudies.map(study => <a class="case-preview-card" href={`/_review/case-studies/${study.slug}/`}>

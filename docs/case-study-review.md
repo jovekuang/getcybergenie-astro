@@ -1,6 +1,6 @@
 # Client case studies: publication and review
 
-Current status (November 3, 2026): Jove confirmed that Aminata and Liza approved their stories and authorized publication and indexing. Their approved pages and quotes are now promoted to `/customer-stories/`; Edith, Bruce, and Ava remain pending, unlisted, and noindex. See [the publication record](customer-stories-publication.md).
+Current status (November 3, 2026): Jove confirmed that Aminata and Liza approved their stories and authorized publication and indexing. Their approved pages and quotes are now promoted to `/customer-stories/`; Edith, Bruce, Ava, and Tim remain pending, unlisted, and noindex. See [the publication record](customer-stories-publication.md).
 
 Historical unlisted-review authorization: On November 2, 2026, Jove explicitly authorized committing, pushing, and deploying public review URLs with noindex and no incoming links from the marketing site. This supersedes the earlier local-only restriction for these five drafts.
 
@@ -20,6 +20,7 @@ Public review hub: https://case-studies-review.cyber-genie-marketing.pages.dev/_
 - First Achievers Childcare: /_review/case-studies/first-achievers-childcare/
 - The Warehouse by Black Creek: /_review/case-studies/the-warehouse-by-black-creek/
 - Wabi Blobi: /_review/case-studies/wabi-blobi/
+- Pool Yetis: /_review/case-studies/pool-yetis/
 
 ## Current publication boundary
 
@@ -100,3 +101,16 @@ Rollout verification: 81-page private review build, TypeScript, updated privacy 
 Run `npm run check`, `npm run review:case-studies:build`, and `npm run check:case-study-boundary` before release. GitHub CI also builds the review and checks its separation from the production build. Deploy with `npm run review:case-studies:deploy`, which uploads only the separately built review output to the `case-studies-review` preview branch of the `cyber-genie-marketing` Pages project. This does not replace the main marketing deployment.
 
 Verify the hub and all five detail URLs return HTTP 200 with both robots metadata and an HTTP `X-Robots-Tag` containing `noindex`. Verify the marketing homepage and sitemap contain no case-study links. All proposed quotes and client-consent notices must stay visible until the named clients approve them. The earlier dated verification sections record the local-only state at those steps; the owner subsequently authorized this unlisted public review release.
+
+
+## Pool Yetis review draft (November 3, 2026)
+
+The owner requested Tim Young’s story about leads arriving through Yelp, Angie’s List, and other platforms; delayed response from scattered inboxes; and the need for ongoing nurture. The draft follows the shared owner-led structure, with two inline proposed quotes and a closing proposed quote, all awaiting Tim’s approval. It covers a custom shared lead workspace, SMS alerts to Tim for new inquiries, and a lead database supporting nurture plans and promotional follow-up. It does not claim that Cyber Genie built Pool Yetis’ public website, nor does it claim measured response-time, lead-win, or revenue improvements.
+
+The public Pool Yetis homepage was opened and captured on November 3. Its background was paused through its visible control for the screenshot. The quote card uses the unchanged wordmark referenced by the public site’s header; no identified portrait of Tim was available in the inspected source. A workflow overview illustrates the owner’s described system without using private lead records or fabricating an application screenshot.
+
+Evidence boundary: the owner’s current brief supplies the multi-platform aggregation and nurture account. The separate local `pool-yetis` repository contains a Yelp lead dashboard and notification function source. Its README and deployment notes describe a narrower first phase with incoming-email automation deferred. Those files are not treated as verification that every described integration or nurture workflow is active in production; Tim’s review should confirm the final feature wording. No lead records, authenticated application screens, database changes, or customer notifications were accessed or triggered for this case study.
+
+The new draft is registered only at `/_review/case-studies/pool-yetis/` in the separate noindex review build. It is excluded from production story routes, cards, sitemap, and imported media. The two approved public stories remain the only records in the production Customer Stories collection.
+
+Pool Yetis draft verification: the full site check passed, including TypeScript, the 80-page normal build, zero-error site audit, six carousel tests, and 29 API tests. The 85-page review build and updated publication-boundary check passed. Desktop and 390px mobile workflow/quote sections were visually reviewed; 320px and 390px checks found one H1, three pending quote labels, the expected noindex metadata, and no horizontal overflow.

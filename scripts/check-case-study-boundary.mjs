@@ -7,7 +7,7 @@ const review = "outputs/case-study-review";
 const production = "dist";
 // Only these clients have publication approval, confirmed by the owner on November 3, 2026.
 const approved = ["first-achievers-childcare", "the-warehouse-by-black-creek"];
-const pending = ["edencare-360", "eden-elevations-3", "wabi-blobi"];
+const pending = ["edencare-360", "eden-elevations-3", "wabi-blobi", "pool-yetis"];
 const studySource = readFileSync("src/drafts/case-studies/studies.ts", "utf8");
 const slugs = [...studySource.matchAll(/(?:slug|"slug"):\s*"([^"]+)"/g)].map(match => match[1]);
 assert.deepEqual([...slugs].sort(), [...pending].sort(), "Pending draft list changed without updating the consent boundary");
@@ -69,4 +69,4 @@ for (const file of files(production)) {
 const home = readFileSync(join(production, "index.html"), "utf8");
 assert.match(home, /id="customer-stories-title"/);
 for (const slug of approved) assert.ok(home.includes(`/customer-stories/${slug}/`));
-console.log("Passed: exactly two approved public stories, indexable canonical routes, approved quotes, sitemap and homepage inclusion; three noindex review drafts and their media remain outside production.");
+console.log("Passed: exactly two approved public stories, indexable canonical routes, approved quotes, sitemap and homepage inclusion; four noindex review drafts and their media remain outside production.");

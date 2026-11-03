@@ -10,7 +10,7 @@ Public routes:
 
 The directory is linked from the main navigation and footer, and the homepage includes both stories using the same shared cards as the directory. Detail pages use the shared story renderer, canonical metadata, Article and BreadcrumbList schema, and next-story links restricted to approved records. The directory and both details are included in the sitemap. No Review or rating schema, invented metrics, or new customer claims are added.
 
-The first two emailed review URLs permanently redirect to the approved canonical stories. Redeploy the separate review branch as well as production to activate those redirects for existing email links. The other three review stories remain noindex with pending quote labels, and no pending records, assets, or links are imported into production.
+The first two emailed review URLs permanently redirect to the approved canonical stories. Redeploy the separate review branch as well as production to activate those redirects for existing email links. All pending review stories remain noindex with pending quote labels, and no pending records, assets, or links are imported into production.
 
 `npm run check`, the review build, and `npm run check:case-study-boundary` verify both sides of the publication boundary. The route fixture adds exactly the directory, two approved detail pages, three sitemap entries, and two review redirects. Existing routes, indexing decisions, API contracts, and other site work remain covered by the existing checks.
 

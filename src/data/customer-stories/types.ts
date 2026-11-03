@@ -12,7 +12,7 @@ export interface CaseStudy {
   summary: string;
   image: ImageMetadata;
   imageAlt: string;
-  theme: "care" | "property" | "childcare" | "venue" | "play";
+  theme: "care" | "property" | "childcare" | "venue" | "play" | "pool";
   imagePresentation?: "website" | "brand";
   imageCaption?: string;
   startingTitle?: string;
