@@ -93,9 +93,10 @@ export const firstAchievers: CaseStudy = {
     "name": "Aminata Traore",
     "role": "Executive Director, First Achievers Childcare",
     "headshot": aminataHeadshot,
-    "imagePosition": "35% 20%",
-    "imageScale": 2.5,
-    "imageOrigin": "10% 15%",
+    imageShape: "circle",
+    "imagePosition": "center 30%",
+    "imageScale": 3.6,
+    "imageOrigin": "26.1% 16.7%",
     "approvalName": "Aminata",
     "approval": "approved"
   }

@@ -39,7 +39,7 @@ const schemas = [
     <header class="case-hero container">
       <a class="case-back" href={collectionPath}>← {review ? "All draft case studies" : "Customer Stories"}</a>
       <p class="case-kicker">{study.client} / Client story</p>
-      <h1>{study.title}</h1>
+      <h1>{study.titleLines ? study.titleLines.map((line, index) => <span class="case-title-line">{index > 0 ? " " : ""}{line}</span>) : study.title}</h1>
       <p class="case-lead">{study.intro}</p>
       <div class="case-service-tags">{study.services.map(service => <span>{service}</span>)}</div>
       <figure class:list={["case-site-frame", {"case-brand-frame": study.imagePresentation === "brand"}]}>{study.imagePresentation !== "brand" && <div class="case-browser-chrome" aria-hidden="true"><i></i><i></i><i></i><span>{new URL(study.website).hostname}</span></div>}<Image src={study.image} alt={study.imageAlt} widths={[640, 1000, 1600]} sizes="(max-width: 1200px) 92vw, 1152px" loading="eager" fetchpriority="high" /><figcaption>{study.imageCaption ?? `Selected website work for ${study.client}.`}</figcaption></figure>
@@ -64,7 +64,7 @@ const schemas = [
     <section class="container case-outcome"><p class="case-kicker">The result</p><h2>{study.takeaway}</h2><p>{study.outcome}</p></section>
     <section class="container case-quote" id="client-quote" aria-labelledby="client-quote-heading" data-quote-approval={study.proposedQuote.approval}>
       <figure class="case-quote-card">
-        <div class="case-quote-portrait"><Image class:list={["case-quote-headshot", {"case-quote-brand-mark": study.proposedQuote.imageKind === "brand"}]} style={{objectPosition: study.proposedQuote.imagePosition, transform: study.proposedQuote.imageScale ? `scale(${study.proposedQuote.imageScale})` : undefined, transformOrigin: study.proposedQuote.imageOrigin}} src={study.proposedQuote.headshot} alt={study.proposedQuote.imageAlt ?? study.proposedQuote.name} widths={[160, 320, 640]} sizes={study.proposedQuote.imageScale ? "(max-width: 600px) 180px, 360px" : "(max-width: 600px) 72px, 144px"} /></div>
+        <div class:list={["case-quote-portrait", {"case-quote-portrait-circle": study.proposedQuote.imageShape === "circle"}]}><Image class:list={["case-quote-headshot", {"case-quote-brand-mark": study.proposedQuote.imageKind === "brand"}]} style={{objectPosition: study.proposedQuote.imagePosition, transform: study.proposedQuote.imageScale ? `scale(${study.proposedQuote.imageScale})` : undefined, transformOrigin: study.proposedQuote.imageOrigin}} src={study.proposedQuote.headshot} alt={study.proposedQuote.imageAlt ?? study.proposedQuote.name} widths={study.proposedQuote.imageScale ? [320, 640, 1024] : [160, 320, 640]} sizes={study.proposedQuote.imageScale ? `(max-width: 600px) ${Math.ceil(72 * study.proposedQuote.imageScale)}px, ${Math.ceil(144 * study.proposedQuote.imageScale)}px` : "(max-width: 600px) 72px, 144px"} /></div>
         <div class="case-quote-content">
           <h2 class="case-kicker" id="client-quote-heading">{approved ? "In their words" : "Proposed client quote"}</h2>
           <blockquote><p>“{study.proposedQuote.text}”</p></blockquote>

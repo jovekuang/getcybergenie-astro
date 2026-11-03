@@ -7,6 +7,7 @@ export interface CaseStudy {
   person: string;
   sector: string;
   title: string;
+  titleLines?: string[];
   intro: string;
   summary: string;
   image: ImageMetadata;
@@ -47,6 +48,7 @@ export interface CaseStudy {
     role: string;
     headshot: ImageMetadata;
     imageKind?: "person" | "brand";
+    imageShape?: "circle";
     imageAlt?: string;
     imagePosition?: string;
     imageScale?: number;

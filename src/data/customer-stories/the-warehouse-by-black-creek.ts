@@ -1,4 +1,4 @@
-import warehouseImage from "../../assets/customer-stories/warehouse-current-site.jpg";
+import warehouseImage from "../../assets/customer-stories/warehouse-current-site.png";
 import warehouseMark from "../../assets/customer-stories/warehouse-mark.png";
 import warehouseVideo from "../../assets/customer-stories/warehouse-hero.mp4?url";
 import warehousePoster from "../../assets/customer-stories/warehouse-poster.webp";
@@ -11,12 +11,13 @@ export const warehouse: CaseStudy = {
   "person": "Liza Hill",
   "sector": "Event venue · Devine, Texas",
   "title": "Liza was opening a venue. Her website needed to grow with it.",
+  titleLines: ["Liza was opening a venue.", "Her website needed to grow with it."],
   "intro": "Liza was preparing to launch The Warehouse by Black Creek in Devine, Texas. She needed an online presence before the doors opened and practical support for reservation requests as the new venue began welcoming guests.",
   "summary": "How Liza built an online presence before launch, then added reservation support as the venue grew, using the system she already had.",
   "image": warehouseImage,
-  "imageAlt": "Screenshot of the current Warehouse by Black Creek homepage, with its Gather well hero and event inquiry links",
+  "imageAlt": "Screenshot of The Warehouse by Black Creek homepage, with an aerial view of the venue and its Gather well hero",
   "theme": "venue",
-  "imageCaption": "The current Warehouse by Black Creek homepage.",
+  "imageCaption": "The Warehouse by Black Creek homepage, with an aerial view of the venue.",
   "deliveryTitle": "What changed for Liza.",
   "storyQuotes": {
     "challenge": "I wanted people to discover the venue before we opened, with a website that could grow with us as we got started.",

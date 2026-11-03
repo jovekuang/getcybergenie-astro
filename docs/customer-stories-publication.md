@@ -19,3 +19,7 @@ Deployment uses the existing direct-upload Cloudflare Pages project `cyber-genie
 ## Release verification
 
 The complete site check passed: TypeScript, 79-page production build, site audit (zero errors and warnings), six carousel tests, and 29 API tests. The 83-page review build and publication-boundary check also passed. The local Pages runtime verified 79 routes, 44 query-preserving redirects, true 404 responses, preview noindex headers, and dry-run API contracts. All nine browser journeys passed using installed Chrome, including mobile navigation from the homepage to both approved stories. Browser review also covered the directory, homepage section, quote cards, and 320px layouts. Compact navigation and footer spacing keep the expanded links usable just above the mobile breakpoint.
+
+## Requested visual refinements (November 3, 2026)
+
+The Warehouse screenshot was replaced with the owner's supplied aerial-view screenshot, copied byte-for-byte into `warehouse-current-site.png`. Shared story cards and social metadata use the same new image. The detail page preserves its natural proportions, and an explicit title-line field starts “Her website needed to grow with it.” on a new line. Aminata's original photo is unchanged; a circular CSS frame and face-centered zoom provide the requested profile-photo presentation on desktop and mobile. The story text, quotes, approval states, and indexing decisions are unchanged.
