@@ -29,7 +29,9 @@ const relatedPosts = blogPosts
   .sort((a, b) => Number(b.category === post.category) - Number(a.category === post.category))
   .slice(0, 3);
 const articleContext = `${post.title} ${post.excerpt} ${post.category}`.toLowerCase();
-const relatedService = articleContext.includes("preparation") || articleContext.includes("project update")
+const relatedService = articleContext.includes("maintenance request") || articleContext.includes("work-order")
+  ? { name: "Request Pipeline", href: "/solutions/win-customers/request-pipeline/" }
+  : articleContext.includes("preparation") || articleContext.includes("project update")
   ? { name: "Project Updates", href: "/solutions/keep-customers/project-updates/" }
   : articleContext.includes("tour") || articleContext.includes("scheduling")
   ? { name: "Scheduling", href: "/solutions/win-customers/scheduling/" }

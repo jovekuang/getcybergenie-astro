@@ -20,6 +20,7 @@ import blogHvacEstimateFollowUp from '@/assets/blog-hvac-estimate-follow-up-proc
 import blogShopifyCheckoutRecovery from '@/assets/blog-shopify-abandoned-checkout-recovery.png';
 import blogDaycareTourFollowUp from '@/assets/blog-daycare-tour-follow-up-process.png';
 import blogPestControlPreparation from '@/assets/blog-pest-control-preparation-reminder-workflow.png';
+import blogPropertyMaintenanceIntake from '@/assets/blog-property-management-maintenance-request-intake.png';
 
 export interface BlogPost {
   slug: string;
@@ -42,6 +43,143 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: 'property-management-maintenance-request-intake-process',
+    title: 'How to Collect Better Maintenance Requests Without Making Residents Repeat Themselves',
+    seoTitle: 'Property Management Maintenance Request Intake | Cyber Genie',
+    seoDescription: 'Build a property management maintenance request intake process that captures the issue, safe photos, access needs, ownership, and resident updates.',
+    excerpt: 'A maintenance request should not become three phone calls, two inbox threads, and a resident repeating the same problem to every new person. Here is a clearer intake and handoff process.',
+    date: '2026-11-03',
+    author: 'Jove Kuang',
+    readTime: '8 min read',
+    image: blogPropertyMaintenanceIntake,
+    category: 'Property Management Operations',
+    keywords: 'property management maintenance request intake process, tenant maintenance request workflow, property management work order intake, resident maintenance request checklist, maintenance request communication, property management maintenance software',
+    content: `A property management maintenance request intake process should give the resident, office, vendor, and owner one shared version of what is happening.
+
+Instead, a resident often reports a problem by phone, repeats it in a portal, explains it again when someone schedules the visit, and starts over when the technician arrives. The office may still be missing the exact unit, affected area, access instructions, pet information, safe photos, or the name of the person responsible for the next step.
+
+The answer is not a longer form for every resident. It is a small workflow that asks for the right context, separates urgent exceptions from routine work, gives the request an owner, and carries the useful details through completion.
+
+Treat the request as the start of a work record
+
+A voicemail, email, text, or portal submission is only the first signal. The operational record should preserve what was reported, when it was received, which property and unit it affects, who can clarify it, and what happens next.
+
+That record prevents the resident’s original description from disappearing during the handoff. It also lets the office add vendor notes, scheduling details, approvals, photos, invoices, and completion information without creating a separate thread for every stage.
+
+The [property management customer journey](/industries/property-management/) connects resident intake, work orders, vendor scheduling, property updates, photos, documents, and renewals. Maintenance works better when it is part of that journey rather than a message someone has to remember to convert into a task.
+
+Capture observable facts instead of asking for a diagnosis
+
+Residents should not need to identify the failed part or choose the correct trade. Ask them to describe what they can safely observe.
+
+For example, “the sink is broken” is difficult to route. A more useful description is: “Water appears under the kitchen sink when the faucet runs. It started this morning and is collecting inside the cabinet.” The resident has provided location, behavior, timing, and visible impact without guessing whether the cause is a supply line, drain, faucet, or something else.
+
+A practical intake can ask for the property and unit, room or common area, fixture or system involved, what the resident sees, hears, or smells, when it began, whether it is changing, what can no longer be used, and the best contact method. Keep the questions short and reveal additional fields only when they apply.
+
+HUD tells Housing Choice Voucher participants to [report problems promptly and note when the request was made](https://www.hud.gov/helping-americans/housing-choice-vouchers-tenants). Your workflow should preserve that received time automatically instead of asking staff to reconstruct it later.
+
+Do not let a generic form decide what is an emergency
+
+Every property needs a clear, approved emergency process that reflects its leases, local requirements, building systems, insurance guidance, and operating responsibilities. A generic chatbot or dropdown should not invent that policy.
+
+Put the current emergency instructions before or beside routine intake. If a resident reports an immediate threat to life or safety, the experience should point them to emergency services when appropriate and the property’s approved emergency contact path. The routine form can still record the request, but it should not become the only place an urgent condition waits for review.
+
+For properties covered by HUD inspection requirements, [NSPIRE standards distinguish health, safety, sanitation, security, usability, and maintenance rationales](https://www.hud.gov/reac/nspire-reading-standards). That is not a universal priority chart for every property. It illustrates why a request should capture the observed impact and route it through the property’s approved rules instead of treating every repair as the same kind of ticket.
+
+Your lease, applicable law, governing documents, and qualified advisers control the actual notice, entry, response, and escalation requirements.
+
+Make access schedulable during intake
+
+A vendor assignment is not ready if no one knows how or when the unit can be entered.
+
+Collect the resident’s current contact information, preferred appointment windows, permission-to-enter status, whether the resident wants to be present, gate or building access process, relevant alarms, and pets or other conditions the visiting professional needs to know about. Do not put door codes, lockbox combinations, or other sensitive access details into broadly visible notes.
+
+Treat access information as changeable. A resident may initially permit entry and later need to be present. A pet may be secured only during a particular window. The latest approved instruction should be visible to the person scheduling and the person arriving, with an appropriate record of the change.
+
+The [Request Pipeline](/solutions/win-customers/request-pipeline/) can turn a new maintenance request into a visible item with a status, owner, and next action. The goal is not to replace the property-management system of record. It is to keep the intake and handoffs from falling between channels.
+
+Ask for safe and useful photos
+
+Photos can clarify location, visible spread, an equipment display, or the difference between cosmetic damage and an active condition. They should be optional when a photo is unsafe, intrusive, or unnecessary.
+
+Give residents simple guidance: take one wider image that establishes the area and one closer image only when it can be captured safely. Do not ask anyone to touch unknown material, open equipment, enter a dangerous area, recreate a failure, or continue operating something unsafe for the sake of documentation.
+
+Ask the resident to review the background before uploading. Mail, identification, medication labels, financial papers, computer screens, faces, keys, access codes, and unrelated belongings may reveal more than the maintenance team needs.
+
+The [Photo & Document Management workflow](/solutions/keep-customers/photo-document-management/) can keep approved images, inspection notes, estimates, owner approvals, invoices, and completion records attached to the right property and request instead of scattered across personal phones and email attachments.
+
+Give every request a clear status and owner
+
+A long list of open work orders is not a workflow. The status should tell the team what is true now and who needs to act.
+
+A small property-management team might use Received, Needs Information, Reviewed, Assigned, Scheduled, In Progress, Waiting on Part, Waiting on Approval, Completed, Resident Follow-Up, and Closed. Use only the stages the team can maintain.
+
+Every open request also needs one current owner. That may be the office coordinator gathering details, the property manager reviewing the situation, the vendor scheduling the visit, or the person confirming completion. Ownership can change, but it should never be ambiguous.
+
+For example, a request in Needs Information belongs to the person contacting the resident. Once the missing access window is received, it can move to Reviewed or Assigned. Moving the status without assigning the next owner only creates a tidier-looking backlog.
+
+Carry context into the vendor handoff
+
+The vendor should receive the information needed for the agreed task: property and unit, observable condition, relevant safe media, access plan, appointment window, authorized scope, contact path, and any property-specific instructions.
+
+Do not forward an entire resident history when the vendor only needs the current work context. Limit access to what is necessary for the visit and follow the company’s privacy and retention rules.
+
+If the vendor discovers a different condition or needs additional authorization, route that exception back to the responsible person. The resident should not have to act as the messenger between vendor, manager, and owner.
+
+Send updates when the status meaningfully changes
+
+Residents usually need a clear next step more than a stream of automated notifications.
+
+Useful updates include confirmation that the request was received, a question that blocks review, the approved appointment window, a delay that changes expectations, a notice that another approval or part is pending, and a completion message with the correct follow-up path.
+
+The [Project Updates workflow](/solutions/keep-customers/project-updates/) can connect those messages to actual milestones. Avoid claiming “scheduled” when the vendor has only been contacted, or “completed” when the technician has left but the office still needs documentation or resident confirmation.
+
+Close the loop with both the work and the resident
+
+Completion should answer two questions: What work was recorded, and does the resident know what happens next?
+
+Capture the completion date, vendor or staff member, approved work summary, relevant photos or documents, follow-up recommendation, invoice or owner-approval status, and any warranty or return-visit information. Then send the resident a concise update and a clear way to report that the issue remains unresolved.
+
+Do not force every request into a “satisfied” outcome. A repair may require another part, a specialist, owner approval, or a broader capital decision. The record should show that honestly and preserve the next action.
+
+Measure clarity instead of ticket volume
+
+The number of submitted requests does not tell you whether the intake process works.
+
+Useful operating measures include requests missing a property or unit, requests waiting for resident information, time to initial review, unassigned work, scheduling failures caused by access, repeat contacts for the same details, vendor visits without enough context, requests marked complete without documentation, and reopened work.
+
+Review the patterns. If staff repeatedly call for the same access detail, add it to the relevant intake path. If residents choose the wrong request type, simplify the choices. If a vendor regularly lacks current photos or approvals, fix that handoff before adding another dashboard.
+
+Build the smallest complete maintenance path
+
+You do not need to replace the existing property-management platform to improve maintenance intake.
+
+Start with one complete path: the resident reports an observable condition, the request receives a timestamp and owner, approved urgency rules route it correctly, missing information is collected once, access becomes schedulable, the vendor receives useful context, meaningful updates go to the resident, and the record closes with the work and next step documented.
+
+Cyber Genie can connect that path around the tools your property team already uses. The work may begin with a focused request pipeline and project updates, then extend only where integrations or a broader managed workflow are actually needed.
+
+If maintenance work is split across calls, portal notes, inboxes, and vendor texts, [talk through your maintenance request process](https://calendly.com/jove-fkcapital/30min). Bring one recent request where the resident or vendor had to repeat information, and we can map the smallest useful improvement first.`,
+    faqHeading: 'Property management maintenance request FAQ',
+    faq: [
+      {
+        question: 'What information should a property manager collect in a maintenance request?',
+        answer: 'Collect the property and unit, exact location, observable condition, when it began, whether it is changing, current impact, safe photos when useful, contact details, access preferences, pets or relevant visit conditions, and the resident’s preferred communication method.',
+      },
+      {
+        question: 'Should residents diagnose the maintenance problem?',
+        answer: 'No. Ask residents to describe what they can safely see, hear, smell, or no longer use. The property team or qualified vendor should diagnose the cause and determine the appropriate work.',
+      },
+      {
+        question: 'Can maintenance request intake be automated?',
+        answer: 'Repeatable intake, acknowledgments, task creation, status updates, and handoffs can be automated. Emergency classification, entry requirements, repair decisions, exceptions, and sensitive situations should follow approved property rules and responsible human review.',
+      },
+      {
+        question: 'Does this require replacing property management software?',
+        answer: 'Not necessarily. A focused workflow can connect the existing portal, phone, inbox, customer records, vendors, and communication process. Replace a system only when it cannot support the agreed intake, ownership, and handoffs.',
+      },
+    ],
+  },
   {
     slug: 'pest-control-preparation-reminder-workflow',
     title: 'How to Send Pest Control Preparation Instructions Without Creating More Calls',
