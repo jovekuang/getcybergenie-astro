@@ -126,3 +126,8 @@ The owner also requested a title centered on customer service. The title is now 
 ## Pool Yeti’s name correction (November 4, 2026)
 
 Tim replied to the approval request and confirmed that the business name includes an apostrophe: Pool Yeti’s. Updated the draft’s client name, summary, captions, alt text, narrative, website link label, and quote attribution throughout. Rephrased possessive constructions for readability. The existing `/pool-yetis/` route and media filenames remain stable. This update refreshes the unlisted, noindex review deployment only; it does not publish the story into the production Customer Stories collection.
+
+
+## Pool Yeti’s approved for publication (November 4, 2026)
+
+Jove confirmed Tim’s approval and authorized publication. The story and media have moved to the approved customer-stories collection; its review URL now redirects to https://getcybergenie.com/customer-stories/pool-yetis/. Three other drafts remain in this review build. See `customer-stories-publication.md` for the publication record.

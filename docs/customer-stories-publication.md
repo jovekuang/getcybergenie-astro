@@ -23,3 +23,10 @@ The complete site check passed: TypeScript, 79-page production build, site audit
 ## Requested visual refinements (November 3, 2026)
 
 The Warehouse screenshot was replaced with the owner's supplied aerial-view screenshot, copied byte-for-byte into `warehouse-current-site.png`. Shared story cards and social metadata use the same new image. The detail page preserves its natural proportions, and an explicit title-line field starts “Her website needed to grow with it.” on a new line. Aminata's original photo is unchanged; a circular CSS frame and face-centered zoom provide the requested profile-photo presentation on desktop and mobile. The story text, quotes, approval states, and indexing decisions are unchanged.
+
+
+## Pool Yeti’s publication (November 4, 2026)
+
+Jove confirmed Tim’s approval and requested publication. Moved the reviewed Pool Yeti’s record and its existing screenshot and wordmark into the approved collection, retaining the apostrophe and first-name-only attribution. All three quotes now use the approved presentation. The shared homepage cards, Customer Stories directory, next-story navigation, Article metadata, and sitemap include the new canonical route: https://getcybergenie.com/customer-stories/pool-yetis/. The former review URL redirects permanently to this public page on both deployment branches. The remaining three stories stay unlisted and noindex. Updated the route fixture, mobile story journey, and publication-boundary check to require exactly three approved stories.
+
+Pre-deploy verification passed: full site check (81 pages, 77 sitemap entries, zero audit errors, six carousel and 29 API tests), review build, three-approved/three-pending publication boundary, Cloudflare runtime (81 routes and 45 query-preserving redirects), and all nine browser journeys, including mobile traversal of the three approved stories.
