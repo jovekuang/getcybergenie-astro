@@ -220,16 +220,16 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     "slug": "pool-yetis",
-    "client": "Pool Yetis",
+    "client": "Pool Yeti’s",
     "person": "Tim",
     "sector": "Local pool care & repair",
     "title": "Tim wanted one place to serve his customers better.",
     "intro": "Tim partners with Yelp, Angie’s List, and other platforms for his pool service company. He wanted one place to manage the inquiries from those partnerships, a text alert when a new request arrived, and a way to keep the conversation going after the first reply.",
-    "summary": "How Tim brought customer inquiries from Pool Yetis’ partner platforms into one workspace, with immediate SMS alerts and ongoing follow-up.",
+    "summary": "How Tim brought customer inquiries from the platforms Pool Yeti’s partners with into one workspace, with immediate SMS alerts and ongoing follow-up.",
     "image": poolYetisWebsite,
-    "imageAlt": "The Pool Yetis homepage, with its blue wordmark, pool-care messaging, and illustrated Yeti mascot.",
+    "imageAlt": "The Pool Yeti’s homepage, with its blue wordmark, pool-care messaging, and illustrated Yeti mascot.",
     "theme": "pool",
-    "imageCaption": "Pool Yetis’ public website introduces its local pool-care services.",
+    "imageCaption": "The public Pool Yeti’s website introduces its local pool-care services.",
     "services": [
       "Connected customer inquiries",
       "Shared lead workspace",
@@ -246,8 +246,8 @@ export const caseStudies: CaseStudy[] = [
     },
     "featureLabel": "The customer inquiry workflow",
     "featureTitle": "A new inquiry. A text to Tim. One place to take it from there.",
-    "featureBody": "The system brings inquiries from Pool Yetis’ connected platforms into one shared view. When a new inquiry comes in, it sends Tim an SMS notification. Tim can review and manage the conversation through one interface, with the contact kept in the database for future follow-up.",
-    "websiteLabel": "Explore Pool Yetis",
+    "featureBody": "The system brings inquiries from the platforms connected to Pool Yeti’s into one shared view. When a new inquiry comes in, it sends Tim an SMS notification. Tim can review and manage the conversation through one interface, with the contact kept in the database for future follow-up.",
+    "websiteLabel": "Explore Pool Yeti’s",
     "featureFlow": [
       {
         "title": "Bring the inquiries together",
@@ -307,15 +307,15 @@ export const caseStudies: CaseStudy[] = [
       }
     ],
     "takeaway": "One workspace to keep his customer relationships moving.",
-    "outcome": "Tim has one workspace for inquiries from the platforms Pool Yetis works with. Immediate SMS alerts help him stay informed about new requests, and the shared contact database gives him a consistent way to continue the conversation with follow-up plans and relevant promotional offers.",
+    "outcome": "Tim has one workspace for inquiries from the platforms Pool Yeti’s works with. Immediate SMS alerts help him stay informed about new requests, and the shared contact database gives him a consistent way to continue the conversation with follow-up plans and relevant promotional offers.",
     "website": "https://www.poolyetis.com/",
     "proposedQuote": {
       "text": "Cyber Genie brought our customer inquiries into one place. I get a text when a new request arrives, and I can keep the conversation going without jumping between platforms.",
       "name": "Tim",
-      "role": "Pool Yetis",
+      "role": "Pool Yeti’s",
       "headshot": poolYetisWordmark,
       "imageKind": "brand",
-      "imageAlt": "Pool Yetis wordmark",
+      "imageAlt": "Pool Yeti’s wordmark",
       "approvalName": "Tim",
       "approval": "pending"
     }
