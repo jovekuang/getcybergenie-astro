@@ -114,3 +114,8 @@ Evidence boundary: the owner’s current brief supplies the multi-platform aggre
 The new draft is registered only at `/_review/case-studies/pool-yetis/` in the separate noindex review build. It is excluded from production story routes, cards, sitemap, and imported media. The two approved public stories remain the only records in the production Customer Stories collection.
 
 Pool Yetis draft verification: the full site check passed, including TypeScript, the 80-page normal build, zero-error site audit, six carousel tests, and 29 API tests. The 85-page review build and updated publication-boundary check passed. Desktop and 390px mobile workflow/quote sections were visually reviewed; 320px and 390px checks found one H1, three pending quote labels, the expected noindex metadata, and no horizontal overflow.
+
+
+### Tim’s naming and partnership framing
+
+At the owner’s request, the visible Pool Yetis story now uses Tim’s first name in the opening, facts, inline quote attributions, and closing quote. The opening describes his partnerships with Yelp, Angie’s List, and other platforms for his pool service company. The rest of the narrative, metadata summary, workflow, and proposed quotes emphasize organizing customer inquiries across those business partnerships, timely notifications, and ongoing relationships. Wording about finding prospective customers, acquisition, losing opportunities, and leads disappearing was removed. No claims about business performance or purchasing leads were added. The draft remains unlisted, noindex, and pending Tim’s approval.
