@@ -2,7 +2,7 @@
 import { brand } from "@/data/brand";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { blogPosts } from "@/data/blogData";
-import { createBreadcrumbSchema } from "@/data/site";
+import { createBreadcrumbSchema, organizationSchema } from "@/data/site";
 import { staticSeo } from "@/data/seo";
 import { Image } from "astro:assets";
 
@@ -11,9 +11,12 @@ const posts = [...blogPosts].sort((a, b) => Date.parse(b.date) - Date.parse(a.da
 const blogSchema = {
   "@context": "https://schema.org",
   "@type": "Blog",
+  "@id": `${brand.origin}/blog/#blog`,
   name: "Cyber Genie Blog",
   url: `${brand.origin}/blog/`,
-  description: "Practical writing on turning business processes into better websites, useful software, and managed customer workflows.",
+  description: staticSeo.blog.description,
+  inLanguage: "en-US",
+  publisher: { "@id": organizationSchema["@id"] },
 };
 ---
 
@@ -22,6 +25,7 @@ const blogSchema = {
   description={staticSeo.blog.description}
   canonical="/blog/"
   jsonLd={[
+    organizationSchema,
     blogSchema,
     createBreadcrumbSchema([
       { name: "Home", path: "/" },
@@ -33,8 +37,8 @@ const blogSchema = {
     <div class="container">
       <p class="eyebrow">Blog</p>
       <h1 class="page-title">
-        <span class="headline-sentence headline-sentence-neutral">Build around the process.</span>
-        <span class="headline-sentence">Not another dashboard.</span>
+        <span class="headline-sentence headline-sentence-neutral">Technology &amp; AI.</span>
+        <span class="headline-sentence">For small businesses.</span>
       </h1>
       <p class="lead">Practical ideas about better websites, useful software, and customer workflows that fit how the business already works.</p>
     </div>
@@ -43,12 +47,18 @@ const blogSchema = {
     <div class="container blog-grid">
       {posts.map((post) => (
         <a class="card media-card blog-card" href={`/blog/${post.slug}/`}>
-          <Image src={post.image} alt={post.title} widths={[480, 760, 1100]} sizes="(max-width: 760px) 100vw, 33vw" loading="lazy" />
+          <Image
+            src={post.image}
+            alt={post.imageAlt ?? post.title}
+            widths={[480, 760, 1100, 1200]}
+            sizes="(max-width: 560px) calc(100vw - 32px), (max-width: 860px) calc(100vw - 40px), (max-width: 1240px) calc((100vw - 84px) / 3), 386px"
+            loading="lazy"
+          />
           <div class="blog-card-body">
             <p class="eyebrow">{post.category}</p>
             <h2>{post.title}</h2>
             <p>{post.excerpt}</p>
-            <p style="font-size: 14px;">{post.date} · {post.readTime}</p>
+            <p style="font-size: 14px;"><time datetime={post.date}>{post.date}</time> · {post.readTime}</p>
           </div>
         </a>
       ))}

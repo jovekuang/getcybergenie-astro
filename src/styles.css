@@ -2714,6 +2714,13 @@ img {
   transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
 }
 
+/* Article artwork includes text: preserve the full image at its natural ratio. */
+.blog-card > img:first-child {
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
+}
+
 .blog-card-body {
   display: flex;
   flex: 1;

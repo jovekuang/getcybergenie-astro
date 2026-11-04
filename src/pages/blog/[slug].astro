@@ -3,7 +3,7 @@ import { brand } from "@/data/brand";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { getImage, Image } from "astro:assets";
 import { blogPosts } from "@/data/blogData";
-import { createBreadcrumbSchema } from "@/data/site";
+import { calendlyUrl, createBreadcrumbSchema, organizationSchema } from "@/data/site";
 import emailAuthDiagram from "@/assets/blog-email-auth-spf-dkim-dmarc.png";
 
 export function getStaticPaths() {
@@ -28,25 +28,6 @@ const relatedPosts = blogPosts
   .filter((candidate) => candidate.slug !== post.slug)
   .sort((a, b) => Number(b.category === post.category) - Number(a.category === post.category))
   .slice(0, 3);
-const articleContext = `${post.title} ${post.excerpt} ${post.category}`.toLowerCase();
-const relatedService = articleContext.includes("maintenance request") || articleContext.includes("work-order")
-  ? { name: "Request Pipeline", href: "/solutions/win-customers/request-pipeline/" }
-  : articleContext.includes("preparation") || articleContext.includes("project update")
-  ? { name: "Project Updates", href: "/solutions/keep-customers/project-updates/" }
-  : articleContext.includes("tour") || articleContext.includes("scheduling")
-  ? { name: "Scheduling", href: "/solutions/win-customers/scheduling/" }
-  : articleContext.includes("estimate") || articleContext.includes("quote")
-  ? { name: "Quoting & Follow-Up", href: "/solutions/win-customers/quoting-follow-up/" }
-  : articleContext.includes("social") || articleContext.includes("marketing")
-  ? { name: "Social Media Management", href: "/services/marketing/" }
-  : articleContext.includes("voice") || articleContext.includes("call") || articleContext.includes("phone")
-    ? { name: "Voice AI", href: "/services/voice/" }
-    : articleContext.includes("spreadsheet") || articleContext.includes("business software") || articleContext.includes("business app") || articleContext.includes("technology")
-      ? { name: "Technology Partner", href: "/services/technology-partner/" }
-    : articleContext.includes("website") || articleContext.includes("web application")
-      ? { name: "Evolving Web Application", href: "/services/website-design-hosting/" }
-      : { name: "Technology Partner", href: "/services/technology-partner/" };
-
 const blocks = post.content
   .split(/\n{2,}/)
   .map((block) => block.trim())
@@ -79,12 +60,16 @@ const getImageBlock = (value: string) => {
 const articleSchema = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
+  "@id": `${brand.origin}/blog/${post.slug}/#article`,
+  inLanguage: "en-US",
+  articleSection: post.category,
+  isPartOf: { "@type": "Blog", "@id": `${brand.origin}/blog/#blog`, name: "Cyber Genie Blog", url: `${brand.origin}/blog/` },
   headline: post.title,
   description: seoDescription,
   keywords: post.keywords,
   datePublished: post.date,
   author: {
-    "@type": "Person",
+    "@type": /team$/i.test(post.author) ? "Organization" : "Person",
     name: post.author,
   },
   publisher: {
@@ -127,9 +112,10 @@ const isHeading = (block: string) =>
   description={seoDescription}
   canonical={`/blog/${post.slug}/`}
   image={socialImage.src}
-  imageAlt={post.title}
+  imageAlt={post.imageAlt ?? post.title}
   type="article"
   jsonLd={[
+    organizationSchema,
     articleSchema,
     ...(faqSchema ? [faqSchema] : []),
     createBreadcrumbSchema([
@@ -143,13 +129,13 @@ const isHeading = (block: string) =>
     <p class="eyebrow">{post.category}</p>
     <h1>{post.title}</h1>
     <p class="lead">{post.excerpt}</p>
-    <p style="color: var(--muted);">{post.date} · {post.author} · {post.readTime}</p>
+    <p style="color: var(--muted);"><time datetime={post.date}>{post.date}</time> · {post.author} · {post.readTime}</p>
     <Image
       src={post.image}
-      alt={post.title}
+      alt={post.imageAlt ?? post.title}
       class="article-hero-image"
       widths={[640, 820, 1200]}
-      sizes="(max-width: 860px) 92vw, 820px"
+      sizes="(max-width: 860px) calc(100vw - 40px), 820px"
       loading="eager"
     />
     {historicalBrand && <aside class="brand-history-note">Originally published under FK Innovate. The same team now provides these services as Cyber Genie; the original launch story is preserved below.</aside>}
@@ -179,10 +165,10 @@ const isHeading = (block: string) =>
       </section>
     )}
 
-    <aside class="article-next-step" aria-label="Related Cyber Genie service">
-      <h2>Turn the idea into a customer workflow.</h2>
-      <p>See how {relatedService.name} can become a focused starting point or connect the process and technology behind the work.</p>
-      <a class="button button-secondary" href={relatedService.href}>Explore {relatedService.name}</a>
+    <aside class="article-next-step" aria-label="Talk about your business">
+      <h2>What would you like to take off your plate?</h2>
+      <p>Tell us where the work gets stuck. Let’s talk through your business, your priorities, and a practical starting point.</p>
+      <a class="button button-primary" href={calendlyUrl}>Talk About Your Business</a>
     </aside>
 
     <section class="article-related" aria-labelledby="related-reading-heading">

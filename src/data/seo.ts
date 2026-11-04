@@ -32,9 +32,9 @@ export const staticSeo = {
       "Explore practical ways to help your business get discovered, turn inquiries into customers, and keep good customers coming back.",
   },
   blog: {
-    title: "Customer Growth & Operations Insights | Cyber Genie",
+    title: "Small Business Technology & AI Blog | Cyber Genie",
     description:
-      "Practical guidance for getting, winning, and keeping customers through better websites, customer workflows, AI, and managed business systems.",
+      "Explore practical ideas on small business technology, AI, websites, automation, and customer workflows, plus the latest news from Cyber Genie.",
   },
   about: {
     title: "About Cyber Genie | Small Business Technology Partner",

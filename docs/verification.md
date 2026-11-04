@@ -1,5 +1,17 @@
 # Cyber Genie v1 verification
 
+## Blog navigation, responsive images, booking CTA and SEO — November 4, 2026
+
+Restored “Blog” in the shared header and footer. Blog-card images now retain their complete artwork and natural aspect ratio instead of being cropped into the shared 16:10 media frame. Responsive image sizes match the actual single-column breakpoint at 860px, mobile gutters and three-column desktop layout. The rebrand illustration has descriptive alternative text; other article images retain their existing title fallback.
+
+All article closing callouts now use “Talk About Your Business” and the shared Calendly URL, replacing the service-tier recommendation. Existing service links inside article bodies remain contextual reading. Blog metadata and its visible heading now describe small-business technology and AI. BlogPosting markup identifies team authors as organizations, retains personal authors, and includes language, category, stable article/blog identifiers and a locally defined publisher entity. Publication dates use semantic time elements. Original article identities, dates and routes are unchanged.
+
+SEO reference review: [Google's article markup guidance](https://developers.google.com/search/docs/appearance/structured-data/article), [responsive image guidance](https://developers.google.com/search/docs/appearance/google-images) and [title-link guidance](https://developers.google.com/search/docs/appearance/title-link). These are implementation checks, not a ranking or search-indexing claim.
+
+Validation passed: types, 81-page build, route/commercial/metadata audit, six carousel tests and 29 API tests. The audit found no errors or title-length warnings, with 77 sitemap entries and existing per-page indexing decisions. Focused browser checks passed at 320, 390, 560, 768, 793, 860, 861, 1024, 1440 and 1920px for uncropped artwork, image containment, header/footer Blog links, the exact Calendly destination, callout fit and page overflow. Blog and article WCAG A/AA scans passed. Private screenshots and scripts are under ignored `outputs/qa/blog-review/`.
+
+Pre-release production rollback baseline: `43a43afd-44fc-416d-a1ce-bec9a19a7fb0`, source `a3235cb`. No DNS, indexing settings, bindings, prices, customer-app behavior, booking submissions or messages are part of this release.
+
 ## Rebranding story and announcement — November 3, 2026
 
 Added `/blog/fk-innovate-is-now-cyber-genie/`, based on the owner's rebranding email: origins helping FK Capital Partners' commercial tenants, the software-to-outcome mission, the founder's enterprise technology experience, and continuity for existing accounts and services. The article uses an approved-vector-derived cover, current publication date, Jove Kuang's author credit, canonical metadata, BlogPosting schema, blog listing and sitemap inclusion. Existing articles and commercial terms are preserved; the route fixture adds only the new article and increments the sitemap count.

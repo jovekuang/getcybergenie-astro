@@ -34,6 +34,7 @@ export interface BlogPost {
   author: string;
   readTime: string;
   image: ImageMetadata;
+  imageAlt?: string;
   category: string;
   keywords?: string;
   faqHeading?: string;
@@ -54,6 +55,7 @@ export const blogPosts: BlogPost[] = [
     author: 'Jove Kuang',
     readTime: '4 min read',
     image: blogRebrand,
+    imageAlt: 'FK Innovate is now Cyber Genie: a new name, the same mission, beside the winking thumbs-up genie.',
     category: 'Company News',
     keywords: 'FK Innovate rebrand, FK Innovate is now Cyber Genie, Cyber Genie, small business technology, small business AI',
     content: `FK Innovate is now Cyber Genie. I’m excited to share this next chapter, and grateful to everyone who helped us get here. Whether you’ve worked with us, tried a service, or simply shared your feedback, you’ve helped shape where we’re going.
