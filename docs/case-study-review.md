@@ -119,3 +119,5 @@ Pool Yetis draft verification: the full site check passed, including TypeScript,
 ### Tim’s naming and partnership framing
 
 At the owner’s request, the visible Pool Yetis story now uses Tim’s first name in the opening, facts, inline quote attributions, and closing quote. The opening describes his partnerships with Yelp, Angie’s List, and other platforms for his pool service company. The rest of the narrative, metadata summary, workflow, and proposed quotes emphasize organizing customer inquiries across those business partnerships, timely notifications, and ongoing relationships. Wording about finding prospective customers, acquisition, losing opportunities, and leads disappearing was removed. No claims about business performance or purchasing leads were added. The draft remains unlisted, noindex, and pending Tim’s approval.
+
+The owner also requested a title centered on customer service. The title is now “Tim wanted one place to serve his customers better.”, keeping the shared-workspace benefit while moving the emphasis away from lead acquisition.

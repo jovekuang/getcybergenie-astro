@@ -223,7 +223,7 @@ export const caseStudies: CaseStudy[] = [
     "client": "Pool Yetis",
     "person": "Tim",
     "sector": "Local pool care & repair",
-    "title": "Tim wanted every inquiry in one place.",
+    "title": "Tim wanted one place to serve his customers better.",
     "intro": "Tim partners with Yelp, Angie’s List, and other platforms for his pool service company. He wanted one place to manage the inquiries from those partnerships, a text alert when a new request arrived, and a way to keep the conversation going after the first reply.",
     "summary": "How Tim brought customer inquiries from Pool Yetis’ partner platforms into one workspace, with immediate SMS alerts and ongoing follow-up.",
     "image": poolYetisWebsite,
