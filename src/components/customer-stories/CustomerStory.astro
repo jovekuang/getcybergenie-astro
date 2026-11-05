@@ -7,8 +7,9 @@ import { customerStoryPath } from "@/data/customer-stories";
 import type { CaseStudy } from "@/data/customer-stories/types";
 import "@/styles/customer-stories.css";
 import StoryQuote from "./StoryQuote.astro";
-interface Props { study: CaseStudy; other?: CaseStudy; review?: boolean; }
-const { study, other, review = true } = Astro.props;
+import StoryShowcase from "./StoryShowcase.astro";
+interface Props { study: CaseStudy; other?: CaseStudy; review?: boolean; motionPreview?: boolean; }
+const { study, other, review = true, motionPreview = false } = Astro.props;
 const approved = study.publication?.consent === "approved" && study.proposedQuote.approval === "approved";
 if (!review && !approved) throw new Error(`Cannot publish unapproved story: ${study.slug}`);
 const collectionPath = review ? "/_review/case-studies/" : "/customer-stories/";
@@ -33,7 +34,8 @@ const schemas = [
   ]),
 ];
 ---
-<BaseLayout title={`${study.client}: client story | Cyber Genie`} description={study.summary} canonical={storyPath} image={study.image.src} imageAlt={study.imageAlt} robots={review ? "noindex, nofollow, noarchive, nosnippet" : undefined} type="article" jsonLd={review ? undefined : schemas}>
+<BaseLayout title={`${study.client}: client story | Cyber Genie`} description={study.summary} canonical={storyPath} image={study.image.src} imageAlt={study.imageAlt} robots={review || motionPreview ? "noindex, nofollow, noarchive, nosnippet" : undefined} type="article" jsonLd={review ? undefined : schemas}>
+  {motionPreview && <div class="local-motion-notice">Local motion prototype · Fictional demo data · Style review before publication. <a href="#showcase">View the animation ↓</a></div>}
   {review && <div class="review-notice"><div class="container"><span class="review-dot"></span> Unlisted draft review <span>Client consent pending · Not indexed</span></div></div>}
   <article class={`case-study ${study.theme}`}>
     <header class="case-hero container">
@@ -42,7 +44,7 @@ const schemas = [
       <h1>{study.titleLines ? study.titleLines.map((line, index) => <span class="case-title-line">{index > 0 ? " " : ""}{line}</span>) : study.title}</h1>
       <p class="case-lead">{study.intro}</p>
       <div class="case-service-tags">{study.services.map(service => <span>{service}</span>)}</div>
-      <figure class:list={["case-site-frame", {"case-brand-frame": study.imagePresentation === "brand"}]}>{study.imagePresentation !== "brand" && <div class="case-browser-chrome" aria-hidden="true"><i></i><i></i><i></i><span>{new URL(study.website).hostname}</span></div>}<Image src={study.image} alt={study.imageAlt} widths={[640, 1000, 1600]} sizes="(max-width: 1200px) 92vw, 1152px" loading="eager" fetchpriority="high" /><figcaption>{study.imageCaption ?? `Selected website work for ${study.client}.`}</figcaption></figure>
+      {study.showcase ? <StoryShowcase showcase={study.showcase} /> : <figure class:list={["case-site-frame", {"case-brand-frame": study.imagePresentation === "brand"}]}>{study.imagePresentation !== "brand" && <div class="case-browser-chrome" aria-hidden="true"><i></i><i></i><i></i><span>{new URL(study.website).hostname}</span></div>}<Image src={study.image} alt={study.imageAlt} widths={[640, 1000, 1600]} sizes="(max-width: 1200px) 92vw, 1152px" loading="eager" fetchpriority="high" /><figcaption>{study.imageCaption ?? `Selected website work for ${study.client}.`}</figcaption></figure>}
       <dl class="case-facts"><div><dt>Client</dt><dd>{study.client}</dd></div><div><dt>Working with</dt><dd>{study.person}</dd></div><div><dt>Industry</dt><dd>{study.sector}</dd></div><div><dt>Delivered by</dt><dd>Cyber Genie</dd></div></dl>
     </header>
     <section class="case-context container">

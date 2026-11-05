@@ -1,3 +1,4 @@
+import { warehouseShowcase } from "./showcases";
 import warehouseImage from "../../assets/customer-stories/warehouse-current-site.png";
 import warehouseMark from "../../assets/customer-stories/warehouse-mark.png";
 import warehouseVideo from "../../assets/customer-stories/warehouse-hero.mp4?url";
@@ -5,6 +6,7 @@ import warehousePoster from "../../assets/customer-stories/warehouse-poster.webp
 import type { CaseStudy } from "./types";
 
 export const warehouse: CaseStudy = {
+  showcase: warehouseShowcase,
   publication: { date: "2026-11-03", consent: "approved" },
   "slug": "the-warehouse-by-black-creek",
   "client": "The Warehouse by Black Creek",

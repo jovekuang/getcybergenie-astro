@@ -122,6 +122,21 @@ test('customer stories are reachable on mobile and link only to approved stories
  for(const path of approved){
   await page.waitForURL(base+path);
   assert.equal(await page.locator('h1').count(),1);
+  const showcase=page.locator('[data-story-showcase]');
+  assert.equal(await showcase.count(),1);
+  assert.equal(await showcase.locator('figcaption p').count(),0);
+  await showcase.scrollIntoViewIfNeeded();
+  // Reduced-motion visitors get the still image until they explicitly opt into playback.
+  assert.equal(await showcase.locator('video').getAttribute('src'),null);
+  await showcase.getByRole('button',{name:'Play animation',exact:true}).click();
+  const metadata=await showcase.locator('video').evaluate(video=>new Promise((resolve,reject)=>{
+   const timer=setTimeout(()=>reject(new Error('Showcase metadata did not load')),8000);
+   const done=()=>{clearTimeout(timer);resolve({duration:video.duration,src:video.getAttribute('src'),muted:video.muted});};
+   if(video.readyState>=1)done();else video.addEventListener('loadedmetadata',done,{once:true});
+  }));
+  assert.equal(metadata.duration,10);assert.match(metadata.src,/-mobile\./);assert.equal(metadata.muted,true);
+  await showcase.getByRole('button',{name:'Pause animation',exact:true}).click();
+
   assert.equal(await page.locator('[data-quote-approval="approved"]').count(),3);
   assert.equal(await page.locator('[data-quote-approval="pending"]').count(),0);
   assert.doesNotMatch(await page.locator('main').innerText(),/Proposed client quote|Client consent pending|Draft for review/);

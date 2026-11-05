@@ -1,8 +1,10 @@
+import { poolShowcase } from "./showcases";
 import poolYetisWebsite from "../../assets/customer-stories/pool-yetis-current-site.jpg";
 import poolYetisWordmark from "../../assets/customer-stories/pool-yetis-wordmark.png";
 import type { CaseStudy } from "./types";
 
 export const poolYetis: CaseStudy = {
+  showcase: poolShowcase,
   publication: { date: "2026-11-04", consent: "approved" },
   "slug": "pool-yetis",
   "client": "Pool Yeti’s",

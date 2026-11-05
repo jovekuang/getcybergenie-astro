@@ -1,0 +1,6 @@
+---
+import StoryShowcase from "@/components/customer-stories/StoryShowcase.astro";
+import posterDesktop from "../../assets/customer-stories/motion/pool-yetis-desktop-poster.webp";
+import posterMobile from "../../assets/customer-stories/motion/pool-yetis-mobile-poster.webp";
+---
+<html lang="en"><head><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="robots" content="noindex,nofollow" /><title>Local media failure check</title></head><body style="margin:20px;font-family:system-ui;max-width:850px"><h1>Local media failure check</h1><StoryShowcase showcase={{ title: "Media fallback test", desktop: "/_motion/intentionally-missing-desktop.mp4", mobile: "/_motion/intentionally-missing-mobile.mp4", posterDesktop: posterDesktop.src, posterMobile: posterMobile.src, description: "Fictional dashboard still image retained if the animation fails.", caption: "Local-only failure test. Fictional data." }} /></body></html>

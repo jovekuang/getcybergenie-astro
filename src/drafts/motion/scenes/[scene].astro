@@ -1,0 +1,53 @@
+---
+import { demoLeads, demoCounts, john, sceneCopy, type PoolScene } from "../pool-fixtures";
+import wordmark from "../../../assets/customer-stories/pool-yetis-wordmark.png";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
+import "@fontsource/inter/600.css";
+import "@fontsource/inter/700.css";
+import "@fontsource/manrope/700.css";
+import "../stage.css";
+export function getStaticPaths() {
+  return ["overview", "detail", "sms", "sms-pending", "followup"].map(scene => ({ params: { scene } }));
+}
+const scene = Astro.params.scene?.replace("-pending", "") as PoolScene;
+const pending = Astro.params.scene === "sms-pending";
+const copy = sceneCopy[scene];
+---
+<!doctype html><html lang="en"><head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'none'; connect-src 'none'; form-action 'none'; frame-src 'none'" />
+  <title>Fictional Pool Yeti’s demo — {scene}</title>
+</head><body>
+  <main class:list={["stage", `scene-${scene}`, {"sms-pending": pending}]} data-demo-only>
+    <header class="stage-top"><img src={wordmark.src} alt="Pool Yeti’s" /><span>CONNECTED CUSTOMER CARE <i></i> CYBER GENIE</span></header>
+    <div class="editorial"><p class="eyebrow">{copy.number} / {copy.kicker}</p><h1>{copy.title.split("\n").map(line => <span>{line}</span>)}</h1><p class="deck">{copy.body.split("\n").map(line => <span>{line}</span>)}</p></div>
+    {(scene === "overview" || scene === "detail") && <div class="product-window">
+      <div class="window-chrome"><span><i></i><i></i><i></i></span><span>Pool Yeti’s · Demonstration</span><span class="chrome-lock">◇</span></div>
+      <div class="app-header"><div><b>POOL YETI’S</b><strong>Yelp Lead Control</strong></div><span>demo.staff@example.com</span></div>
+      {scene === "overview" ? <div class="app-body">
+        <div class="app-heading"><div><small>Sales pipeline</small><h2>Yelp leads</h2></div><span class="total">{demoLeads.length} saved leads</span></div>
+        <div class="metric-grid">{demoCounts.map(count => <div><small>{count.label}</small><strong>{count.value}</strong><span>Click to filter leads</span></div>)}</div>
+        <div class="lead-table"><div class="table-title"><strong>Lead pipeline</strong><span>⌕ &nbsp; Search name, phone, city, service…</span></div><div class="table-row labels"><span>Lead</span><span>Service</span><span>Received</span><span>Status</span></div>{demoLeads.slice(0, 3).map((lead, index) => <div class:list={["table-row", { selected: index === 0 }]}><span><b>{lead.name}</b><small>{lead.id}</small></span><span>{lead.service}</span><span>{lead.date}</span><span><em class={`badge ${lead.status.toLowerCase()}`}>{lead.status}</em> ↗</span></div>)}</div>
+      </div> : <div class="detail-background"><div class="detail-card">
+        <div class="detail-title"><div><small>{john.id} · Yelp inquiry</small><h2>{john.name}</h2><p>{john.service}</p></div><em class="badge new">New</em></div>
+        <div class="contact-grid"><div><small>Email</small><p>{john.email}</p></div><div><small>Phone</small><p>{john.phone}</p></div><div><small>Location</small><p>{john.city}</p></div><div><small>Received</small><p>{john.date}</p></div></div>
+        <div class="request"><small>Customer message</small><p>Hi! I’m looking for weekly pool cleaning. Could you share your availability?</p></div>
+        <div class="detail-bottom"><span>Lead status</span><strong>New <span>⌄</span></strong></div>
+      </div></div>}
+    </div>}
+    {scene === "sms" && <section class="concept">
+      <div class="source-stack"><div><span class="source-icon">Y</span><strong>Yelp</strong></div><div><span class="source-icon">A</span><strong>Angie’s List</strong></div><div><span class="source-icon">↗</span><strong>Other partners</strong></div></div>
+      <svg class="connectors" viewBox="0 0 800 440" aria-hidden="true"><path d="M180 110 H232 Q248 110 248 128 V204 Q248 220 264 220 H292 M180 220 H292 M180 330 H232 Q248 330 248 312 V236 Q248 220 264 220 M494 220 H572" /></svg>
+      <div class="workspace-node"><span class="node-icon">▤</span><small>ONE WORKSPACE</small><strong>Customer<br />inquiries</strong><div class="mini-contact"><span>JW</span><div><b>{john.name}</b><small>{john.service}</small></div></div></div>
+      <div class="phone"><div class="phone-island"></div><p class="phone-time">9:41</p><p class="phone-day">Wednesday, May 12</p><div class="sms-note"><div><span class="message-icon">▰</span><strong>MESSAGES</strong><small>now</small></div><b>Pool Yeti’s</b><p>New inquiry from {john.name}.<br />{john.service} · Yelp</p><span>Review in your workspace →</span></div><p class="phone-bottom">SMS alert to Tim</p></div>
+    </section>}
+    {scene === "followup" && <section class="followup-composition">
+      <div class="contact-record"><div class="record-top"><span>JW</span><div><small>CUSTOMER RECORD</small><h2>{john.name}</h2><p>{john.email}</p></div></div><div class="history"><span class="history-line"></span><div><i></i><small>MAY 12 · 9:41 AM</small><strong>Inquiry received</strong><p>{john.service} · Yelp</p></div><div><i></i><small>MAY 12 · 10:15 AM</small><strong>Conversation started</strong><p>Availability shared with John.</p></div></div></div>
+      <svg class="follow-connector" viewBox="0 0 200 100" aria-hidden="true"><path d="M0 50 H200" /></svg>
+      <div class="followup-card"><div class="calendar-icon">↻</div><p class="eyebrow">THE NEXT TOUCHPOINT</p><h2>A thoughtful <br />follow-up.</h2><p>Check in with John about <br />his pool-care plans.</p><div class="follow-date"><span>15</span><div><b>MAY 2027</b><small>Fictional reminder</small></div></div></div>
+    </section>}
+    <footer class="stage-footer"><span class="demo-label"><i></i> Demo using fictional data</span><span>{copy.note}</span><div class="scene-dots">{Object.keys(sceneCopy).map(key => <i class:list={{active: key === scene}}></i>)}</div></footer>
+  </main>
+</body></html>

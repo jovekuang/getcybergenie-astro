@@ -1,0 +1,7 @@
+---
+import CustomerStory from "@/components/customer-stories/CustomerStory.astro";
+import { publishedStories } from "@/data/customer-stories";
+export function getStaticPaths(){return publishedStories.map((study,index)=>({params:{slug:study.slug},props:{study,other:publishedStories[(index+1)%publishedStories.length]}}));}
+const {study,other}=Astro.props;
+---
+<CustomerStory study={study} other={other} review={false} motionPreview={true}/>

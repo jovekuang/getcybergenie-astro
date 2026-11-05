@@ -27,7 +27,11 @@
     "review:case-studies:build": "astro build --config astro.case-studies.config.mjs",
     "review:case-studies": "ASTRO_PREVIEW_BACKGROUND=1 astro preview --config astro.case-studies.config.mjs --ignore-lock --host 127.0.0.1 --port 4347",
     "check:case-study-boundary": "node scripts/check-case-study-boundary.mjs",
-    "review:case-studies:deploy": "npm run review:case-studies:build && wrangler pages deploy outputs/case-study-review --project-name=cyber-genie-marketing --branch=case-studies-review"
+    "review:case-studies:deploy": "npm run review:case-studies:build && wrangler pages deploy outputs/case-study-review --project-name=cyber-genie-marketing --branch=case-studies-review",
+    "review:motion:build": "astro build --config astro.motion.config.mjs",
+    "review:motion": "ASTRO_PREVIEW_BACKGROUND=1 astro preview --config astro.motion.config.mjs --ignore-lock --host 127.0.0.1 --port 4351",
+    "test:showcase": "node --experimental-strip-types --test tests/showcase-policy.test.mjs",
+    "check:motion": "node scripts/check-motion-prototype.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

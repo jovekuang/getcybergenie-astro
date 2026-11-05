@@ -1,8 +1,10 @@
+import { firstShowcase } from "./showcases";
 import firstAchieversImage from "../../assets/customer-stories/first-achievers-current-site.jpg";
 import aminataHeadshot from "../../assets/customer-stories/aminata-traore.jpg";
 import type { CaseStudy } from "./types";
 
 export const firstAchievers: CaseStudy = {
+  showcase: firstShowcase,
   publication: { date: "2026-11-03", consent: "approved" },
   "slug": "first-achievers-childcare",
   "client": "First Achievers Childcare",
@@ -12,7 +14,7 @@ export const firstAchievers: CaseStudy = {
   "intro": "Aminata wanted prospective parents to be able to book a tour and hear back at the right moments. She needed a system built around her center’s day-to-day work, with the setup handled for her and room to grow as the business grows.",
   "summary": "How Aminata connected her website, parent inquiries, tour scheduling, and automated follow-up in a CRM shaped around her childcare center.",
   "image": firstAchieversImage,
-  "imageAlt": "Screenshot of the current First Achievers Childcare homepage, showing its programs introduction and Schedule a Tour link",
+  "imageAlt": "Screenshot of the current First Achievers Childcare homepage, showing its reception hero and Schedule a Tour link",
   "theme": "childcare",
   "imageCaption": "The current First Achievers Childcare homepage.",
   "deliveryTitle": "What changed for Aminata.",

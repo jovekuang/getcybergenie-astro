@@ -1,0 +1,104 @@
+---
+import type { CaseStudy } from "@/data/customer-stories/types";
+import "@/styles/story-showcase.css";
+interface Props { showcase: NonNullable<CaseStudy["showcase"]>; }
+const { showcase } = Astro.props;
+---
+<figure class="story-showcase" id="showcase" data-story-showcase data-desktop={showcase.desktop} data-mobile={showcase.mobile}>
+  <div class="showcase-canvas">
+    <picture class="showcase-poster"><source media="(max-width: 760px)" srcset={showcase.posterMobile} /><img src={showcase.posterDesktop} alt={showcase.description} loading="eager" fetchpriority="high" width="1280" height="720" /></picture>
+    <video muted playsinline loop preload="none" aria-hidden="true" tabindex="-1"></video>
+  </div>
+  <figcaption>
+    <div><strong>{showcase.title}</strong>{showcase.caption && <p>{showcase.caption}</p>}</div>
+    <div class="showcase-controls" hidden>
+      <button type="button" data-showcase-play aria-label="Play animation"><span data-play-label>Play</span><span aria-hidden="true" data-play-icon>▷</span></button>
+      <button type="button" data-showcase-replay aria-label="Replay animation"><span aria-hidden="true">↻</span></button>
+    </div>
+    <span class="showcase-status" role="status" aria-live="polite"></span>
+  </figcaption>
+</figure>
+<script>
+  import { mayPlayShowcase } from "./showcase-policy";
+  document.querySelectorAll<HTMLElement>("[data-story-showcase]").forEach(root => {
+    const video = root.querySelector<HTMLVideoElement>("video")!;
+    const controls = root.querySelector<HTMLElement>(".showcase-controls")!;
+    const playButton = root.querySelector<HTMLButtonElement>("[data-showcase-play]")!;
+    const replayButton = root.querySelector<HTMLButtonElement>("[data-showcase-replay]")!;
+    const playLabel = root.querySelector<HTMLElement>("[data-play-label]")!;
+    const playIcon = root.querySelector<HTMLElement>("[data-play-icon]")!;
+    const status = root.querySelector<HTMLElement>(".showcase-status")!;
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+    const mobile = matchMedia("(max-width: 760px)");
+    type Connection = EventTarget & { saveData?: boolean };
+    const connection = (navigator as Navigator & { connection?: Connection }).connection;
+    let visible = false;
+    let manual: "play" | "pause" | undefined;
+    let failed = false;
+    let generation = 0;
+    controls.hidden = false;
+    const updateLabel = () => {
+      const playing = !video.paused;
+      playLabel.textContent = playing ? "Pause" : "Play";
+      playIcon.textContent = playing ? "Ⅱ" : "▷";
+      playButton.setAttribute("aria-label", playing ? "Pause animation" : "Play animation");
+      root.dataset.playback = playing ? "playing" : "paused";
+    };
+    const selectSource = () => {
+      const source = mobile.matches ? root.dataset.mobile! : root.dataset.desktop!;
+      if (video.getAttribute("src") !== source) {
+        generation++;
+        video.pause();
+        root.removeAttribute("data-ready");
+        video.src = source;
+        video.load();
+      }
+    };
+    const sync = () => {
+      const allowed = mayPlayShowcase({ visible, hidden: document.hidden, reducedMotion: reduced.matches, saveData: Boolean(connection?.saveData), manual, failed });
+      if (!allowed) { video.pause(); updateLabel(); return; }
+      selectSource();
+      const attempt = ++generation;
+      video.play().catch(() => {
+        // Browser autoplay refusal is recoverable with the explicit Play button.
+        if (attempt === generation) { video.pause(); updateLabel(); }
+      });
+    };
+    playButton.addEventListener("click", () => {
+      manual = video.paused ? "play" : "pause";
+      sync();
+    });
+    replayButton.addEventListener("click", () => {
+      manual = "play";
+      video.currentTime = 0;
+      sync();
+    });
+    video.addEventListener("playing", () => { root.dataset.ready = "true"; updateLabel(); });
+    video.addEventListener("pause", updateLabel);
+    video.addEventListener("error", () => {
+      failed = true;
+      root.removeAttribute("data-ready");
+      controls.hidden = true;
+      status.textContent = "Animation unavailable. The still image is shown.";
+    });
+    const preferenceChanged = () => {
+      manual = undefined;
+      video.pause();
+      root.removeAttribute("data-ready");
+      sync();
+    };
+    reduced.addEventListener("change", preferenceChanged);
+    connection?.addEventListener("change", preferenceChanged);
+    mobile.addEventListener("change", () => {
+      if (video.hasAttribute("src")) { selectSource(); sync(); }
+    });
+    document.addEventListener("visibilitychange", sync);
+    const observer = new IntersectionObserver(entries => {
+      const entry = entries[0];
+      visible = entry.isIntersecting && entry.intersectionRatio >= 0.25;
+      sync();
+    }, { threshold: [0, 0.25] });
+    observer.observe(root.querySelector(".showcase-canvas")!);
+    updateLabel();
+  });
+</script>

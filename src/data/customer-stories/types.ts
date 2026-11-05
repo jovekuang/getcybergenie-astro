@@ -15,6 +15,15 @@ export interface CaseStudy {
   theme: "care" | "property" | "childcare" | "venue" | "play" | "pool";
   imagePresentation?: "website" | "brand";
   imageCaption?: string;
+  showcase?: {
+    title: string;
+    desktop: string;
+    mobile: string;
+    posterDesktop: string;
+    posterMobile: string;
+    description: string;
+    caption?: string;
+  };
   startingTitle?: string;
   deliveryTitle?: string;
   channelsIntro?: string;
