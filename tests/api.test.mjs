@@ -7,12 +7,12 @@ import { onRequest as middleware } from '../functions/_middleware.ts';
 
 const origin = 'https://getcybergenie.com';
 const bodies = {
-  contact: () => ({ name: 'Test Owner', email: 'owner@example.com', message: 'Please help with my website.', smsConsent: false, startedAt: String(Date.now()-10000), website: '' }),
+  contact: () => ({ name: 'Test Owner', email: 'owner@example.com', message: 'Please help with my website.', smsConsent: false, submissionId: crypto.randomUUID(), startedAt: String(Date.now()-10000), website: '' }),
   onboarding: () => ({ firstName: 'Test', lastName: 'Owner', email: 'owner@example.com', company: 'A & B <Shop>', hasWebsite: 'no', businessDescription: 'Local services', estimatedPages: '1-5', outcomes: ['get-found-online'], materials: ['none-yet'], capabilities: ['contact-or-quote-forms'], visualDirections: ['warm-approachable'], startedAt: String(Date.now()-10000), website: '', plan: 'essential-website' }),
   listing: () => ({ name: 'Test Owner', email: 'owner@example.com', phone: '5551234567', propertyAddress: '123 Example Street', musicalStyle: 'pop', specialRequests: '', originatingPage: `${origin}/campaigns/realtor-listing-song-video/`, idempotencyKey: 'review-test-id', startedAt: String(Date.now()-10000), website: '' }),
 };
 const request = (name, payload, host=origin, headers={}) => new Request(`${host}/api/${name === 'listing' ? 'realtor-listing-package' : name === 'contact' ? 'contact' : 'website-onboarding'}`, { method: 'POST', headers: { 'Content-Type': 'application/json', Origin: host, ...headers }, body: JSON.stringify(payload) });
-const configured = { RESEND_API_KEY:'test-only', ONBOARDING_TO_EMAIL:'recipient@example.com', ONBOARDING_FROM_EMAIL:'Cyber Genie <onboarding@getcybergenie.com>', FK_CRM_CAPTURE_URL:'https://crm.example.com/capture', FK_CRM_FORM_TOKEN:'test-only-form-token' };
+const configured = { RESEND_API_KEY:'test-only', ONBOARDING_TO_EMAIL:'recipient@example.com', ONBOARDING_FROM_EMAIL:'Cyber Genie <onboarding@getcybergenie.com>', FK_CRM_CAPTURE_URL:'https://crm.example.com/capture', FK_CRM_FORM_TOKEN:'test-only-form-token', MARKETING_CONTACT_URL:'https://psrlivpzkmyaubchqywr.supabase.co/functions/v1/receive-marketing-contact', MARKETING_CONTACT_TOKEN:'test-only-server-token-at-least-32-characters' };
 for (const [name, handler, dryKey, limit] of [['onboarding',onboarding,'ONBOARDING_DRY_RUN',50000],['listing',listing,'CRM_CAPTURE_DRY_RUN',20000],['contact',contact,'ONBOARDING_DRY_RUN',10000]]) {
   test(`${name}: preview validates without sending, even with live-looking bindings`, async (t) => {
     let called=false;
@@ -54,7 +54,7 @@ for (const [name, handler, dryKey, limit] of [['onboarding',onboarding,'ONBOARDI
 for (const [name, handler] of [['contact',contact],['onboarding',onboarding]]) {
   test(`${name}: never infers consent from a phone number; records exact consent only on explicit opt-in`, async(t)=>{
     const sent=[];
-    t.mock.method(globalThis,'fetch',async(url,init)=>{sent.push(JSON.parse(init.body));return Response.json({id:'accepted'});});
+    t.mock.method(globalThis,'fetch',async(url,init)=>{const body=JSON.parse(init.body);sent.push(name==='contact'?{text:body.sms_consent_record,reply_to:body.email}:body);return Response.json({id:'accepted',accepted:true});});
     for(const smsConsent of [undefined,false,true]) {
       const result=await handler({request:request(name,{...bodies[name](),phone:'2025550123',smsConsent,consentText:'forged',consentTimestamp:'forged'}),env:configured});
       assert.equal(result.status,200);
@@ -80,6 +80,30 @@ test('onboarding: safe email escapes input, preserves Reply-To and receives prov
   t.mock.method(globalThis,'fetch',async(url,init)=>{assert.equal(url,'https://api.resend.com/emails');sent=JSON.parse(init.body);return Response.json({id:'email-accepted'});});
   assert.equal((await onboarding({request:request('onboarding',bodies.onboarding()),env:configured})).status,200);
   assert.equal(sent.reply_to,'owner@example.com');assert.match(sent.subject,/Cyber Genie/);assert.match(sent.html,/A &amp; B &lt;Shop&gt;/);assert.doesNotMatch(sent.html,/>A & B <Shop></);
+  t.mock.restoreAll();
+});
+test('contact: sends only to the authenticated app endpoint with stable identity and server-owned consent evidence', async(t)=>{
+  const calls=[];
+  t.mock.method(globalThis,'fetch',async(url,init)=>{calls.push({url,headers:init.headers,body:JSON.parse(init.body)});return Response.json({accepted:true});});
+  const body=bodies.contact();
+  for(let i=0;i<2;i++)assert.equal((await contact({request:request('contact',body),env:configured})).status,200);
+  assert.equal(calls.length,2);
+  for(const call of calls){
+    assert.equal(call.url,configured.MARKETING_CONTACT_URL);
+    assert.equal(call.headers['X-Marketing-Contact-Token'],configured.MARKETING_CONTACT_TOKEN);
+    assert.equal(call.body.submission_id,body.submissionId);
+    assert.equal(call.body.sms_consent,false);
+    assert.equal(call.body.to,undefined);
+    assert.equal(call.body.from,undefined);
+  }
+  assert.equal((await contact({request:request('contact',body),env:{...configured,MARKETING_CONTACT_URL:'https://attacker.example/steal'}})).status,503);
+  assert.equal(calls.length,2);
+  t.mock.restoreAll();
+});
+test('contact: missing identity or an unconfirmed app response cannot claim success',async(t)=>{
+  t.mock.method(globalThis,'fetch',async()=>Response.json({accepted:false}));
+  assert.equal((await contact({request:request('contact',{...bodies.contact(),submissionId:''}),env:configured})).status,400);
+  assert.equal((await contact({request:request('contact',bodies.contact()),env:configured})).status,502);
   t.mock.restoreAll();
 });
 test('listing: forwards validated Origin, token, campaign and idempotency without changing response contract',async(t)=>{

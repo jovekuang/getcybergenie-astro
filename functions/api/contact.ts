@@ -2,9 +2,8 @@ import { isPreview, validatedOrigin } from "../_shared/request-policy.ts";
 import { readSmsConsent, smsConsentRecord } from "../_shared/sms-consent.ts";
 
 type Environment = {
-  RESEND_API_KEY?: string;
-  ONBOARDING_TO_EMAIL?: string;
-  ONBOARDING_FROM_EMAIL?: string;
+  MARKETING_CONTACT_URL?: string;
+  MARKETING_CONTACT_TOKEN?: string;
   ONBOARDING_DRY_RUN?: string;
 };
 const json = (body: Record<string, unknown>, status = 200) => Response.json(body, {
@@ -36,23 +35,29 @@ export const onRequestPost = async ({ request, env }: { request: Request; env: E
   const email = field("email", 160, true);
   const phone = field("phone", 40);
   const message = field("message", 2400, true);
+  const submissionId = field("submissionId", 36, true);
+  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(submissionId)) errors.push("Please reload the form before sending.");
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || /[\r\n]/.test(email)) errors.push("Enter a valid email address.");
   const startedAt = Number(payload.startedAt);
   if (!Number.isFinite(startedAt) || Date.now() - startedAt < 4000) errors.push("Please take a moment to review your message before sending.");
   const consent = readSmsConsent(payload, phone, errors);
   if (errors.length) return json({ message: errors.join(" ") }, 400);
   if (isPreview(request)) return json({ ok: true, dryRun: true });
-  if (env.ONBOARDING_DRY_RUN === "true" || !env.RESEND_API_KEY || !env.ONBOARDING_FROM_EMAIL || !env.ONBOARDING_TO_EMAIL) {
+  const contactUrl = env.MARKETING_CONTACT_URL?.trim();
+  const token = env.MARKETING_CONTACT_TOKEN?.trim();
+  // Never forward this server credential to a browser-selected or arbitrary host.
+  if (env.ONBOARDING_DRY_RUN === "true" || contactUrl !== "https://psrlivpzkmyaubchqywr.supabase.co/functions/v1/receive-marketing-contact" || !token || token.length < 32) {
     return json({ message: "This form is temporarily unavailable. Please email hello@getcybergenie.com." }, 503);
   }
-  const text = `Name: ${name}\nEmail: ${email}\nPhone: ${phone || "Not provided"}\n\nMessage:\n${message}\n\nSMS consent:\n${smsConsentRecord(consent, `${origin}/contact/#message`)}\n\nPhone numbers without SMS consent are for calls only.`;
   try {
-    const response = await fetch("https://api.resend.com/emails", {
+    const response = await fetch(contactUrl, {
       method: "POST",
-      headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ from: env.ONBOARDING_FROM_EMAIL, to: [env.ONBOARDING_TO_EMAIL], reply_to: email, subject: "[Cyber Genie] Contact inquiry", text }),
+      signal: AbortSignal.timeout(30_000),
+      headers: { "X-Marketing-Contact-Token": token, "Content-Type": "application/json" },
+      body: JSON.stringify({ submission_id: submissionId, name, email, phone, message, sms_consent: consent, sms_consent_record: smsConsentRecord(consent, `${origin}/contact/#message`) }),
     });
-    if (!response.ok) return json({ message: "Your message could not be sent. Please try again or email hello@getcybergenie.com." }, 502);
+    const result = await response.json().catch(() => ({})) as { accepted?: boolean };
+    if (!response.ok || result.accepted !== true) return json({ message: "We could not confirm email delivery. Please retry this form or email hello@getcybergenie.com." }, 502);
   } catch { return json({ message: "Your message could not be sent. Please try again or email hello@getcybergenie.com." }, 502); }
   return json({ ok: true });
 };

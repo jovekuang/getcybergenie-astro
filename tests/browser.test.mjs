@@ -10,6 +10,43 @@ let browser;
 before(async()=>{browser=await chromium.launch({headless:true,...(process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH}:{})});});
 after(async()=>{await browser?.close();});
 
+test('contact retries reuse an identity after failure and reload; edited fields start a new inquiry',async()=>{
+ const page=await browser.newPage({viewport:{width:390,height:844}});
+ await page.route('**/*',route=>new URL(route.request().url()).origin===new URL(base).origin?route.continue():route.abort());
+ const submitted=[];
+ let succeed=false;
+ await page.route('**/api/contact',route=>{
+  submitted.push(route.request().postDataJSON());
+  return route.fulfill({status:succeed?200:502,json:succeed?{ok:true}:{message:'Simulated interrupted delivery. Retry this form.'}});
+ });
+ const fill=async()=>{
+  for(const [name,value] of Object.entries({name:'Preview Owner',email:'preview@example.invalid',message:'Please help connect our tools.'}))await page.locator(`#contact-form [name="${name}"]`).fill(value);
+  await page.locator('#contact-form [name="startedAt"]').evaluate(el=>el.value=String(Date.now()-10000));
+ };
+ const submit=async()=>{
+  const response=page.waitForResponse(r=>r.url().endsWith('/api/contact'));
+  await page.locator('#contact-form button').click();
+  await response;
+  await page.locator('#contact-status').waitFor({state:'visible'});
+ };
+ try{
+  await page.goto(base+'/contact/#message');await fill();await submit();
+  assert.equal(await page.locator('#contact-form').isVisible(),true);
+  await submit();
+  assert.equal(submitted[0].submissionId,submitted[1].submissionId);
+  const stored=await page.evaluate(()=>sessionStorage.getItem('cyber-genie-contact-submission'));
+  assert.doesNotMatch(stored,/preview@example|connect our tools/);
+  await page.reload();await fill();await submit();
+  assert.equal(submitted[0].submissionId,submitted[2].submissionId);
+  await page.locator('#contact-form [name="message"]').fill('A different inquiry.');
+  succeed=true;await submit();
+  assert.notEqual(submitted[0].submissionId,submitted[3].submissionId);
+  assert.equal(await page.evaluate(()=>sessionStorage.getItem('cyber-genie-contact-submission')),null);
+  assert.match(await page.locator('#contact-status').innerText(),/Check your email/);
+  assert.equal(submitted[0].smsConsent,false);
+ }finally{await page.close();}
+});
+
 test('pricing tabs preserve deep anchors, keyboard selection, back navigation and offer visibility',async()=>{
  const page=await browser.newPage({viewport:{width:1440,height:1000},reducedMotion:'reduce'});
  await page.goto(base+'/pricing/');

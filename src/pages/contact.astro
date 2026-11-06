@@ -45,6 +45,7 @@ const evolving = membershipPlans.find((plan) => plan.slug === "evolving-website"
       <form id="contact-form" method="post" action="/api/contact">
         <div class="onboarding-honeypot" aria-hidden="true"><label for="contact-website">Leave this blank</label><input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off" /></div>
         <input type="hidden" name="startedAt" />
+        <input type="hidden" name="submissionId" />
         <div class="contact-form-fields">
           <div class="form-field"><label for="contact-name">Name</label><input id="contact-name" name="name" autocomplete="name" required maxlength="160" /></div>
           <div class="form-field"><label for="contact-email">Email</label><input id="contact-email" name="email" type="email" autocomplete="email" required maxlength="160" /></div>
@@ -109,9 +110,14 @@ const evolving = membershipPlans.find((plan) => plan.slug === "evolving-website"
   const status = document.querySelector<HTMLElement>("#contact-status");
   if (form && status) {
     const startedAt = form.elements.namedItem("startedAt") as HTMLInputElement;
+    const submissionId = form.elements.namedItem("submissionId") as HTMLInputElement;
     const phone = form.elements.namedItem("phone") as HTMLInputElement;
     const consent = form.elements.namedItem("smsConsent") as HTMLInputElement;
     startedAt.value = String(Date.now());
+    // Reuse this identity on network retries, including a reload of the same tab.
+    const storageKey = "cyber-genie-contact-submission";
+    let pending: { id: string; fields: string } | null = null;
+    try { pending = JSON.parse(sessionStorage.getItem(storageKey) || "null"); } catch { /* Storage may be unavailable. */ }
     const validatePhone = () => {
       phone.setCustomValidity(consent.checked && !/^(?:1)?[2-9]\d{2}[2-9]\d{6}$/.test(phone.value.replace(/[\s()+.-]/g, "")) ? "Enter a valid US mobile number to receive text messages, or leave SMS consent unchecked." : "");
     };
@@ -125,11 +131,18 @@ const evolving = membershipPlans.find((plan) => plan.slug === "evolving-website"
       button.disabled = true;
       status.hidden = true;
       const data = new FormData(form);
+      const fieldBytes = new TextEncoder().encode(JSON.stringify({ name: data.get("name"), email: data.get("email"), phone: data.get("phone"), message: data.get("message"), smsConsent: consent.checked }));
+      const fields = Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", fieldBytes)), b => b.toString(16).padStart(2, "0")).join("");
+      if (!pending || pending.fields !== fields) pending = { id: crypto.randomUUID(), fields };
+      submissionId.value = pending.id;
+      data.set("submissionId", pending.id);
+      try { sessionStorage.setItem(storageKey, JSON.stringify(pending)); } catch { /* In-memory identity still protects same-page retries. */ }
       try {
         const response = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...Object.fromEntries(data), smsConsent: consent.checked }) });
         const result = await response.json();
         if (!response.ok) throw new Error(result.message || "Your message could not be sent. Please try again.");
-        status.textContent = result.dryRun ? "Preview only. No request was sent and no SMS consent was recorded." : "Thank you. Your message has been sent to Cyber Genie. We’ll follow up about your request.";
+        status.textContent = result.dryRun ? "Preview only. No request was sent and no SMS consent was recorded." : "Thank you. Your message has been received. Check your email for an introduction to Cyber Genie and a link to book a conversation.";
+        try { sessionStorage.removeItem(storageKey); } catch { /* No persistent identity to clear. */ }
         form.hidden = true;
       } catch (error) { status.textContent = error instanceof Error ? error.message : "Your message could not be sent. Please try again."; }
       status.hidden = false;
