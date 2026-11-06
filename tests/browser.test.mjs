@@ -17,6 +17,7 @@ test('contact retries reuse an identity after failure and reload; edited fields 
  let succeed=false;
  await page.route('**/api/contact',route=>{
   submitted.push(route.request().postDataJSON());
+  if(submitted.length===1)return route.fulfill({status:502,contentType:'text/html',body:'<!doctype html><title>Bad gateway</title>'});
   return route.fulfill({status:succeed?200:502,json:succeed?{ok:true}:{message:'Simulated interrupted delivery. Retry this form.'}});
  });
  const fill=async()=>{
@@ -31,6 +32,8 @@ test('contact retries reuse an identity after failure and reload; edited fields 
  };
  try{
   await page.goto(base+'/contact/#message');await fill();await submit();
+  assert.match(await page.locator('#contact-status').innerText(),/Your message could not be sent/);
+  assert.doesNotMatch(await page.locator('#contact-status').innerText(),/Unexpected token|JSON/);
   assert.equal(await page.locator('#contact-form').isVisible(),true);
   await submit();
   assert.equal(submitted[0].submissionId,submitted[1].submissionId);

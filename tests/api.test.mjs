@@ -106,6 +106,15 @@ test('contact: missing identity or an unconfirmed app response cannot claim succ
   assert.equal((await contact({request:request('contact',bodies.contact()),env:configured})).status,502);
   t.mock.restoreAll();
 });
+test('contact: malformed recipient brackets are rejected before forwarding',async(t)=>{
+  let calls=0;
+  t.mock.method(globalThis,'fetch',async()=>{calls++;throw new Error('Must not forward');});
+  for(const email of ['invalid<@example.invalid','invalid>@example.invalid']){
+    assert.equal((await contact({request:request('contact',{...bodies.contact(),email}),env:configured})).status,400);
+  }
+  assert.equal(calls,0);
+  t.mock.restoreAll();
+});
 test('listing: forwards validated Origin, token, campaign and idempotency without changing response contract',async(t)=>{
   let sent,headers;
   t.mock.method(globalThis,'fetch',async(url,init)=>{headers=init.headers;sent=JSON.parse(init.body);return Response.json({accepted:true,duplicate:true,submission_id:'submission-1',request_id:'request-1'});});

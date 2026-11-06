@@ -37,7 +37,7 @@ export const onRequestPost = async ({ request, env }: { request: Request; env: E
   const message = field("message", 2400, true);
   const submissionId = field("submissionId", 36, true);
   if (!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(submissionId)) errors.push("Please reload the form before sending.");
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || /[\r\n]/.test(email)) errors.push("Enter a valid email address.");
+  if (!/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(email) || /[\r\n]/.test(email)) errors.push("Enter a valid email address.");
   const startedAt = Number(payload.startedAt);
   if (!Number.isFinite(startedAt) || Date.now() - startedAt < 4000) errors.push("Please take a moment to review your message before sending.");
   const consent = readSmsConsent(payload, phone, errors);

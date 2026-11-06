@@ -139,7 +139,7 @@ const evolving = membershipPlans.find((plan) => plan.slug === "evolving-website"
       try { sessionStorage.setItem(storageKey, JSON.stringify(pending)); } catch { /* In-memory identity still protects same-page retries. */ }
       try {
         const response = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...Object.fromEntries(data), smsConsent: consent.checked }) });
-        const result = await response.json();
+        const result = await response.json().catch(() => ({}));
         if (!response.ok) throw new Error(result.message || "Your message could not be sent. Please try again.");
         status.textContent = result.dryRun ? "Preview only. No request was sent and no SMS consent was recorded." : "Thank you. Your message has been received. Check your email for an introduction to Cyber Genie and a link to book a conversation.";
         try { sessionStorage.removeItem(storageKey); } catch { /* No persistent identity to clear. */ }
