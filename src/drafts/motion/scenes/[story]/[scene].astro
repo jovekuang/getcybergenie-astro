@@ -3,6 +3,7 @@ import {family,familyCounts,event,storyScenes} from "../../customer-fixtures";
 import firstLogo from "../../media/first-achievers-mark.png";
 import firstSite from "../../../../assets/customer-stories/first-achievers-current-site.jpg";
 import firstMobile from "../../media/first-achievers-site-mobile.jpg";
+import warehouseMobile from "../../media/warehouse-site-mobile.jpg";
 import warehouseLogo from "../../../../assets/customer-stories/warehouse-mark.png";
 import warehouseSite from "../../../../assets/customer-stories/warehouse-current-site.png";
 import "@fontsource/inter/400.css";import "@fontsource/inter/500.css";import "@fontsource/inter/600.css";import "@fontsource/inter/700.css";import "@fontsource/manrope/700.css";
@@ -21,7 +22,7 @@ const days=Array.from({length:31},(_,i)=>i+1);
 <main class:list={["stage","customer-stage",first?"first-stage":"warehouse-stage",`customer-scene-${scene}`]} data-demo-only>
  <header class="stage-top"><div class="customer-brand"><img src={logo.src} alt={first?"First Achievers Childcare":"The Warehouse by Black Creek"}/>{!first&&<strong>THE WAREHOUSE<small>BY BLACK CREEK</small></strong>}</div><span>CONNECTED CUSTOMER CARE <i></i> CYBER GENIE</span></header>
  <div class="editorial"><p class="eyebrow">0{scenes.indexOf(copy)+1} / {copy.kicker}</p><h1>{copy.title.split("\n").map((line,index)=><span>{index>0?" ":""}{line}</span>)}</h1><p class="deck">{copy.body.split("\n").map((line,index)=><span>{index>0?" ":""}{line}</span>)}</p></div>
- {scene==="website"?<div class="website-composition"><div class="website-browser"><div class="window-chrome"><span><i></i><i></i><i></i></span><span>{first?"firstachieverschildcare.com":"thewarehousebyblackcreek.com"}</span><span>◇</span></div><img src={site.src} alt="Current public website"/></div><div class="website-phone"><div class="phone-camera"></div><img src={(first?firstMobile:site).src} alt="Mobile website presentation"/></div></div>:
+ {scene==="website"?<div class="website-composition"><div class="website-browser"><div class="window-chrome"><span><i></i><i></i><i></i></span><span>{first?"firstachieverschildcare.com":"thewarehousebyblackcreek.com"}</span><span>◇</span></div><img src={site.src} alt="Current public website"/></div><div class="website-phone"><div class="phone-camera"></div><img src={(first?firstMobile:warehouseMobile).src} alt={first?"Actual First Achievers mobile homepage":"Actual Warehouse mobile hero and venue content"}/></div></div>:
  first?<div class="customer-app">
   {scene!=="inquiry" && <aside class="first-sidebar"><div class="side-brand"><img src={firstLogo.src} alt="First Achievers"/></div><p>ADMIN CRM</p><span class:list={{chosen:scene!=="calendar"}}>▦ &nbsp; Dashboard</span><span>♧ &nbsp; Inquiries</span><span class:list={{chosen:scene==="calendar"}}>▣ &nbsp; Tour Calendar</span><span>✉ &nbsp; Email Templates</span><span>◷ &nbsp; Email Campaigns</span><small>demo.staff@example.com</small></aside>}
   <section class="first-workspace"><div class="first-app-top"><strong>{scene==="inquiry"?"First Achievers Childcare":"First Achievers CRM"}</strong><span>{scene==="inquiry"?"Schedule a Tour":"Admin"}</span></div><div class="first-body">
