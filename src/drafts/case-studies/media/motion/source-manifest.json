@@ -1,0 +1,53 @@
+{
+  "status": "Owner approved refreshing the hosted unlisted/noindex review on November 5, 2026. Client publication consent remains pending.",
+  "reels": [
+    {
+      "shortcode": "DedDWqdin_P",
+      "source": "https://www.instagram.com/reel/DedDWqdin_P/",
+      "duration": 13.8,
+      "excerptStart": 1.5,
+      "excerptEnd": 7.1,
+      "asset": "wabi-reel-DedDWqdin_P-source.mp4",
+      "sha256": "d0c9bb76d88ecb0226432b7c398d0b76ea95e9fea2e41907ebf2e6bace1ded1d"
+    },
+    {
+      "shortcode": "Dd7CnuaDBWy",
+      "source": "https://www.instagram.com/reel/Dd7CnuaDBWy/",
+      "duration": 23.8,
+      "excerptStart": 7.3,
+      "excerptEnd": 11.54,
+      "asset": "wabi-reel-Dd7CnuaDBWy-source.mp4",
+      "playbackRate": 0.8,
+      "sha256": "4ae3f4d1f2771d258e44321fe36d066104c686e01a9b7cd334ec4cb1e72d9408"
+    }
+  ],
+  "method": "Clean original video streams from the authorized browser media source; remuxed with video only. No Instagram interface recordings.",
+  "timing": "Ava 15s; scene starts 0, 2.5, 7.5, 10. Bruce/Edith 10s; starts 0, 2.5, 5, 7.5. Crossfades .6s; return fade .3s.",
+  "notes": "Calendar is an illustration of a provisioned publishing setup, not proprietary software. All operational examples are fictional.",
+  "otherInputs": [
+    {
+      "asset": "../eden-elevations-hero.mp4",
+      "origin": "Existing original scrolling-hero footage from the client website repository",
+      "excerptStart": 2,
+      "excerptEnd": 8.2,
+      "playbackRate": 2
+    },
+    {
+      "asset": "../edencare-hero.mp4",
+      "origin": "Existing finished hero video produced for EdenCare 360",
+      "excerptStart": 1,
+      "excerptEnd": 4.1,
+      "playbackRate": 1
+    },
+    {
+      "asset": "../guide-cover.jpg",
+      "origin": "Actual tax-guide cover retained from the existing case-study source"
+    },
+    {
+      "asset": "edencare-mobile-site.webp",
+      "origin": "Fresh original browser capture of https://edencare360.com/ at mobile size on November 5, 2026; chat greeting dismissed through its close control",
+      "purpose": "True mobile layout inside the phone frame; replaces the narrow desktop crop"
+    }
+  ],
+  "sourceClipPrivacy": "Only video streams retained. No audio, page recordings, signed media URLs, browser session data or customer records."
+}

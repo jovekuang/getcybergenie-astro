@@ -1,3 +1,4 @@
+import { bruceShowcase, edithShowcase, avaShowcase } from "./showcases";
 import edenCareImage from "./media/edencare-current-site.jpg";
 import edenElevationsImage from "./media/eden-elevations-current-site.jpg";
 import edenCareVideo from "./media/edencare-hero.mp4?url";
@@ -18,6 +19,7 @@ import type { CaseStudy } from "@/data/customer-stories/types";
 export const caseStudies: CaseStudy[] = [
   {
     slug: "edencare-360",
+    showcase: edithShowcase,
     client: "EdenCare 360",
     person: "Dr. Edith Edwards",
     sector: "MedSpa & wellness",
@@ -73,6 +75,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "eden-elevations-3",
+    showcase: bruceShowcase,
     client: "Eden Elevations 3",
     person: "Bruce",
     sector: "Multifamily real estate investment",
@@ -129,6 +132,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     "slug": "wabi-blobi",
+    showcase: avaShowcase,
     "client": "Wabi Blobi",
     "person": "Ava Zhao",
     "sector": "Creative play & ecommerce",

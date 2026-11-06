@@ -31,7 +31,9 @@
     "review:motion:build": "astro build --config astro.motion.config.mjs",
     "review:motion": "ASTRO_PREVIEW_BACKGROUND=1 astro preview --config astro.motion.config.mjs --ignore-lock --host 127.0.0.1 --port 4351",
     "test:showcase": "node --experimental-strip-types --test tests/showcase-policy.test.mjs",
-    "check:motion": "node scripts/check-motion-prototype.mjs"
+    "check:motion": "node scripts/check-motion-prototype.mjs",
+    "check:draft-motion": "node scripts/check-draft-motion.mjs",
+    "test:draft-browser": "node --test tests/draft-showcase.browser.test.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

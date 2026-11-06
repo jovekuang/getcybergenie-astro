@@ -4,6 +4,7 @@ import { mkdirSync, existsSync, statSync, writeFileSync, renameSync } from "node
 import { resolve, join } from "node:path";
 import sharp from "sharp";
 const story = process.argv.find(arg => arg.startsWith("--story="))?.split("=")[1] ?? "pool-yetis";
+if (["eden-elevations-3", "edencare-360", "wabi-blobi"].includes(story)) { await import("./render-draft-story-motion.mjs"); process.exit(0); }
 if (!["pool-yetis", "first-achievers", "warehouse"].includes(story)) throw new Error("Unknown approved motion story");
 const captures = resolve(process.argv.slice(2).find(arg => !arg.startsWith("--")) ?? `outputs/motion/captures/${story}`);
 const destination = resolve("src/assets/customer-stories/motion");

@@ -24,7 +24,21 @@ jobs:
           npm run check:motion
       - run: npm run review:case-studies:build
       - run: npm run check:case-study-boundary
+      - run: npm run check:draft-motion
       - run: npx playwright install --with-deps chromium
+      - name: Verify pending showcase playback locally
+        shell: bash
+        run: |
+          npm run review:case-studies > /tmp/story-review.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid"' EXIT
+          ready=false
+          for attempt in {1..40}; do
+            if curl --fail --silent http://127.0.0.1:4347/_review/case-studies/ > /dev/null; then ready=true; break; fi
+            sleep 1
+          done
+          if [ "$ready" != true ]; then cat /tmp/story-review.log; exit 1; fi
+          npm run test:draft-browser
       - name: Verify Pages runtime and customer journeys
         shell: bash
         run: |

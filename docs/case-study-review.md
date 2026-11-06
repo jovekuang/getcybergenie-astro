@@ -131,3 +131,15 @@ Tim replied to the approval request and confirmed that the business name include
 ## Pool Yeti’s approved for publication (November 4, 2026)
 
 Jove confirmed Tim’s approval and authorized publication. The story and media have moved to the approved customer-stories collection; its review URL now redirects to https://getcybergenie.com/customer-stories/pool-yetis/. Three other drafts remain in this review build. See `customer-stories-publication.md` for the publication record.
+
+## Motion for the three remaining drafts (local review, November 5, 2026)
+
+The approved motion plan is implemented for Bruce, Edith and Ava in the isolated draft collection. Each top screenshot is replaced by the shared showcase; existing narrative, original feature media, proposed quotes and consent notices remain. Bruce and Edith loop for 10 seconds; Ava for 15 seconds using excerpts from the two exact original Reels specified by Jove. The fictional calendar contains no provider branding or account/analytics data. Software/contact/update examples are fictional and labeled inside the scenes.
+
+Finished exports and source inputs live under `src/drafts/case-studies/media/motion`, separate from the public showcase registry. Raw Reel files, demonstration routes/fixtures and intermediate captures are excluded from deployable page bundles. `check:draft-motion` verifies the six export contracts, the pending/noindex boundary, silent originals, and unchanged public media. See `customer-story-motion.md` for capture, rendering, source provenance and playback checks.
+
+All three are for owner review locally at port 4347. This step does not refresh the hosted review deployment or publish/index the stories. After owner review, refresh their existing unlisted/noindex review URLs; public release still needs each client’s consent.
+
+### Owner authorized refreshing the review URLs (November 5, 2026)
+
+Jove approved the local motion showcases after correcting Edith’s phone frame to use a real mobile homepage capture, then requested deployment for client review. Refresh the existing `case-studies-review` preview alias with this separately built output. Preserve all three pending-consent notices, proposed quotes, HTML/HTTP noindex controls and production exclusions. This is not approval to add Bruce, Ava or Edith to the public Customer Stories collection or change indexing. The ordinary production deployment remains untouched.
