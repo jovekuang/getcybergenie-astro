@@ -39,3 +39,13 @@ Deploy the app schema/function first, verify configuration and anonymous rejecti
 - `TEST_BASE_URL=http://127.0.0.1:<port> node --test --test-name-pattern='contact retries' tests/browser.test.mjs`: use the built local site, with API calls mocked by this test. `CHROMIUM_PATH` can select the installed test browser.
 
 No production deployment, secret creation, or real email send is implied by these local changes.
+
+## Production Release: 2026-11-06
+
+The integration was committed/pushed as `4a6d6b4a829a182faf6715399b798504a5d06ed9`, followed by hardening commit `a2206b0` for HTML gateway errors and consistent recipient validation. The app schema and endpoint were deployed first; the owner entered the shared credential through Lovable's secure form, and Codex verified the matching token without sending email.
+
+Final production deployment: `https://002a4cb0.cyber-genie-marketing.pages.dev`, serving `https://getcybergenie.com/contact/`. Initial release: `https://53fc293e.cyber-genie-marketing.pages.dev`. Pre-release rollback reference: deployment `12bc6532-78f6-47d9-b47f-f8f72e2b7585`, source `4ac01fd`.
+
+Verified: live page/updated confirmation, token absent from public HTML, malformed-recipient rejection before forwarding, live logo PNG, backend 401 without token and 400 for authenticated invalid input, and forced dry-run response on the final Pages hostname. Full local checks passed, including 32 API tests, 6 carousel tests, type/build/site-audit checks and a mocked browser test covering retries, reloads and non-JSON gateway errors. No real email was sent during release verification; inbox delivery remains untested in production.
+
+App platform type generation is still timing out. This is tracked in the app deployment notes and does not affect the deployed server-to-server route. Do not reapply its already-recorded migration or hand-edit generated Cloud types.
