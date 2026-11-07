@@ -1,0 +1,22 @@
+---
+import { Image } from "astro:assets";
+import type { CaseStudy } from "@/data/customer-stories/types";
+
+interface Props {
+  quote: CaseStudy["proposedQuote"];
+  approved: boolean;
+}
+
+const { quote, approved } = Astro.props;
+---
+<section class="container case-quote" id="client-quote" aria-labelledby="client-quote-heading" data-quote-approval={quote.approval}>
+  <figure class="case-quote-card">
+    <div class:list={["case-quote-portrait", {"case-quote-portrait-circle": quote.imageShape === "circle"}]}><Image class:list={["case-quote-headshot", {"case-quote-brand-mark": quote.imageKind === "brand"}]} style={{objectPosition: quote.imagePosition, transform: quote.imageScale ? `scale(${quote.imageScale})` : undefined, transformOrigin: quote.imageOrigin}} src={quote.headshot} alt={quote.imageAlt ?? quote.name} widths={quote.imageScale ? [320, 640, 1024] : [160, 320, 640]} sizes={quote.imageScale ? `(max-width: 600px) ${Math.ceil(72 * quote.imageScale)}px, ${Math.ceil(144 * quote.imageScale)}px` : "(max-width: 600px) 72px, 144px"} /></div>
+    <div class="case-quote-content">
+      <h2 class="case-kicker" id="client-quote-heading">{approved ? "In their words" : "Proposed client quote"}</h2>
+      <blockquote><p>“{quote.text}”</p></blockquote>
+      <figcaption><strong>{quote.name}</strong><span>{quote.role}</span></figcaption>
+      {!approved && <p class="case-quote-status">Draft wording · Awaiting {quote.approvalName}’s approval</p>}
+    </div>
+  </figure>
+</section>

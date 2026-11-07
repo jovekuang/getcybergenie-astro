@@ -30,7 +30,32 @@
 
 .case-study.pool .case-feature{background:#edf5fc}.case-study.pool .case-flow{border-color:#d5e4f1}.case-study.pool .case-flow li>span{color:#3844bc}
 
-/* Keep the complete First Achievers homepage in its card; never clip navigation or headline text. */
-.case-card-image.childcare img{object-fit:contain}
-
+/* Fit these homepage screenshots without clipping their navigation or headlines. */
+.case-card-image:is(.childcare,.play,.property) img{object-fit:contain}
 .case-card-image.childcare{background:#fff}
+.case-card-image.play{background:#fefdf8}
+.case-card-image.property{background:#0e111a}
+
+.case-lead:has(+ .case-website-link){margin-bottom:8px}
+.case-website-link{min-height:44px;gap:8px;margin-bottom:20px;font-size:14px;text-decoration:underline;text-underline-offset:4px}
+
+/* The public story opens with its showcase and testimonial. The full narrative uses a native disclosure. */
+.case-hero + .case-quote{padding-block:24px 20px}
+.case-full-study{margin-bottom:24px}
+.case-full-study-toggle{
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  width:fit-content;max-width:calc(100% - 32px);min-height:44px;
+  margin-inline:auto;padding:12px 20px;border-radius:8px;
+  background:#0f766e;color:#fff;font-size:14px;font-weight:700;line-height:1.4;
+  cursor:pointer;list-style:none;
+}
+.case-full-study-toggle::-webkit-details-marker{display:none}
+.case-full-study-toggle::marker{content:""}
+.case-full-study-toggle:hover{background:#115e59}
+.case-full-study-toggle:focus-visible{outline:3px solid #6d5dd3;outline-offset:4px}
+.case-full-study-toggle svg{flex-shrink:0}
+.case-full-study-hide,.case-full-study[open] .case-full-study-show{display:none}
+.case-full-study[open] .case-full-study-hide{display:inline}
+.case-full-study[open] .case-full-study-toggle svg{transform:rotate(180deg)}
+.case-full-study > .case-context{padding-top:clamp(36px,5vw,64px)}
+@media(max-width:600px){.case-hero + .case-quote{padding-block:18px}}
