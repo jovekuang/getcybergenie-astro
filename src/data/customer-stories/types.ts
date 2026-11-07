@@ -55,6 +55,7 @@ export interface CaseStudy {
     text: string;
     name: string;
     role: string;
+    linkedinUrl?: string;
     headshot: ImageMetadata;
     imageKind?: "person" | "brand";
     imageShape?: "circle";

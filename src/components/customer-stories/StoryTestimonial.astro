@@ -15,7 +15,17 @@ const { quote, approved } = Astro.props;
     <div class="case-quote-content">
       <h2 class="case-kicker" id="client-quote-heading">{approved ? "In their words" : "Proposed client quote"}</h2>
       <blockquote><p>“{quote.text}”</p></blockquote>
-      <figcaption><strong>{quote.name}</strong><span>{quote.role}</span></figcaption>
+      <figcaption>
+        <div class="case-quote-byline">
+          <strong>{quote.name}</strong>
+          {quote.linkedinUrl && (
+            <a class="case-quote-linkedin" href={quote.linkedinUrl} target="_blank" rel="noopener noreferrer" aria-label={`Visit ${quote.name} on LinkedIn (opens in a new tab)`}>
+              <img src="/icons/social/linkedin.svg" width="16" height="16" alt="" loading="lazy" />
+            </a>
+          )}
+        </div>
+        <span>{quote.role}</span>
+      </figcaption>
       {!approved && <p class="case-quote-status">Draft wording · Awaiting {quote.approvalName}’s approval</p>}
     </div>
   </figure>

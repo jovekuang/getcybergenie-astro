@@ -100,6 +100,7 @@ export const poolYetis: CaseStudy = {
     "text": "Cyber Genie brought our customer inquiries into one place. I get a text when a new request arrives, and I can keep the conversation going without jumping between platforms.",
     "name": "Tim",
     "role": "Pool Yeti’s",
+    "linkedinUrl": "https://www.linkedin.com/in/timyoung2/",
     "headshot": poolYetisWordmark,
     "imageKind": "brand",
     "imageAlt": "Pool Yeti’s wordmark",

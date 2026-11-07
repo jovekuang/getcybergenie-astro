@@ -89,6 +89,7 @@ export const wabiBlobi: CaseStudy = {
     "text": "Cyber Genie helped us express what Wabi Blobi is about, from a website that feels like us to a social plan and creative Reels that carry our story.",
     "name": "Ava Zhao",
     "role": "Founder, Wabi Blobi",
+    "linkedinUrl": "https://www.linkedin.com/in/avalzhao/",
     "headshot": avaHeadshot,
     "imagePosition": "center",
     "approvalName": "Ava",

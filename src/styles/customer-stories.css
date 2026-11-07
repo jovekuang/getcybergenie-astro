@@ -8,6 +8,22 @@
 .case-quote-content blockquote p{font-family:Manrope,Inter,sans-serif;font-size:clamp(20px,2.2vw,28px);font-weight:600;line-height:1.5;letter-spacing:-.025em;color:#182e27;margin:0;text-wrap:pretty}
 .case-quote-content figcaption{display:flex;flex-direction:column;gap:5px}
 .case-quote-content figcaption strong{font-size:14px;color:#182823}
+.case-quote-byline {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.case-quote-linkedin {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+}
+.case-quote-linkedin:hover {
+  background: #eef5f1;
+}
 .case-quote-content figcaption span{font-size:12px;line-height:1.6;color:#57655f}
 .case-quote-status{display:inline-block;margin:18px 0 0;padding:6px 10px;background:#f3f5f1;border-radius:5px;font-size:10px;line-height:1.6;color:#65746b}
 @media(max-width:600px){.case-quote{padding-bottom:28px}.case-quote-card{grid-template-columns:72px minmax(0,1fr);align-items:start;gap:18px;padding:24px 20px}.case-quote-headshot{width:72px;height:92px;border-radius:8px}.case-quote-content blockquote p{font-size:19px;line-height:1.55}.case-quote-content .case-kicker{font-size:9px!important;letter-spacing:.08em;margin-bottom:12px!important}.case-quote-content blockquote{margin-bottom:18px}.case-quote-content figcaption strong{font-size:12px}.case-quote-content figcaption span{font-size:11px}.case-quote-status{font-size:9px;padding:5px 7px;margin-top:14px}}

@@ -59,6 +59,7 @@ export const edenElevations: CaseStudy = {
     text: "Cyber Genie gave us a website that stands out and a connected way to capture interest, so I can focus on the next conversation.",
     name: "Bruce Edwards",
     role: "Founder & Managing Partner, Eden Elevations 3",
+    linkedinUrl: "https://www.linkedin.com/in/bruce-edwards-edenelevations3/",
     headshot: bruceHeadshot,
     approvalName: "Bruce",
     approval: "approved",
