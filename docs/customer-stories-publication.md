@@ -34,3 +34,9 @@ Pre-deploy verification passed: full site check (81 pages, 77 sitemap entries, z
 ## Animated showcases (November 4, 2026)
 
 After reviewing Pool Yeti’s prototype, Jove requested the same style for First Achievers and The Warehouse and explicitly authorized deploying all three. The approved story text and quotes remain intact. Each main showcase now uses a silent 10-second loop with 2.5-second scene cadence and 0.6-second transitions, separate desktop/mobile exports, a poster fallback and accessible playback controls. Software scenes are original local demonstrations with exclusively fictional data. First Achievers uses a fresh capture of its public website; The Warehouse retains the supplied aerial screenshot. Tentative holds remain labeled tentative. Scene routes, fixtures, and intermediate captures stay outside the normal production build. Indexability, sitemap entries, old review redirects, and the three pending stories’ consent boundaries are unchanged.
+
+## Wabi Blobi and Eden Elevations 3 approved for publication (November 6, 2026)
+
+Jove confirmed both clients’ approvals and requested publication. The two reviewed stories, existing quotes and unchanged 15-second Wabi Blobi / 10-second Eden Elevations 3 showcases move into the public Customer Stories collection, homepage, and sitemap. Their former unlisted review links redirect permanently to the canonical public stories. EdenCare 360 remains the only noindex review draft; its content and media, raw Reel inputs, and local demo routes remain outside the production output.
+
+Release checks passed: normal and review builds, 79 sitemap entries, ten public video exports, EdenCare media and consent isolation, 83 local runtime routes, 47 query-preserving redirects, ten public browser journeys and six pending-story browser checks. Rollback baselines: production `002a4cb0-42cf-4893-a07f-75767785aaa2` and unlisted review `50e95fd2-51c2-42bc-8c41-156458c3837f`.

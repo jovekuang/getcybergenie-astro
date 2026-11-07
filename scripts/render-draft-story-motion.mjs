@@ -1,4 +1,4 @@
-// Imported only for explicitly named pending stories. Original public renderer is untouched.
+// Local renderer for these three storyboards. Approved exports render to scratch for review.
 import {execFileSync} from 'node:child_process';
 import {mkdirSync,readFileSync,statSync,renameSync,writeFileSync} from 'node:fs';
 import {resolve,join} from 'node:path';
@@ -6,7 +6,8 @@ import sharp from 'sharp';
 import {draftMotion} from '../src/drafts/motion/draft-config.mjs';
 const story=process.argv.find(a=>a.startsWith('--story='))?.split('=')[1];
 const config=draftMotion[story];if(!config)throw Error('Unknown draft story');
-const captures=resolve(`outputs/motion/captures/${story}`),scratch=resolve(`outputs/motion/render/${story}`),destination=resolve('src/drafts/case-studies/media/motion');
+const captures=resolve(`outputs/motion/captures/${story}`),scratch=resolve(`outputs/motion/render/${story}`),sourceMedia=resolve('src/drafts/case-studies/media/motion');
+const destination=config.approved?join(scratch,'exports'):sourceMedia;
 mkdirSync(scratch,{recursive:true});mkdirSync(destination,{recursive:true});
 const run=args=>execFileSync('ffmpeg',['-y','-hide_banner','-loglevel','error','-filter_complex_threads','1',...args],{stdio:'inherit'});
 for(const format of (process.argv.includes('--mobile-only')?['mobile']:['desktop','mobile'])){
@@ -20,7 +21,7 @@ for(const format of (process.argv.includes('--mobile-only')?['mobile']:['desktop
    const clip=config.clips[scene];const geometry=JSON.parse(readFileSync(join(captures,`${format}-${scene}.json`),'utf8')).video;
    if(!geometry)throw Error(`Missing captured video geometry: ${scene}`);
    const {x,y}=geometry; const w=Math.floor(geometry.width/2)*2,h=Math.floor(geometry.height/2)*2;
-   input.push('-ss',String(clip.start),'-i',join(destination,clip.file));
+   input.push('-ss',String(clip.start),'-i',join(sourceMedia,clip.file));
    const radius=scene.startsWith('reel-')?20:scene==='production'?11:0;
    let maskFilter='';
    if(radius){
@@ -43,4 +44,4 @@ for(const format of (process.argv.includes('--mobile-only')?['mobile']:['desktop
  renameSync(temp,target);await sharp(join(captures,`${format}-${config.scenes[0]}.png`)).webp({quality:85}).toFile(join(destination,`${story}-${format}-poster.webp`));
  console.log(`${story}/${format}: ${config.duration}s, ${width}×${height}, silent H.264, ${(statSync(target).size/1024/1024).toFixed(2)} MB`);
 }
-writeFileSync(join(scratch,'manifest.json'),JSON.stringify({story,...config,transition:.6,loopFade:.3,approval:'Client consent pending. Local owner review only.',source:'CUA captures of disconnected local fictional scenes; original client-owned video overlays.'},null,2)+'\n');
+writeFileSync(join(scratch,'manifest.json'),JSON.stringify({story,...config,transition:.6,loopFade:.3,approval:config.approved?'Published story; this render is a local candidate only.':'Client consent pending. Local owner review only.',source:'CUA captures of disconnected local fictional scenes; original client-owned video overlays.'},null,2)+'\n');

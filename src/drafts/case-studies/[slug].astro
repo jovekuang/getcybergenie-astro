@@ -5,10 +5,10 @@ import type { CaseStudy } from "@/data/customer-stories/types";
 export function getStaticPaths() {
   return caseStudies.map((study, index) => ({
     params: { slug: study.slug },
-    props: { study, other: caseStudies[(index + 1) % caseStudies.length] },
+    props: { study, other: caseStudies.length > 1 ? caseStudies[(index + 1) % caseStudies.length] : undefined },
   }));
 }
-interface Props { study: CaseStudy; other: CaseStudy; }
+interface Props { study: CaseStudy; other?: CaseStudy; }
 const { study, other } = Astro.props;
 ---
 <CustomerStory study={study} other={other} review={true} />

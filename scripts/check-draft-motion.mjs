@@ -16,8 +16,8 @@ for(const file of productionFiles){
  if(/\.(html|js|json)$/.test(file))assert.doesNotMatch(readFileSync(file,'utf8'),/DEMO-GUIDE-027|john\.watson@example\.com|_motion\/draft-scenes|DedDWqdin_P|Dd7CnuaDBWy/);
 }
 assert.equal(existsSync('dist/_motion'),false);
-const publicRegistry=readFileSync('src/data/customer-stories/showcases.ts','utf8');assert.doesNotMatch(publicRegistry,/drafts|eden-elevations|edencare|wabi/);
-for(const [slug,config] of Object.entries(draftMotion)){
+const publicRegistry=readFileSync('src/data/customer-stories/showcases.ts','utf8');assert.doesNotMatch(publicRegistry,/drafts|edencare/);
+for(const [slug,config] of Object.entries(draftMotion).filter(([,config])=>!config.approved)){
  const html=readFileSync(`outputs/case-study-review/_review/case-studies/${slug}/index.html`,'utf8');
  assert.match(html,/noindex, nofollow, noarchive, nosnippet/);assert.match(html,/Client consent pending/);
  assert.equal((html.match(/<figure[^>]*data-story-showcase/g)??[]).length,1);
@@ -38,4 +38,4 @@ for(const name of ['wabi-reel-DedDWqdin_P-source.mp4','wabi-reel-Dd7CnuaDBWy-sou
 }
 const stage=readFileSync('src/drafts/motion/draft-scenes.astro','utf8');assert.match(stage,/connect-src 'none'/);assert.match(stage,/form-action 'none'/);assert.match(stage,/script-src 'none'/);assert.doesNotMatch(stage,/<form\b|<script\b|fetch\(|https?:\/\//);
 for(const scene of [stage,readFileSync('src/drafts/motion/draft-stages.css','utf8'),readFileSync('src/drafts/motion/draft-fixtures.ts','utf8')])assert.doesNotMatch(scene,/metricool|upgrade|higher plan|heatmap|blogId|userId|subscribers|likes/i);
-console.log('PASS: three pending showcases; six silent 10/15-second exports; clean Reel sources; raw clips and draft scenes excluded; existing public media unchanged.');
+console.log('PASS: one pending showcase; two silent 10-second exports; clean Reel sources; raw clips and draft scenes excluded; approved public media matches the integrity fixture.');

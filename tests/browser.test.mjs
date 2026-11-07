@@ -151,7 +151,7 @@ test('customer stories are reachable on mobile and link only to approved stories
  const page=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce'});
  await page.goto(base+'/');
  const homepageLinks=await page.locator('.customer-stories-feature .case-preview-card').evaluateAll(links=>links.map(link=>new URL(link.href).pathname));
- const approved=['/customer-stories/first-achievers-childcare/','/customer-stories/the-warehouse-by-black-creek/','/customer-stories/pool-yetis/'];
+ const approved=['/customer-stories/first-achievers-childcare/','/customer-stories/the-warehouse-by-black-creek/','/customer-stories/pool-yetis/','/customer-stories/wabi-blobi/','/customer-stories/eden-elevations-3/'];
  assert.deepEqual(homepageLinks,approved);
  await page.locator('.nav-toggle').click();
  await page.locator('.nav-links').getByRole('link',{name:'Customer Stories',exact:true}).click();
@@ -174,7 +174,7 @@ test('customer stories are reachable on mobile and link only to approved stories
    const done=()=>{clearTimeout(timer);resolve({duration:video.duration,src:video.getAttribute('src'),muted:video.muted});};
    if(video.readyState>=1)done();else video.addEventListener('loadedmetadata',done,{once:true});
   }));
-  assert.equal(metadata.duration,10);assert.match(metadata.src,/-mobile\./);assert.equal(metadata.muted,true);
+  assert.equal(metadata.duration,path.includes("/wabi-blobi/")?15:10);assert.match(metadata.src,/-mobile\./);assert.equal(metadata.muted,true);
   await showcase.getByRole('button',{name:'Pause animation',exact:true}).click();
 
   assert.equal(await page.locator('[data-quote-approval="approved"]').count(),3);
