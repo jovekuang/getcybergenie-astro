@@ -3,6 +3,7 @@ dist
 .astro
 .wrangler
 outputs/
+/output/
 .DS_Store
 *.log
 .env
