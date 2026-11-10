@@ -1,4 +1,5 @@
 import type { ImageMetadata } from 'astro';
+import { voiceAiPricing } from './solutions';
 import blog01 from '@/assets/blog/blog-01-innovation-trap.jpg';
 import blog02 from '@/assets/blog/blog-02-saas-subscriptions.jpg';
 import blog03 from '@/assets/blog/blog-03-saas-lie.jpg';
@@ -1119,7 +1120,7 @@ There is a customer for that. But there is another customer, especially among sm
 
 That is why our pricing is intentionally competitive with self-service tools while still including managed setup, configuration, and testing.
 
-The current Voice AI plan is simple: $39.99 per month plus $0.20 per AI phone minute.
+The current Voice AI plan is simple: $${voiceAiPricing.monthly} per month plus $${voiceAiPricing.perMinute.toFixed(2)} per AI phone minute.
 
 That pricing keeps the base platform cost low while matching usage to actual call volume. A business can start small, test the workflow, and scale naturally as more calls are handled by the agent.
 
@@ -1199,7 +1200,7 @@ More leads captured.
 
 More time back for the people running the business.
 
-If you want to see what this looks like for your own company, [request a free Voice AI demo](/services/voice/). Complete the business intake and we will prepare your personalized demo within 1 business day. Live service starts at $39.99 per month plus $0.20 per AI phone minute.`,
+If you want to see what this looks like for your own company, [request a free Voice AI demo](/services/voice/). Complete the business intake and we will prepare your personalized demo within 1 business day. Live service starts at $${voiceAiPricing.monthly} per month plus $${voiceAiPricing.perMinute.toFixed(2)} per AI phone minute.`,
   },
   {
     slug: 'is-your-ai-assistant-working-for-you-or-a-hacker',

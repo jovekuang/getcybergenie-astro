@@ -1154,7 +1154,7 @@ export const outcomeCategoryBySlug = (slug: string | undefined) =>
 export const solutionItemBySlug = (categorySlug: string | undefined, itemSlug: string | undefined) =>
   solutionItems.find((item) => item.outcome === categorySlug && item.slug === itemSlug);
 
-export const voiceAiPricing = { monthly: 39.99, perMinute: 0.20 } as const;
+export const voiceAiPricing = { monthly: 39, perMinute: 0.20 } as const;
 
 export const voicePricingSummary = {
   description: "An AI receptionist for calls, intake, and team handoff.",
@@ -1183,12 +1183,12 @@ export const individualServiceOffers = [
   },
   {
     name: "Voice AI",
-    price: `$${voiceAiPricing.monthly.toFixed(2)}`,
+    price: `$${voiceAiPricing.monthly}`,
     detail: `/mo + $${voiceAiPricing.perMinute.toFixed(2)}/min`,
     href: "/services/voice/",
     cta: "Request a free demo",
     description: "An AI phone agent for routine calls, intake, and handoff notes.",
-    setupNote: `Request a personalized demo first. Live service starts at $${voiceAiPricing.monthly.toFixed(2)}/month plus $${voiceAiPricing.perMinute.toFixed(2)} per AI phone minute.`,
+    setupNote: `Request a personalized demo first. Live service starts at $${voiceAiPricing.monthly}/month plus $${voiceAiPricing.perMinute.toFixed(2)} per AI phone minute.`,
   },
 ];
 

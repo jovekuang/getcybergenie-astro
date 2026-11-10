@@ -56,8 +56,8 @@ test('pricing tabs preserve deep anchors, keyboard selection, back navigation an
  assert.equal(await page.locator('[data-pricing-tab="overview"]').getAttribute('aria-selected'),'true');
  await page.locator('[data-pricing-tab="voice-ai"]').click();
  await page.locator('#voice-ai').waitFor({state:'visible'});
- assert.match(await page.locator('#voice-ai').innerText(),/39.99/);
- assert.match(await page.locator('#voice-ai').innerText(),/0.20/);
+ assert.match(await page.locator('#voice-ai').innerText(),/\$39\s*\/mo\b/);
+ assert.match(await page.locator('#voice-ai').innerText(),/\$0\.20 per AI phone minute/);
  await page.locator('[data-pricing-tab="web-plans"]').focus();await page.keyboard.press('Enter');
  assert.equal(await page.locator('[data-pricing-tab="web-plans"]').getAttribute('aria-selected'),'true');
  await page.locator('[data-pricing-tab="web-plans"]').press('ArrowRight');

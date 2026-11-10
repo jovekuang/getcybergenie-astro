@@ -91,7 +91,7 @@ if len(tiles)!=11 or len(set(tiles))!=11:errors.append('Expected eleven unique i
 if '<animateMotion' not in hero:errors.append('Hero SVG animation missing')
 if not all(pages[target].h1 for target in tiles):errors.append('Invalid tile destination')
 voice=' '.join(pages['/services/voice/'].text)
-for text in ['custom integrations needed for the agreed voice workflow','$39.99','$0.20','Larger Voice AI deployments']:
+for text in ['custom integrations needed for the agreed voice workflow','$39/mo','$0.20','Larger Voice AI deployments']:
     if text.lower() not in voice.lower():errors.append('Voice missing: '+text)
 
 retail=pages.get('/industries/online-retailers/')
@@ -119,7 +119,7 @@ for route,html in htmls.items():
     if 'https://fkinnovate.com' in html:errors.append(route+': old canonical origin remains')
     if 'Cyber Genie by FK Innovate' not in ' '.join(pages[route].text):errors.append(route+': missing continuity footer')
     if any('fkinnovate.com' in url for url in [pages[route].canonical,pages[route].og.get('og:url',''),pages[route].og.get('og:image','')]):errors.append(route+': old SEO origin')
-# Lock commercial terms to the reviewed source, normalizing the approved brand changes only.
+# Lock commercial terms to the reviewed source.
 solution_source=Path('src/data/solutions.ts').read_text()
 for name,original in baseline['commercialSections'].items():
     match=re.search(r'export const '+name+r'\b[\s\S]*?(?=\nexport const |\Z)',solution_source)
