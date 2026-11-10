@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import { customerStoryPath, publishedStories } from "@/data/customer-stories";
 import "@/styles/customer-stories.css";
+import StoryComparison from "./StoryComparison.astro";
 interface Props {
   headingLevel?: "h2" | "h3";
   compact?: boolean;
@@ -22,14 +23,17 @@ const imageSizes = compact
         <Image src={study.image} alt={study.imageAlt} widths={[480, 800, 1200]} sizes={imageSizes} />
       </div>
       <div class="case-card-copy">
-        <p class="case-kicker">{study.sector}</p>
-        <Heading>{study.client} <span aria-hidden="true">↗</span></Heading>
-        <p>{study.summary}</p>
-        {compact && study.useCases?.length ? (
-          <ul class="case-card-tags" aria-label="Use cases">
-            {study.useCases.map(useCase => <li data-story-tag={useCase}>{useCase}</li>)}
-          </ul>
-        ) : null}
+        <div class="case-card-intro">
+          <p class="case-kicker">{study.sector}</p>
+          <Heading>{study.client} <span aria-hidden="true">↗</span></Heading>
+          <p>{study.summary}</p>
+          {compact && study.useCases?.length ? (
+            <ul class="case-card-tags" aria-label="Use cases">
+              {study.useCases.map(useCase => <li data-story-tag={useCase}>{useCase}</li>)}
+            </ul>
+          ) : null}
+        </div>
+        {compact && study.comparedTo?.length ? <StoryComparison products={study.comparedTo} placement="card" /> : null}
         <span class="case-text-link">Read {study.proposedQuote.approvalName}’s story <span aria-hidden="true">→</span></span>
       </div>
     </a>
@@ -43,19 +47,23 @@ const imageSizes = compact
   }
 
   .case-index-grid--compact .case-preview-card {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 4;
+    row-gap: 0;
     min-width: 0;
   }
 
   .case-index-grid--compact .case-preview-card[hidden] { display: none; }
   .case-index-grid--compact .case-card-image { aspect-ratio: 16 / 9; }
   .case-index-grid--compact .case-card-image img { object-fit: contain; }
+  .case-index-grid--compact .case-card-image.venue img { object-fit: cover; }
 
   .case-index-grid--compact .case-card-copy {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 3;
+    row-gap: 0;
     padding: 18px;
   }
 
@@ -68,7 +76,7 @@ const imageSizes = compact
     margin-bottom: 10px;
   }
 
-  .case-index-grid--compact .case-card-copy > p:not(.case-kicker) {
+  .case-index-grid--compact .case-card-intro > p:not(.case-kicker) {
     line-height: 1.55;
     margin-bottom: 14px;
   }
@@ -91,5 +99,5 @@ const imageSizes = compact
     line-height: 1.4;
   }
 
-  .case-index-grid--compact .case-text-link { margin-top: auto; }
+  .case-index-grid--compact .case-text-link { grid-row: 3; }
 </style>

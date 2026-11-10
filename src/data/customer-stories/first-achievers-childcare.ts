@@ -28,6 +28,7 @@ export const firstAchievers: CaseStudy = {
     "body": "The system can grow with First Achievers. Aminata can explain what would make the next part of her work easier, and Cyber Genie can build the agreed improvement into the existing workflow. The service includes handling that configuration, so she has a team to turn to as new needs emerge."
   },
   useCases: ["Websites", "CRM & lead capture", "Booking & scheduling", "Follow-up & alerts"],
+  comparedTo: [{ product: "wix" }, { product: "brightwheel" }],
   "services": [
     "Website design",
     "Custom childcare CRM",

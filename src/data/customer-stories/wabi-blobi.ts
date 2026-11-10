@@ -20,6 +20,7 @@ export const wabiBlobi: CaseStudy = {
   "imagePresentation": "website",
   "imageCaption": "The current Wabi Blobi homepage.",
   useCases: ["Websites", "Ecommerce", "Social media"],
+  comparedTo: [{ product: "mailerlite" }, { product: "shopify", caption: "Store kept" }],
   "services": [
     "Brand-led landing page",
     "Shopify connection",

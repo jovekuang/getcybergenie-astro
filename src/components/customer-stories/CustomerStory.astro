@@ -6,12 +6,14 @@ import { createBreadcrumbSchema } from "@/data/site";
 import { customerStoryPath } from "@/data/customer-stories";
 import type { CaseStudy } from "@/data/customer-stories/types";
 import "@/styles/customer-stories.css";
+import StoryComparison from "./StoryComparison.astro";
 import StoryQuote from "./StoryQuote.astro";
 import StoryShowcase from "./StoryShowcase.astro";
 import StoryTestimonial from "./StoryTestimonial.astro";
 interface Props { study: CaseStudy; other?: CaseStudy; review?: boolean; motionPreview?: boolean; }
 const { study, other, review = true, motionPreview = false } = Astro.props;
 const StoryDetails = review ? "div" : "details";
+const hasComparison = Boolean(study.comparedTo?.length);
 const approved = study.publication?.consent === "approved" && study.proposedQuote.approval === "approved";
 if (!review && !approved) throw new Error(`Cannot publish unapproved story: ${study.slug}`);
 const collectionPath = review ? "/_review/case-studies/" : "/customer-stories/";
@@ -50,7 +52,13 @@ const schemas = [
       </a>
       <div class="case-service-tags">{study.services.map(service => <span>{service}</span>)}</div>
       {study.showcase ? <StoryShowcase showcase={study.showcase} /> : <figure class:list={["case-site-frame", {"case-brand-frame": study.imagePresentation === "brand"}]}>{study.imagePresentation !== "brand" && <div class="case-browser-chrome" aria-hidden="true"><i></i><i></i><i></i><span>{new URL(study.website).hostname}</span></div>}<Image src={study.image} alt={study.imageAlt} widths={[640, 1000, 1600]} sizes="(max-width: 1200px) 92vw, 1152px" loading="eager" fetchpriority="high" /><figcaption>{study.imageCaption ?? `Selected website work for ${study.client}.`}</figcaption></figure>}
-      <dl class="case-facts"><div><dt>Client</dt><dd>{study.client}</dd></div><div><dt>Working with</dt><dd>{study.person}</dd></div><div><dt>Industry</dt><dd>{study.sector}</dd></div><div><dt>Delivered by</dt><dd>Cyber Genie</dd></div></dl>
+      <dl class:list={["case-facts", { "case-facts--with-comparison": hasComparison }]}>
+        <div><dt>Client</dt><dd>{study.client}</dd></div>
+        <div><dt>Working with</dt><dd>{study.person}</dd></div>
+        <div><dt>Industry</dt><dd>{study.sector}</dd></div>
+        <div><dt>Delivered by</dt><dd>Cyber Genie</dd></div>
+        {hasComparison && study.comparedTo && <StoryComparison products={study.comparedTo} placement="facts" />}
+      </dl>
     </header>
     {!review && <StoryTestimonial quote={study.proposedQuote} approved={approved} />}
     <StoryDetails class={!review ? "case-full-study" : undefined}>

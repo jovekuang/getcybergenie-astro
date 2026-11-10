@@ -32,6 +32,7 @@ export const edenElevations: CaseStudy = {
     "body": "The next step for Bruce is a conversation. The lead forms capture the visitor’s details along with the source of the inquiry, such as the tax guide or First Look Club. That context stays with the lead record in the CRM, helping him pick up the conversation from what the person asked for."
   },
   useCases: ["Websites", "CRM & lead capture"],
+  comparedTo: [{ product: "squarespace" }, { product: "hubspot" }],
   services: ["Modern website design", "Scroll-controlled hero", "Lead magnets & forms", "CRM integration"],
   "challenge": "Bruce wanted the website to reflect Eden Elevations 3 and make it easy for a visitor to begin a conversation. That meant bringing the visual experience, the firm’s story, and the ways to register interest together, with a place to keep the details needed for follow-up.",
   "approach": "We built those parts as one journey. The scroll-controlled hero gives the website a distinctive opening. The tax guide, First Look Club, and call-booking links offer clear next steps, while the lead forms connect submitted details and their source to Cyber Genie’s CRM.",

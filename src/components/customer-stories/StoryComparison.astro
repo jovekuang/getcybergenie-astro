@@ -1,0 +1,105 @@
+---
+import { comparisonProducts } from "@/data/customer-stories/comparison-products";
+import type { CaseStudy } from "@/data/customer-stories/types";
+
+interface Props {
+  products: NonNullable<CaseStudy["comparedTo"]>;
+  placement: "card" | "facts";
+}
+
+const { products, placement } = Astro.props;
+const inFacts = placement === "facts";
+const Field = inFacts ? "div" : "dl";
+---
+<Field class:list={["story-comparison", `story-comparison--${placement}`]}>
+  <dt>Compared to</dt>
+  <dd>
+    <ul class="story-comparison-products" role="list">
+      {products.map(({ product, caption }) => {
+        const { name, logo, logoIncludesName } = comparisonProducts[product];
+        const showName = !inFacts && !logoIncludesName;
+        const cardLogoWidth = logoIncludesName ? 76 : 34;
+        const factsLogoWidth = logoIncludesName ? 116 : 60;
+        return (
+          <li>
+            <img
+              class:list={{ "story-comparison-wordmark": logoIncludesName }}
+              src={logo}
+              alt={showName ? "" : name}
+              width={inFacts ? factsLogoWidth : cardLogoWidth}
+              height={inFacts ? 24 : 22}
+              loading="lazy"
+            />
+            {!inFacts && (showName || caption) && <span>{showName && name}{caption && <small>{caption}</small>}</span>}
+          </li>
+        );
+      })}
+    </ul>
+  </dd>
+</Field>
+
+<style>
+  .story-comparison--card {
+    margin: 0 0 14px;
+    padding: 10px 0 0;
+    border-top: 1px solid #dde5df;
+  }
+
+  .story-comparison--card dt {
+    margin-bottom: 7px;
+    color: #57655f;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  dd { margin: 0; }
+
+  .story-comparison-products {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .story-comparison--card li {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 32px;
+    padding: 2px 7px;
+    border: 1px solid #dde5df;
+    border-radius: 6px;
+    background: #fff;
+    color: #182823;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  img {
+    display: block;
+    flex: none;
+    object-fit: contain;
+  }
+
+  .story-comparison--facts ul {
+    gap: 10px;
+  }
+
+  .story-comparison--facts .story-comparison-wordmark {
+    width: auto;
+    max-width: 116px;
+  }
+
+  small {
+    display: block;
+    color: #57655f;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 1.1;
+  }
+</style>

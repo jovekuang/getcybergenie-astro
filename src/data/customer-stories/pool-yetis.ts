@@ -18,6 +18,7 @@ export const poolYetis: CaseStudy = {
   "theme": "pool",
   "imageCaption": "The public Pool Yeti’s website introduces its local pool-care services.",
   useCases: ["CRM & lead capture", "Follow-up & alerts"],
+  comparedTo: [{ product: "housecall-pro" }, { product: "highlevel" }],
   "services": [
     "Connected customer inquiries",
     "Shared lead workspace",

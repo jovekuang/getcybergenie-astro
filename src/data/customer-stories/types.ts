@@ -1,4 +1,5 @@
 import type { ImageMetadata } from "astro";
+import type { ComparisonProduct } from "./comparison-products";
 
 export interface CaseStudy {
   slug: string;
@@ -38,6 +39,7 @@ export interface CaseStudy {
   channels?: string[];
   services: string[];
   useCases?: string[];
+  comparedTo?: { product: ComparisonProduct; caption?: string }[];
   challenge: string;
   approach: string;
   featureTitle: string;
