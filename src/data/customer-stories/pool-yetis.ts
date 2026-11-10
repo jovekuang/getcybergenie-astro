@@ -1,6 +1,6 @@
 import { poolShowcase } from "./showcases";
 import poolYetisWebsite from "../../assets/customer-stories/pool-yetis-current-site.jpg";
-import poolYetisWordmark from "../../assets/customer-stories/pool-yetis-wordmark.png";
+import timYoungHeadshot from "../../assets/customer-stories/tim-young-headshot.jpg";
 import type { CaseStudy } from "./types";
 
 export const poolYetis: CaseStudy = {
@@ -103,9 +103,10 @@ export const poolYetis: CaseStudy = {
     "name": "Tim",
     "role": "Pool Yeti’s",
     "linkedinUrl": "https://www.linkedin.com/in/timyoung2/",
-    "headshot": poolYetisWordmark,
-    "imageKind": "brand",
-    "imageAlt": "Pool Yeti’s wordmark",
+    "headshot": timYoungHeadshot,
+    "imageKind": "person",
+    "imageShape": "circle",
+    "imageAlt": "Tim Young",
     "approvalName": "Tim",
     "approval": "approved"
   }

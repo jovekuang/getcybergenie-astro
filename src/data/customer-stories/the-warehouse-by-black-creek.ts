@@ -1,6 +1,6 @@
 import { warehouseShowcase } from "./showcases";
 import warehouseImage from "../../assets/customer-stories/warehouse-current-site.png";
-import warehouseMark from "../../assets/customer-stories/warehouse-mark.png";
+import lizaPortrait from "../../assets/customer-stories/liza-hill-portrait.png";
 import warehouseVideo from "../../assets/customer-stories/warehouse-hero.mp4?url";
 import warehousePoster from "../../assets/customer-stories/warehouse-poster.webp";
 import type { CaseStudy } from "./types";
@@ -87,9 +87,11 @@ export const warehouse: CaseStudy = {
     "text": "Cyber Genie has been with us from day one, helping us launch our website and manage reservation requests without adding another software subscription to the mix.",
     "name": "Liza Hill",
     "role": "The Warehouse by Black Creek",
-    "headshot": warehouseMark,
-    "imageKind": "brand",
-    "imageAlt": "The Warehouse by Black Creek logo",
+    "headshot": lizaPortrait,
+    "imageShape": "circle",
+    "imagePosition": "center 40%",
+    "imageScale": 1.38,
+    "imageOrigin": "90% 76%",
     "approvalName": "Liza",
     "approval": "approved"
   }

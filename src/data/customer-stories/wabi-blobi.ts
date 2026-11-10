@@ -93,6 +93,7 @@ export const wabiBlobi: CaseStudy = {
     "role": "Founder, Wabi Blobi",
     "linkedinUrl": "https://www.linkedin.com/in/avalzhao/",
     "headshot": avaHeadshot,
+    "imageShape": "circle",
     "imagePosition": "center",
     "approvalName": "Ava",
     "approval": "approved"
