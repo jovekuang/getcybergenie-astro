@@ -1,6 +1,6 @@
 import { warehouseShowcase } from "./showcases";
 import warehouseImage from "../../assets/customer-stories/warehouse-current-site.png";
-import lizaPortrait from "../../assets/customer-stories/liza-hill-portrait.png";
+import lizaPortrait from "../../assets/customer-stories/liza-hill-portrait-frame.jpg";
 import warehouseVideo from "../../assets/customer-stories/warehouse-hero.mp4?url";
 import warehousePoster from "../../assets/customer-stories/warehouse-poster.webp";
 import type { CaseStudy } from "./types";
@@ -89,9 +89,6 @@ export const warehouse: CaseStudy = {
     "role": "The Warehouse by Black Creek",
     "headshot": lizaPortrait,
     "imageShape": "circle",
-    "imagePosition": "center 40%",
-    "imageScale": 1.38,
-    "imageOrigin": "90% 76%",
     "approvalName": "Liza",
     "approval": "approved"
   }
