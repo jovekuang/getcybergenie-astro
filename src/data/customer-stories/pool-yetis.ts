@@ -17,6 +17,7 @@ export const poolYetis: CaseStudy = {
   "imageAlt": "The Pool Yeti’s homepage, with its blue wordmark, pool-care messaging, and illustrated Yeti mascot.",
   "theme": "pool",
   "imageCaption": "The public Pool Yeti’s website introduces its local pool-care services.",
+  useCases: ["CRM & lead capture", "Follow-up & alerts"],
   "services": [
     "Connected customer inquiries",
     "Shared lead workspace",

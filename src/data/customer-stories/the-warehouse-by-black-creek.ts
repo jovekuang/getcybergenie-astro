@@ -30,6 +30,7 @@ export const warehouse: CaseStudy = {
     "title": "Keep the reservation work in the same setup.",
     "body": "The reservation tools give staff a place to review requests, place holds, and confirm bookings, connected to customer records. For these agreed needs, Liza can avoid adding a separate venue platform such as Tripleseat, along with another subscription, login, and system to integrate."
   },
+  useCases: ["Websites", "Booking & scheduling"],
   "services": [
     "Website design & launch",
     "Search-ready foundations",

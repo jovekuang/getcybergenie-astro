@@ -4,6 +4,8 @@ import StoryCards from "@/components/customer-stories/StoryCards.astro";
 import { publishedStories, customerStoryPath } from "@/data/customer-stories";
 import { brand } from "@/data/brand";
 import { createBreadcrumbSchema } from "@/data/site";
+const industries = [...new Set(publishedStories.map(study => study.sector))].sort();
+const useCases = [...new Set(publishedStories.flatMap(study => study.useCases ?? []))];
 const description = "Meet the small-business owners working with Cyber Genie to build better websites, simplify everyday work, and grow with technology taken care of.";
 const collectionSchema = {
   "@context": "https://schema.org",
@@ -21,9 +23,135 @@ const collectionSchema = {
 };
 ---
 <BaseLayout title="Customer Stories | Cyber Genie" description={description} canonical="/customer-stories/" jsonLd={[collectionSchema, createBreadcrumbSchema([{ name: "Home", path: "/" }, { name: "Customer Stories", path: "/customer-stories/" }])]}>
-  <section class="case-index container">
+  <section class="case-index story-catalog container" data-story-catalog>
     <p class="case-kicker">Customer Stories</p>
     <h1>Meet awesome business owners.<br /><span>See how Cyber Genie helps.</span></h1>
-    <StoryCards />
+    <div class="story-filter-bar" role="group" aria-label="Filter customer stories" data-story-filters hidden>
+      <label class="story-filter-field">
+        Industry
+        <select data-industry-filter aria-controls="story-results">
+          <option value="">All industries</option>
+          {industries.map(industry => <option value={industry}>{industry}</option>)}
+        </select>
+      </label>
+      <label class="story-filter-field">
+        Use case
+        <select data-use-case-filter aria-controls="story-results">
+          <option value="">All use cases</option>
+          {useCases.map(useCase => <option value={useCase}>{useCase}</option>)}
+        </select>
+      </label>
+      <button class="button button-secondary" type="button" data-clear-story-filters>Clear filters</button>
+      <p class="story-result-count" role="status" data-story-count>{publishedStories.length} stories</p>
+    </div>
+    <div id="story-results">
+      <StoryCards compact />
+      <p class="story-empty" data-story-empty hidden>No stories match these filters. Try another industry or use case.</p>
+    </div>
   </section>
 </BaseLayout>
+
+<style>
+  .story-catalog { padding-block: clamp(32px, 5vw, 68px); }
+
+  .story-catalog h1 {
+    font-size: clamp(30px, 4.2vw, 52px);
+    margin-bottom: 28px;
+  }
+
+  .story-filter-bar:not([hidden]) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 12px;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    border: 1px solid #dde5df;
+    border-radius: 12px;
+    background: #f1f6f2;
+  }
+
+  .story-filter-field {
+    display: grid;
+    flex: 1 1 200px;
+    min-width: 0;
+    max-width: 265px;
+    gap: 5px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .story-filter-field select {
+    width: 100%;
+    min-height: 44px;
+    border: 1px solid #aebeb5;
+    border-radius: 6px;
+    padding: 0 10px;
+    background: #fff;
+    color: #182823;
+    font: inherit;
+    font-size: 14px;
+  }
+
+  .story-result-count {
+    margin: 0 0 0 auto;
+    align-self: end;
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    color: #57655f;
+    font-size: 14px;
+  }
+
+  .story-empty {
+    padding: 22px;
+    border: 1px solid #dde5df;
+    border-radius: 12px;
+    color: #57655f;
+  }
+
+  @media (max-width: 560px) {
+    .story-filter-field { max-width: none; }
+  }
+</style>
+
+<script>
+  const catalog = document.querySelector("[data-story-catalog]");
+  const filters = catalog?.querySelector<HTMLElement>("[data-story-filters]");
+  const industry = filters?.querySelector<HTMLSelectElement>("[data-industry-filter]");
+  const useCase = filters?.querySelector<HTMLSelectElement>("[data-use-case-filter]");
+  const clear = filters?.querySelector<HTMLButtonElement>("[data-clear-story-filters]");
+  const count = filters?.querySelector("[data-story-count]");
+  const empty = catalog?.querySelector<HTMLElement>("[data-story-empty]");
+
+  if (catalog && filters && industry && useCase && clear && count && empty) {
+    const cards = [...catalog.querySelectorAll<HTMLElement>("[data-story-industry]")].map(card => ({
+      card,
+      industry: card.dataset.storyIndustry,
+      tags: [...card.querySelectorAll<HTMLElement>("[data-story-tag]")].map(tag => tag.dataset.storyTag),
+    }));
+
+    const applyFilters = () => {
+      let visible = 0;
+      for (const story of cards) {
+        const matchesIndustry = !industry.value || story.industry === industry.value;
+        const matchesUseCase = !useCase.value || story.tags.includes(useCase.value);
+        story.card.hidden = !(matchesIndustry && matchesUseCase);
+        if (!story.card.hidden) visible++;
+      }
+      count.textContent = `${visible} ${visible === 1 ? "story" : "stories"}`;
+      empty.hidden = visible > 0;
+    };
+
+    industry.addEventListener("change", applyFilters);
+    useCase.addEventListener("change", applyFilters);
+    clear.addEventListener("click", () => {
+      industry.value = "";
+      useCase.value = "";
+      applyFilters();
+    });
+    window.addEventListener("pageshow", applyFilters);
+    applyFilters();
+    filters.hidden = false;
+  }
+</script>

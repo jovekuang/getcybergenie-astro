@@ -19,6 +19,7 @@ export const wabiBlobi: CaseStudy = {
   "theme": "play",
   "imagePresentation": "website",
   "imageCaption": "The current Wabi Blobi homepage.",
+  useCases: ["Websites", "Ecommerce", "Social media"],
   "services": [
     "Brand-led landing page",
     "Shopify connection",

@@ -37,6 +37,7 @@ export interface CaseStudy {
   websiteLabel?: string;
   channels?: string[];
   services: string[];
+  useCases?: string[];
   challenge: string;
   approach: string;
   featureTitle: string;

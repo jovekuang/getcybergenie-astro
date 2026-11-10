@@ -27,6 +27,7 @@ export const firstAchievers: CaseStudy = {
     "title": "She can ask for the next improvement.",
     "body": "The system can grow with First Achievers. Aminata can explain what would make the next part of her work easier, and Cyber Genie can build the agreed improvement into the existing workflow. The service includes handling that configuration, so she has a team to turn to as new needs emerge."
   },
+  useCases: ["Websites", "CRM & lead capture", "Booking & scheduling", "Follow-up & alerts"],
   "services": [
     "Website design",
     "Custom childcare CRM",
