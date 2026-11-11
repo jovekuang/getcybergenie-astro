@@ -6,7 +6,7 @@ import { calendlyUrl, createBreadcrumbSchema } from "@/data/site";
 import { customerOsCore, membershipPlans, technologyPartnerOffer } from "@/data/solutions";
 import { staticSeo } from "@/data/seo";
 import SmsConsent from "@/components/SmsConsent.astro";
-import { sms } from "@/data/sms";
+import { keywordDisclosure, sms } from "@/data/sms";
 
 const essential = membershipPlans.find((plan) => plan.slug === "essential-website")!;
 const evolving = membershipPlans.find((plan) => plan.slug === "evolving-website")!;
@@ -26,7 +26,7 @@ const evolving = membershipPlans.find((plan) => plan.slug === "evolving-website"
       <h1 class="compact-title">Tell us what should work better.</h1>
       <p class="lead">Show us where the work gets stuck. We’ll help find the right starting point.</p>
       <a class="contact-email" href={`mailto:${brand.publicEmail}`}>{brand.publicEmail}</a>
-      <p><a href={`tel:${sms.phone}`}>Call {sms.displayPhone}</a> or <a href="#message">send us a message</a>.</p>
+      <p><a href={`tel:${sms.supportPhone}`}>Call {sms.supportDisplayPhone}</a> or <a href="#message">send us a message</a>.</p>
       <p class="portal-continuity">Already a customer? Your existing FK Innovate account still works.</p>
     </div>
   </section>
@@ -36,12 +36,11 @@ const evolving = membershipPlans.find((plan) => plan.slug === "evolving-website"
       <h2 id="message-title">Send us a message.</h2>
       <p>Tell us what you need help with. If you prefer text updates about your request, you can opt in below.</p>
       <aside class="sms-keyword" aria-labelledby="sms-keyword-title" data-disclosure-version={sms.keywordVersion}>
-        <h3 id="sms-keyword-title">Prefer to start by text?</h3>
-        <p>{sms.keywordDisclosure} Terms: <a href="/terms/#sms">https://getcybergenie.com/terms/#sms</a> Privacy: <a href="/privacy/#sms">https://getcybergenie.com/privacy/#sms</a></p>
-        <a class="button button-secondary" href={`sms:${sms.phone}?body=YES`}>Text YES to {sms.displayPhone}</a>
+        <h3 id="sms-keyword-title">Text enrollment is coming soon</h3>
+        <p>When enrollment opens: {keywordDisclosure} See our <a href="/terms/#sms">SMS Terms</a> and <a href="/privacy/#sms">Privacy Policy</a>.</p>
         <p>For help, email <a href={`mailto:${brand.publicEmail}`}>{brand.publicEmail}</a>. Mobile information and SMS consent are not sold or shared with third parties or affiliates for marketing or promotional purposes.</p>
       </aside>
-      <noscript><style>#contact-form { display: none; }</style><p>Email <a href={`mailto:${brand.publicEmail}`}>{brand.publicEmail}</a> or call <a href={`tel:${sms.phone}`}>{sms.displayPhone}</a> to reach us.</p></noscript>
+      <noscript><style>#contact-form { display: none; }</style><p>Email <a href={`mailto:${brand.publicEmail}`}>{brand.publicEmail}</a> or call <a href={`tel:${sms.supportPhone}`}>{sms.supportDisplayPhone}</a> to reach us.</p></noscript>
       <form id="contact-form" method="post" action="/api/contact">
         <div class="onboarding-honeypot" aria-hidden="true"><label for="contact-website">Leave this blank</label><input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off" /></div>
         <input type="hidden" name="startedAt" />

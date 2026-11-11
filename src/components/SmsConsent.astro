@@ -9,7 +9,7 @@ const { id = "sms-consent" } = Astro.props;
     <span>{sms.consent}</span>
   </label>
   <p id={`${id}-policies`}>
-    Cyber Genie texting number: <a href={`tel:${sms.phone}`}>{sms.displayPhone}</a>.
+    Cyber Genie texting number: {sms.keywordDisplayPhone}.
     <a href="/terms/#sms">SMS Terms</a> · <a href="/privacy/#sms">Privacy Policy</a>.
     For help, email <a href={`mailto:${brand.publicEmail}`}>{brand.publicEmail}</a>.
     Mobile information and SMS consent are not sold or shared with third parties or affiliates for marketing or promotional purposes.

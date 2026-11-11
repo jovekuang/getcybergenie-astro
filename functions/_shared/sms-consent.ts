@@ -14,6 +14,6 @@ export function readSmsConsent(payload: Record<string, unknown>, phone: string, 
 // The server supplies the disclosure and receipt time; never trust client-supplied evidence.
 export function smsConsentRecord(consent: boolean, source: string) {
   return consent
-    ? `OPTED IN to customer-care SMS only\nDisclosure version: ${sms.version}\nCyber Genie texting number: ${sms.displayPhone}\nSource: ${source}\nReceived at (UTC): ${new Date().toISOString()}\nConsent text: ${sms.consent}\nLinked policies: https://getcybergenie.com/terms/#sms and https://getcybergenie.com/privacy/#sms\nVerify this record and any later opt-out before sending. This form does not send an SMS or enroll a number in Twilio automatically.`
+    ? `OPTED IN to customer-care SMS only\nDisclosure version: ${sms.version}\nCyber Genie texting number: ${sms.keywordDisplayPhone}\nSource: ${source}\nReceived at (UTC): ${new Date().toISOString()}\nConsent text: ${sms.consent}\nLinked policies: https://getcybergenie.com/terms/#sms and https://getcybergenie.com/privacy/#sms\nVerify this record and any later opt-out before sending. This form does not send an SMS or enroll a number in Twilio automatically.`
     : "NOT OPTED IN. Do not send SMS based on this submission.";
 }

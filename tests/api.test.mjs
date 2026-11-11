@@ -62,7 +62,8 @@ for (const [name, handler] of [['contact',contact],['onboarding',onboarding]]) {
     assert.match(sent[0].text,/NOT OPTED IN/); assert.match(sent[1].text,/NOT OPTED IN/);
     assert.match(sent[2].text,/OPTED IN to customer-care SMS only/);
     assert.match(sent[2].text,/I agree to receive customer-care text messages from Cyber Genie/);
-    assert.match(sent[2].text,/Disclosure version: 2026-10-31/);
+    assert.match(sent[2].text,/Disclosure version: 2026-11-11/);
+    assert.match(sent[2].text,/Cyber Genie texting number: \(925\) 666-3069/);
     assert.match(sent[2].text,/Received at \(UTC\): \d{4}-\d{2}-\d{2}T/);
     assert.doesNotMatch(sent[2].text,/forged/);
     assert.equal(sent[2].reply_to,'owner@example.com');
