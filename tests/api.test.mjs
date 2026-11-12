@@ -12,7 +12,7 @@ const bodies = {
   listing: () => ({ name: 'Test Owner', email: 'owner@example.com', phone: '5551234567', propertyAddress: '123 Example Street', musicalStyle: 'pop', specialRequests: '', originatingPage: `${origin}/campaigns/realtor-listing-song-video/`, idempotencyKey: 'review-test-id', startedAt: String(Date.now()-10000), website: '' }),
 };
 const request = (name, payload, host=origin, headers={}) => new Request(`${host}/api/${name === 'listing' ? 'realtor-listing-package' : name === 'contact' ? 'contact' : 'website-onboarding'}`, { method: 'POST', headers: { 'Content-Type': 'application/json', Origin: host, ...headers }, body: JSON.stringify(payload) });
-const configured = { RESEND_API_KEY:'test-only', ONBOARDING_TO_EMAIL:'recipient@example.com', ONBOARDING_FROM_EMAIL:'Cyber Genie <onboarding@getcybergenie.com>', FK_CRM_CAPTURE_URL:'https://crm.example.com/capture', FK_CRM_FORM_TOKEN:'test-only-form-token', MARKETING_CONTACT_URL:'https://psrlivpzkmyaubchqywr.supabase.co/functions/v1/receive-marketing-contact', MARKETING_CONTACT_TOKEN:'test-only-server-token-at-least-32-characters' };
+const configured = { RESEND_API_KEY:'test-only', ONBOARDING_TO_EMAIL:'recipient@example.com', ONBOARDING_FROM_EMAIL:'Cyber Genie <onboarding@getcybergenie.com>', FK_CRM_CAPTURE_URL:'https://crm.example.com/capture', FK_CRM_FORM_TOKEN:'test-only-form-token', MARKETING_CONTACT_URL:'https://klyjqzowlvygvknzrxid.supabase.co/functions/v1/receive-marketing-contact', MARKETING_CONTACT_TOKEN:'test-only-server-token-at-least-32-characters' };
 for (const [name, handler, dryKey, limit] of [['onboarding',onboarding,'ONBOARDING_DRY_RUN',50000],['listing',listing,'CRM_CAPTURE_DRY_RUN',20000],['contact',contact,'ONBOARDING_DRY_RUN',10000]]) {
   test(`${name}: preview validates without sending, even with live-looking bindings`, async (t) => {
     let called=false;
@@ -98,6 +98,7 @@ test('contact: sends only to the authenticated app endpoint with stable identity
     assert.equal(call.body.from,undefined);
   }
   assert.equal((await contact({request:request('contact',body),env:{...configured,MARKETING_CONTACT_URL:'https://attacker.example/steal'}})).status,503);
+  assert.equal((await contact({request:request('contact',body),env:{...configured,MARKETING_CONTACT_URL:'https://psrlivpzkmyaubchqywr.supabase.co/functions/v1/receive-marketing-contact'}})).status,503);
   assert.equal(calls.length,2);
   t.mock.restoreAll();
 });

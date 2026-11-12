@@ -46,12 +46,13 @@ export const onRequestPost = async ({ request, env }: { request: Request; env: E
   const contactUrl = env.MARKETING_CONTACT_URL?.trim();
   const token = env.MARKETING_CONTACT_TOKEN?.trim();
   // Never forward this server credential to a browser-selected or arbitrary host.
-  if (env.ONBOARDING_DRY_RUN === "true" || contactUrl !== "https://psrlivpzkmyaubchqywr.supabase.co/functions/v1/receive-marketing-contact" || !token || token.length < 32) {
+  if (env.ONBOARDING_DRY_RUN === "true" || contactUrl !== "https://klyjqzowlvygvknzrxid.supabase.co/functions/v1/receive-marketing-contact" || !token || token.length < 32) {
     return json({ message: "This form is temporarily unavailable. Please email hello@getcybergenie.com." }, 503);
   }
   try {
     const response = await fetch(contactUrl, {
       method: "POST",
+      redirect: "error",
       signal: AbortSignal.timeout(30_000),
       headers: { "X-Marketing-Contact-Token": token, "Content-Type": "application/json" },
       body: JSON.stringify({ submission_id: submissionId, name, email, phone, message, sms_consent: consent, sms_consent_record: smsConsentRecord(consent, `${origin}/contact/#message`) }),

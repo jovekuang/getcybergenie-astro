@@ -15,7 +15,7 @@ The migration must use the app's platform migration runner, with original SQL pr
 
 Before publishing the updated marketing form, configure these **server-only production Pages bindings**:
 
-- `MARKETING_CONTACT_URL`: `https://psrlivpzkmyaubchqywr.supabase.co/functions/v1/receive-marketing-contact`.
+- `MARKETING_CONTACT_URL`: `https://klyjqzowlvygvknzrxid.supabase.co/functions/v1/receive-marketing-contact`.
 - `MARKETING_CONTACT_TOKEN`: the same securely generated random token (at least 32 characters) configured in the app's Edge Function secrets.
 
 Never place the token in `PUBLIC_*`, browser JavaScript, source, deployment prompts, or logs. Keep existing Resend/onboarding bindings because `/api/website-onboarding` still uses them.
