@@ -37,4 +37,57 @@ for (const [slug, lines, subtitle] of cards) {
  await write(`src/assets/social/og-${slug}.svg`, svg);
  await sharp(Buffer.from(svg)).png().toFile(new URL(`../public/og-${slug}.png`, import.meta.url).pathname);
 }
-console.log(`Generated trimmed monochrome artwork, lockups, icons and ${cards.length} social images; viewBox ${x} ${y} ${w} ${h}`);
+
+const homeCard = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="0.86" gradientUnits="objectBoundingBox">
+      <stop stop-color="#e2f2e6"/>
+      <stop offset=".52" stop-color="#f2f8ee"/>
+      <stop offset=".78" stop-color="#fbfaf3"/>
+      <stop offset="1" stop-color="#fbfaf3"/>
+    </linearGradient>
+    <radialGradient id="wash" cx=".55" cy=".48" r=".67">
+      <stop stop-color="#9dd3b0" stop-opacity=".74"/>
+      <stop offset=".46" stop-color="#a7dabb" stop-opacity=".43"/>
+      <stop offset="1" stop-color="#dcf2e6" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="flute" x1="0" y1="0" x2="176" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#689b7e" stop-opacity=".13"/>
+      <stop offset=".22" stop-color="#b0d6b8" stop-opacity=".12"/>
+      <stop offset=".62" stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".94" stop-color="#fff" stop-opacity=".68"/>
+      <stop offset="1" stop-color="#fff" stop-opacity=".95"/>
+    </linearGradient>
+    <pattern id="flutes" width="176" height="630" patternUnits="userSpaceOnUse" patternTransform="rotate(32)">
+      <rect width="176" height="630" fill="url(#flute)"/>
+    </pattern>
+    <linearGradient id="flute-fade">
+      <stop stop-color="#fff" stop-opacity=".64"/>
+      <stop offset=".43" stop-color="#fff" stop-opacity=".36"/>
+      <stop offset=".64" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="texture"><rect width="1200" height="630" fill="url(#flute-fade)"/></mask>
+    <filter id="soft-wash" x="-.25" y="-.3" width="1.5" height="1.6">
+      <feGaussianBlur stdDeviation="28"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#paper)"/>
+  <path d="M-40 552C-121 464 22 385 75 307C126 236 71 174 138 119C203 66 338 101 418 50C519-15 683 72 705 159C735 275 579 312 596 409C615 513 668 556 564 607C454 658 377 558 276 592C170 628 20 621-40 552Z" fill="url(#wash)" filter="url(#soft-wash)"/>
+  <rect width="1200" height="630" fill="url(#flutes)" mask="url(#texture)"/>
+  <svg x="785" y="86" width="324" height="456" viewBox="${x} ${y} ${w} ${h}" color="#182823" fill="currentColor">${paths}</svg>
+  <svg x="65" y="53" width="34" height="48" viewBox="${x} ${y} ${w} ${h}" color="#182823" fill="currentColor">${paths}</svg>
+  <g font-family="Arial, sans-serif">
+    <text x="112" y="86" font-size="29" font-weight="700" letter-spacing="-1.05" fill="#182823">Cyber Genie</text>
+    <path d="M321 301C404 290 522 290 604 292C612 292 612 297 605 300C530 310 405 311 321 306Z" fill="#99d7bf"/>
+    <g fill="#182823" font-size="76" font-weight="700" letter-spacing="-3.8">
+      <text x="63" y="287">Get the <tspan fill="#0f766e">outcome</tspan>,</text>
+      <text x="63" y="371">not the software.</text>
+    </g>
+    <text x="67" y="436" font-size="24" font-weight="700" fill="#38564a">Built for busy small-business owners.</text>
+    <text x="67" y="565" font-size="21" fill="#38564a">getcybergenie.com</text>
+  </g>
+</svg>`;
+await write('src/assets/social/og-home.svg', homeCard);
+await sharp(Buffer.from(homeCard)).png().toFile(new URL('../public/og-home.png', import.meta.url).pathname);
+
+console.log(`Generated trimmed monochrome artwork, lockups, icons and ${cards.length + 1} social images; viewBox ${x} ${y} ${w} ${h}`);
