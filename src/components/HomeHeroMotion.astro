@@ -1,0 +1,314 @@
+---
+import mark from "../../public/brand-mark.svg?raw";
+
+const viewBox = mark.match(/viewBox="([^"]+)"/)?.[1];
+const path = mark.match(/<path d="([^"]+)"/)?.[1] ?? "";
+// The approved vector separates its continuous outline, wink, open eye, and smile.
+const [outline, wink, eye, smile] = path.split(/(?=M )/);
+if (!viewBox || !smile) throw new Error("The approved Genie mark is missing its facial contours");
+
+const openStanceHead = { x: -13, y: 1 };
+
+// Use the wider elbow from the open-stance study with the approved curl and tail.
+const openStanceOutline = outline
+  .replace(/C 697\.081 614\.609[\s\S]*?794\.887 718\.430/, `
+    C 719 618, 748 631, 780 647
+    C 820 669, 861 688, 879 710
+    C 890 723, 892 737, 879 745
+    C 867 753, 850 748, 843 739
+    C 828 722, 811 720, 794.887 718.430`)
+  .replace(/C 802\.046 740\.570[\s\S]*?732\.188 598\.151/, `
+    C 815 742, 823 753, 835 763
+    C 850 775, 873 777, 891 766
+    C 916 750, 921 721, 898 696
+    C 874 669, 830 651, 792 631
+    C 765 617, 747 609, 732.188 598.151`)
+  .replace(/(-?\d+(?:\.\d+)?)[ ,]+(-?\d+(?:\.\d+)?)/g, (_, x, y) => {
+    const t = Math.max(0, Math.min(1, (800 - Number(y)) / 240));
+    const weight = t * t * (3 - 2 * t);
+    return `${(Number(x) + openStanceHead.x * weight).toFixed(2)} ${(Number(y) + openStanceHead.y * weight).toFixed(2)}`;
+  });
+---
+
+<div class="cyber-hero-character" aria-hidden="true">
+  <svg class="hero-genie" viewBox={viewBox} fill="currentColor" focusable="false">
+    <g class="hero-genie-lean" transform="rotate(-4 635 622)">
+      <g data-genie-pose data-open-stance-head-x={openStanceHead.x} data-open-stance-head-y={openStanceHead.y}>
+        <path d={openStanceOutline} fill-rule="evenodd" class="hero-genie-open-stance" />
+        <path d={outline} fill-rule="evenodd" class="hero-genie-cta" />
+        <g data-genie-face transform={`translate(${openStanceHead.x} ${openStanceHead.y})`}>
+          <path d={smile} data-genie-mouth />
+          <path d={wink} class="hero-genie-wink" />
+          <g data-genie-gaze>
+            <g class="hero-genie-open-eyes">
+              <g class="hero-genie-blinking-eye"><path d={eye} /></g>
+              <g class="hero-genie-blinking-eye hero-genie-second-eye" transform="translate(128 -34)"><path d={eye} /></g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </svg>
+  <svg class="hero-genie-glints" viewBox="0 0 100 100" fill="currentColor" focusable="false">
+    <path d="M49 18Q49 43 74 43Q49 43 49 68Q49 43 24 43Q49 43 49 18Z" />
+    <path d="M80 60Q80 71 91 71Q80 71 80 82Q80 71 69 71Q80 71 80 60Z" />
+  </svg>
+</div>
+
+<script>
+  import { createHeroReflection } from "../scripts/hero-reflection";
+
+  const stage = document.querySelector<HTMLElement>("[data-home-hero]");
+  const shell = stage?.closest<HTMLElement>(".site-shell");
+  const header = shell?.querySelector<HTMLElement>(".site-header");
+  const announcement = shell?.querySelector<HTMLElement>("[data-rebrand-announcement]");
+  const canvas = shell?.querySelector<HTMLCanvasElement>(".home-hero-material");
+  const character = stage?.querySelector<HTMLElement>(".cyber-hero-character");
+  const openStance = character?.querySelector<SVGPathElement>(".hero-genie-open-stance");
+  const thumbsUp = character?.querySelector<SVGPathElement>(".hero-genie-cta");
+  const pose = character?.querySelector<SVGGElement>("[data-genie-pose]");
+  const face = character?.querySelector<SVGGElement>("[data-genie-face]");
+  const mouth = character?.querySelector<SVGPathElement>("[data-genie-mouth]");
+  const gaze = character?.querySelector<SVGGElement>("[data-genie-gaze]");
+  const actions = stage?.querySelectorAll<HTMLAnchorElement>(".hero-actions .button");
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  const hasHover = matchMedia("(any-hover: hover) and (any-pointer: fine)");
+
+  if (stage && shell && header && canvas && character && openStance && thumbsUp && pose && face && mouth && gaze) {
+    const idleMotions = ["hop", "dash"];
+    const smoothWeight = (value: number, start: number, end: number) => {
+      const t = Math.max(0, Math.min(1, (value - start) / (end - start)));
+      return t * t * (3 - 2 * t);
+    };
+    // Blend each hand into its arm so the outline remains continuous as the hands move.
+    const poseSegments = (path: string) => Array.from(path.matchAll(/([MCL])\s*([^MCL]+)/g), ([, command, values]) => {
+      const coordinates = values.trim().split(/[\s,]+/).map(Number);
+      const points = [];
+      for (let index = 0; index < coordinates.length; index += 2) {
+        const x = coordinates[index];
+        const y = coordinates[index + 1];
+        points.push({
+          x,
+          y,
+          head: 1 - smoothWeight(y, 550, 850),
+          raisedHand: smoothWeight(x, 816, 870),
+          loweredHand: (1 - smoothWeight(x, 410, 490)) * smoothWeight(y, 690, 785),
+        });
+      }
+      return { command, points };
+    });
+    const openStancePath = openStance.getAttribute("d") ?? "";
+    const thumbsUpPath = thumbsUp.getAttribute("d") ?? "";
+    const openStanceSegments = poseSegments(openStancePath);
+    const thumbsUpSegments = poseSegments(thumbsUpPath);
+    const openStanceHeadX = Number(pose.dataset.openStanceHeadX);
+    const openStanceHeadY = Number(pose.dataset.openStanceHeadY);
+
+    const reflection = hasHover.matches && !reducedMotion.matches ? createHeroReflection(canvas) : undefined;
+    let pointer: { x: number; y: number } | undefined;
+    let frame = 0;
+    let celebrationTimer = 0;
+    let idleMotionTimer = 0;
+    let nextIdleMotion = 0;
+    let genieInView = false;
+    let layoutFrame = 0;
+    let scrollFrame = 0;
+    let x = 0;
+    let y = 0;
+    let light = 0;
+    let lastLightX = 0;
+    let lastLightY = 0;
+    let hoveredAction: HTMLAnchorElement | undefined;
+
+    const scheduleIdleMotion = (delay: number) => {
+      window.clearTimeout(idleMotionTimer);
+      character.removeAttribute("data-idle-motion");
+      if (!genieInView || document.hidden || reducedMotion.matches || hoveredAction) return;
+      idleMotionTimer = window.setTimeout(() => {
+        character.dataset.idleMotion = idleMotions[nextIdleMotion];
+        nextIdleMotion = (nextIdleMotion + 1) % idleMotions.length;
+        scheduleRender();
+      }, delay);
+    };
+    const onActivity = () => scheduleIdleMotion(2200);
+
+    const updateHeader = () => {
+      scrollFrame = 0;
+      header.style.setProperty("--hero-nav-opacity", String(Math.min(1, window.scrollY / 144)));
+    };
+    const updateLayout = () => {
+      layoutFrame = 0;
+      const stageTop = stage.getBoundingClientRect().top + window.scrollY;
+      stage.style.setProperty("--hero-top", `${stageTop}px`);
+      const top = announcement?.getBoundingClientRect().height ?? 0;
+      const height = stage.getBoundingClientRect().bottom + window.scrollY - top;
+      shell.style.setProperty("--hero-material-top", `${top}px`);
+      shell.style.setProperty("--hero-material-height", `${height}px`);
+      reflection?.resize(canvas.clientWidth, height);
+      reflection?.draw(lastLightX, lastLightY, light);
+      updateHeader();
+    };
+
+    const observer = new ResizeObserver(() => {
+      if (!layoutFrame) layoutFrame = requestAnimationFrame(updateLayout);
+    });
+    observer.observe(stage);
+    observer.observe(header);
+    if (announcement) observer.observe(announcement);
+    updateLayout();
+    window.addEventListener("scroll", () => {
+      if (!scrollFrame) scrollFrame = requestAnimationFrame(updateHeader);
+    }, { passive: true });
+
+    const renderPose = () => {
+      const outline = hoveredAction ? thumbsUp : openStance;
+      const restingHeadX = hoveredAction ? 0 : openStanceHeadX;
+      const restingHeadY = hoveredAction ? 0 : openStanceHeadY;
+      const headX = 32 * x;
+      const headY = 17 * y;
+      face.setAttribute("transform", `translate(${restingHeadX + headX} ${restingHeadY + headY})`);
+      if (x === 0 && y === 0) {
+        outline.setAttribute("d", hoveredAction ? thumbsUpPath : openStancePath);
+        pose.removeAttribute("transform");
+        mouth.removeAttribute("transform");
+        gaze.removeAttribute("transform");
+        return;
+      }
+
+      const segments = hoveredAction ? thumbsUpSegments : openStanceSegments;
+      const outlinePath = segments.map(({ command, points }) => {
+        const moved = points.map(({ x: pointX, y: pointY, head, raisedHand, loweredHand }) => {
+          const offsetX = headX * head + 11 * x * raisedHand + 15 * x * loweredHand;
+          const offsetY = headY * head + (29 * y - 11 * x) * raisedHand + (24 * y + 8 * x) * loweredHand;
+          return `${(pointX + offsetX).toFixed(1)} ${(pointY + offsetY).toFixed(1)}`;
+        });
+        return command + moved.join(" ");
+      });
+      outline.setAttribute("d", outlinePath.join(" "));
+      pose.setAttribute("transform", `translate(${18 * x} ${14 * y}) rotate(${5 * x} 645 665)`);
+      mouth.setAttribute("transform", `translate(${9 * x} ${11 * y})`);
+      gaze.setAttribute("transform", `translate(${13 * x} ${11 * y})`);
+    };
+
+    const approach = (current: number, target: number) =>
+      Math.abs(target - current) < .004 ? target : current + (target - current) * .24;
+
+    const render = () => {
+      frame = 0;
+      let targetX = 0;
+      let targetY = 0;
+      if (pointer) {
+        if (!character.hasAttribute("data-celebrating") && !character.hasAttribute("data-idle-motion")) {
+          const bounds = character.getBoundingClientRect();
+          const dx = pointer.x - (bounds.left + bounds.width * .5);
+          const dy = pointer.y - (bounds.top + bounds.height * .37);
+          const distance = Math.max(145, Math.hypot(dx, dy));
+          targetX = dx / distance;
+          targetY = dy / distance;
+        }
+        const material = canvas.getBoundingClientRect();
+        lastLightX = pointer.x - material.left;
+        lastLightY = pointer.y - material.top;
+      }
+      const targetLight = pointer && reflection ? 1 : 0;
+      const nextX = approach(x, targetX);
+      const nextY = approach(y, targetY);
+      if (nextX !== x || nextY !== y) {
+        x = nextX;
+        y = nextY;
+        renderPose();
+      }
+      light = approach(light, targetLight);
+      reflection?.draw(lastLightX, lastLightY, light);
+
+      if (x !== targetX || y !== targetY || light !== targetLight) scheduleRender();
+    };
+    const scheduleRender = () => {
+      if (!frame) frame = requestAnimationFrame(render);
+    };
+
+    const settle = () => {
+      if (!hoveredAction) return;
+      character.setAttribute("data-celebrating", "");
+      scheduleRender();
+    };
+
+    const track = (event: PointerEvent) => {
+      if (!hasHover.matches || reducedMotion.matches || event.pointerType === "touch") return;
+      pointer = { x: event.clientX, y: event.clientY };
+      if (hoveredAction && !character.hasAttribute("data-celebrating")) {
+        window.clearTimeout(celebrationTimer);
+        celebrationTimer = window.setTimeout(settle, 250);
+      }
+      scheduleRender();
+    };
+
+    const endAction = () => {
+      hoveredAction = undefined;
+      window.clearTimeout(celebrationTimer);
+      character.removeAttribute("data-celebrating");
+      character.removeAttribute("data-cta-hover");
+      renderPose();
+      onActivity();
+    };
+
+    const leave = () => {
+      pointer = undefined;
+      endAction();
+      scheduleRender();
+    };
+
+    const reset = () => {
+      endAction();
+      cancelAnimationFrame(frame);
+      frame = 0;
+      x = y = light = 0;
+      pointer = undefined;
+      renderPose();
+      reflection?.draw(0, 0, 0);
+    };
+
+    actions?.forEach(action => {
+      action.addEventListener("pointerenter", event => {
+        if (!hasHover.matches || reducedMotion.matches || event.pointerType !== "mouse") return;
+        hoveredAction = action;
+        onActivity();
+        character.setAttribute("data-cta-hover", "");
+        renderPose();
+        track(event);
+      });
+      action.addEventListener("pointerleave", () => {
+        if (hoveredAction !== action) return;
+        endAction();
+        scheduleRender();
+      });
+    });
+    stage.addEventListener("pointermove", track, { passive: true });
+    header.addEventListener("pointermove", (event) => {
+      if (window.scrollY < 144 && !header.classList.contains("is-nav-open")) track(event);
+    }, { passive: true });
+    stage.addEventListener("pointerleave", (event) => {
+      if (!(event.relatedTarget instanceof Node) || !header.contains(event.relatedTarget)) leave();
+    });
+    header.addEventListener("pointerleave", (event) => {
+      if (!(event.relatedTarget instanceof Node) || !stage.contains(event.relatedTarget)) leave();
+    });
+    stage.addEventListener("pointercancel", reset);
+    reducedMotion.addEventListener("change", reset);
+    hasHover.addEventListener("change", reset);
+
+    const visibility = new IntersectionObserver(([entry]) => {
+      genieInView = entry.isIntersecting && entry.intersectionRatio >= .5;
+      onActivity();
+    }, { threshold: .5 });
+    visibility.observe(character);
+    document.addEventListener("visibilitychange", onActivity);
+    window.addEventListener("pointermove", onActivity, { passive: true });
+    window.addEventListener("scroll", onActivity, { passive: true });
+    character.addEventListener("animationend", event => {
+      if (event.animationName !== "hero-genie-hop" && event.animationName !== "hero-genie-dash") return;
+      scheduleIdleMotion(6500);
+      scheduleRender();
+    });
+  }
+</script>

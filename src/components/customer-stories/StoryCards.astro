@@ -6,8 +6,9 @@ import StoryComparison from "./StoryComparison.astro";
 interface Props {
   headingLevel?: "h2" | "h3";
   compact?: boolean;
+  showDetails?: boolean;
 }
-const { headingLevel: Heading = "h2", compact = false } = Astro.props;
+const { headingLevel: Heading = "h2", compact = false, showDetails = false } = Astro.props;
 const imageSizes = compact
   ? "(min-width: 1240px) 285px, (min-width: 1180px) calc((100vw - 100px) / 4), (min-width: 890px) calc((100vw - 80px) / 3), (min-width: 600px) calc((100vw - 60px) / 2), calc(100vw - 32px)"
   : "(max-width: 760px) 92vw, 46vw";
@@ -17,7 +18,7 @@ const imageSizes = compact
     <a
       class="case-preview-card"
       href={customerStoryPath(study.slug)}
-      data-story-industry={compact ? study.sector : undefined}
+      data-story-industry={showDetails ? study.sector : undefined}
     >
       <div class={`case-card-image ${study.theme}`}>
         <Image src={study.image} alt={study.imageAlt} widths={[480, 800, 1200]} sizes={imageSizes} />
@@ -27,13 +28,13 @@ const imageSizes = compact
           <p class="case-kicker">{study.sector}</p>
           <Heading>{study.client} <span aria-hidden="true">↗</span></Heading>
           <p>{study.summary}</p>
-          {compact && study.useCases?.length ? (
+          {showDetails && study.useCases?.length ? (
             <ul class="case-card-tags" aria-label="Use cases">
               {study.useCases.map(useCase => <li data-story-tag={useCase}>{useCase}</li>)}
             </ul>
           ) : null}
         </div>
-        {compact && study.comparedTo?.length ? <StoryComparison products={study.comparedTo} placement="card" /> : null}
+        {showDetails && study.comparedTo?.length ? <StoryComparison products={study.comparedTo} placement="card" /> : null}
         <span class="case-text-link">Read {study.proposedQuote.approvalName}’s story <span aria-hidden="true">→</span></span>
       </div>
     </a>
@@ -69,7 +70,7 @@ const imageSizes = compact
 
   .case-index-grid--compact .case-kicker { margin-bottom: 8px !important; }
 
-  .case-index-grid--compact h2 {
+  .case-index-grid--compact :is(h2, h3) {
     font-size: 20px;
     line-height: 1.25;
     gap: 10px;

@@ -20,7 +20,7 @@ function setup(count = 11) {
     focus() { document.activeElement = this; root.emit('focusin', { target: this }); }
   };
   const root = new Element(), viewport = new Element(), track = new Element();
-  const controls = new Element(), toggle = new Element(), previous = new Element(), next = new Element();
+  const controls = new Element(), previous = new Element(), next = new Element();
   const motion = new Element(); motion.matches = false;
   viewport.clientWidth = 1000;
   viewport.scrollWidth = count * 313.25;
@@ -36,10 +36,10 @@ function setup(count = 11) {
     track.children.push(tile);
   }
   track.querySelectorAll = () => track.children.map(tile => tile.children[0]);
-  viewport.children = [track]; controls.children = [previous, toggle, next]; root.children = [viewport, controls];
+  viewport.children = [track]; controls.children = [previous, next]; root.children = [viewport, controls];
   const selectors = {
     '[data-industry-viewport]': viewport, '[data-industry-track]': track,
-    '[data-industry-controls]': controls, '[data-industry-toggle]': toggle,
+    '[data-industry-controls]': controls,
     '[data-industry-previous]': previous, '[data-industry-next]': next,
   };
   root.querySelector = selector => selectors[selector];
@@ -60,7 +60,7 @@ function setup(count = 11) {
       for (const callback of pending) callback(clock);
     }
   };
-  return { root, viewport, track, controls, toggle, previous, next, motion, advance, resize,
+  return { root, viewport, track, controls, previous, next, motion, advance, resize,
     visibility: value => intersect([{ isIntersecting: value }]) };
 }
 
@@ -83,14 +83,12 @@ for (const count of [10, 11]) test(`${count} real links complete two seamless lo
   assert.equal(new Set(t.track.children.map(tile => tile.id)).size, count);
 });
 
-test('hover resumes, explicit pause and manual next remain paused', () => {
+test('leaving hover resumes autoplay, while manual navigation stops it', () => {
   const t = setup(); t.advance(1000);
   t.root.emit('pointerenter',{pointerType:'mouse'});
   const stopped = t.viewport.scrollLeft; t.advance(1000); assert.equal(t.viewport.scrollLeft,stopped);
   t.root.emit('pointerleave',{pointerType:'mouse'}); t.advance(1000); assert.notEqual(t.viewport.scrollLeft,stopped);
-  t.toggle.emit('click'); const paused=t.viewport.scrollLeft;
-  t.advance(1000); assert.equal(t.viewport.scrollLeft,paused); assert.equal(t.toggle.textContent,'Play scrolling');
-  t.toggle.emit('click'); t.next.emit('click'); const navigated=t.viewport.scrollLeft;
+  t.next.emit('click'); const navigated=t.viewport.scrollLeft;
   t.root.emit('pointerleave',{pointerType:'mouse'}); t.advance(1000); assert.equal(t.viewport.scrollLeft,navigated);
 });
 
@@ -119,5 +117,5 @@ test('touch/manual drag stays paused and resize preserves continuity', () => {
   const before=t.viewport.scrollLeft;
   t.viewport.emit('pointerdown',{button:0,pointerType:'touch',clientX:200});
   t.viewport.scrollLeft += 100;window.emit('pointerup');t.advance(1000);
-  assert.equal(t.viewport.scrollLeft,before+100);assert.equal(t.toggle.textContent,'Play scrolling');
+  assert.equal(t.viewport.scrollLeft,before+100);
 });

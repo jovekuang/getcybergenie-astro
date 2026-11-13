@@ -7105,9 +7105,12 @@ h3,
 .industry-tile-label { font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: .015em; }
 .industry-carousel-track strong { font-size: 18px; line-height: 1.4; margin-top: 10px; font-weight: 600; }
 .industry-tile-arrow { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--tile-tint); color: var(--tile-accent); margin-top: auto; align-self: flex-end; }
-.industry-carousel-controls { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
-.industry-carousel-controls[hidden], .industry-carousel-controls button[hidden] { display: none; }
-.industry-carousel-controls button { min-width: 44px; min-height: 44px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 7px; background: #fff; color: var(--foreground); font: inherit; font-size: 13px; cursor: pointer; }
+.industry-carousel-row { position: relative; }
+.industry-carousel-row:has(.industry-carousel-controls:not([hidden])) .industry-carousel-viewport { margin-inline: clamp(24px, 3.8vw, 42px); }
+.industry-carousel-controls { position: absolute; inset: 4px 0 12px; display: flex; align-items: center; justify-content: space-between; pointer-events: none; }
+.industry-carousel-controls[hidden] { display: none; }
+.industry-carousel-controls button { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid var(--line); border-radius: 50%; background: #fff; color: var(--primary-dark); font: inherit; font-size: 18px; cursor: pointer; pointer-events: auto; }
+.industry-carousel-controls button:hover { border-color: var(--primary); background: var(--warm); }
 .industry-carousel-controls button:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
 .customer-os-benefit { margin: 28px 0 0; padding: 24px 28px; background: var(--warm); border: 1px solid var(--line); border-left: 4px solid var(--primary); border-radius: var(--radius); color: var(--foreground); }
 .customer-os-benefit > strong { display: block; color: var(--primary-dark); font-size: 18px; }

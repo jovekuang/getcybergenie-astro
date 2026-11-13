@@ -24,28 +24,29 @@ const palettes = [
     <h2 id="hero-industries-title">{positioning.audience}</h2>
     <a href="/industries/">View all industries <span aria-hidden="true">→</span></a>
   </div>
-  <div class="industry-carousel-viewport" data-industry-viewport>
-    <ul class="industry-carousel-track" id="hero-industry-track" data-industry-track>
-      {heroIndustries.map((industry, index) => (
-        <li data-industry-tile style={`--tile-accent: ${palettes[industry.slug === 'online-retailers' ? 0 : index % palettes.length].accent}; --tile-tint: ${palettes[industry.slug === 'online-retailers' ? 0 : index % palettes.length].tint}`}>
-          <a href={industry.href}>
-            <span class="industry-tile-heading">
-              <span class="industry-tile-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d={icons[industry.slug]} /></svg>
+  <div class="industry-carousel-row">
+    <div class="industry-carousel-viewport" data-industry-viewport>
+      <ul class="industry-carousel-track" id="hero-industry-track" data-industry-track>
+        {heroIndustries.map((industry, index) => (
+          <li data-industry-tile style={`--tile-accent: ${palettes[industry.slug === 'online-retailers' ? 0 : index % palettes.length].accent}; --tile-tint: ${palettes[industry.slug === 'online-retailers' ? 0 : index % palettes.length].tint}`}>
+            <a href={industry.href}>
+              <span class="industry-tile-heading">
+                <span class="industry-tile-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d={icons[industry.slug]} /></svg>
+                </span>
+                <span class="industry-tile-label">{industry.name}</span>
               </span>
-              <span class="industry-tile-label">{industry.name}</span>
-            </span>
-            <strong>{industry.outcome}</strong>
-            <span class="industry-tile-arrow" aria-hidden="true">↗</span>
-          </a>
-        </li>
-      ))}
-    </ul>
-  </div>
-  <div class="industry-carousel-controls" data-industry-controls hidden>
-    <button type="button" data-industry-previous aria-label="Previous industry" aria-controls="hero-industry-track">←</button>
-    <button type="button" data-industry-toggle aria-controls="hero-industry-track">Pause scrolling</button>
-    <button type="button" data-industry-next aria-label="Next industry" aria-controls="hero-industry-track">→</button>
+              <strong>{industry.outcome}</strong>
+              <span class="industry-tile-arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div class="industry-carousel-controls" data-industry-controls hidden>
+      <button type="button" data-industry-previous aria-label="Previous industry" aria-controls="hero-industry-track">←</button>
+      <button type="button" data-industry-next aria-label="Next industry" aria-controls="hero-industry-track">→</button>
+    </div>
   </div>
 </section>
 

@@ -1,6 +1,6 @@
 ---
 import { brand } from "@/data/brand";
-import Genie from "@/components/Genie.astro";
+import HomeHeroMotion from "@/components/HomeHeroMotion.astro";
 import StoryCards from "@/components/customer-stories/StoryCards.astro";
 import WorkCarousel from "@/components/WorkCarousel.astro";
 import IndustryCarousel from "@/components/IndustryCarousel.astro";
@@ -88,28 +88,23 @@ const technologyPartnerSchema = {
     <div class="signal-hero-art">
       <SignalField variant="hero" animated={true} />
     </div>
-    <div class="container signal-hero-grid">
-      <div class="signal-hero-copy">
-        <h1>{positioning.headline.split("outcome,")[0]}<span class="outcome-headline-word"><span class="outcome-headline-highlight">outcome</span>,</span>{positioning.headline.split("outcome,")[1]}</h1>
-        <p class="outcome-hero-value">{positioning.value}</p>
-        <p class="cyber-hero-description">A better website. Calls answered. Less busywork. We set up, connect, and manage the technology that keeps your business moving.</p>
-        <div class="hero-actions">
-          <a class="button button-signal" href={`${appUrl}/login`}>
-            Let’s Get to Work
-          </a>
-          <a class="button button-signal button-signal-secondary" href={technologyPartnerOffer.ctaHref}>
-            Talk About Your Business
-          </a>
+    <div class="home-hero-stage" data-home-hero>
+      <div class="container signal-hero-grid">
+        <div class="signal-hero-copy">
+          <h1>{positioning.headline.split("outcome,")[0]}<span class="outcome-headline-word"><span class="outcome-headline-highlight">outcome</span>,</span>{positioning.headline.split("outcome,")[1]}</h1>
+          <div class="hero-actions">
+            <a class="button button-signal" href={`${appUrl}/login`}>
+              Let’s Get to Work
+            </a>
+            <a class="button button-signal button-signal-secondary" href={technologyPartnerOffer.ctaHref}>
+              Talk About Your Business
+            </a>
+          </div>
         </div>
-
+        <HomeHeroMotion />
       </div>
-      <div class="cyber-hero-character">
-        <span class="cyber-character-note cyber-character-note-top">You set the goal.</span>
-        <Genie class="hero-genie" />
-        <span class="cyber-character-note cyber-character-note-bottom"><span aria-hidden="true">✓</span> We handle the work.</span>
-      </div>
+      <div class="container"><IndustryCarousel /></div>
     </div>
-    <div class="container"><IndustryCarousel /></div>
   </section>
 
   <section class="signal-journey" aria-labelledby="journey-title">
@@ -223,6 +218,16 @@ const technologyPartnerSchema = {
     </div>
   </section>
 
+  <section class="customer-stories-feature" aria-labelledby="customer-stories-title">
+    <div class="container">
+      <div class="customer-stories-heading">
+        <div><p class="case-kicker">Customer Stories</p><h2 id="customer-stories-title">Built around the people behind the business.</h2></div>
+        <a class="case-text-link" href="/customer-stories/">Explore Customer Stories <span aria-hidden="true">→</span></a>
+      </div>
+      <StoryCards headingLevel="h3" compact />
+    </div>
+  </section>
+
   <section class="cyber-proof section" aria-labelledby="proof-title">
     <div class="container">
       <div class="cyber-section-intro">
@@ -230,16 +235,6 @@ const technologyPartnerSchema = {
         <p>Websites and platforms shaped around the people who use them.</p>
       </div>
       <WorkCarousel />
-    </div>
-  </section>
-
-  <section class="customer-stories-feature" aria-labelledby="customer-stories-title">
-    <div class="container">
-      <div class="customer-stories-heading">
-        <div><p class="case-kicker">Customer Stories</p><h2 id="customer-stories-title">Built around the people behind the business.</h2></div>
-        <a class="case-text-link" href="/customer-stories/">Explore Customer Stories <span aria-hidden="true">→</span></a>
-      </div>
-      <StoryCards headingLevel="h3" />
     </div>
   </section>
 

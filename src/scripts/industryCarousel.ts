@@ -4,7 +4,6 @@ export function initializeIndustryCarousel(root: HTMLElement) {
   const viewport = root.querySelector<HTMLElement>("[data-industry-viewport]")!;
   const track = root.querySelector<HTMLElement>("[data-industry-track]")!;
   const controls = root.querySelector<HTMLElement>("[data-industry-controls]")!;
-  const toggle = root.querySelector<HTMLButtonElement>("[data-industry-toggle]")!;
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
   let manualPause = false;
   let hover = false;
@@ -40,8 +39,6 @@ export function initializeIndustryCarousel(root: HTMLElement) {
   };
   const update = () => {
     root.dataset.scrolling = String(!blocked());
-    toggle.hidden = reducedMotion.matches;
-    toggle.textContent = manualPause ? "Play scrolling" : "Pause scrolling";
     if (blocked()) stop();
     else if (!frame) {
       offset = viewport.scrollLeft;
@@ -68,7 +65,6 @@ export function initializeIndustryCarousel(root: HTMLElement) {
 
   root.querySelector("[data-industry-previous]")!.addEventListener("click", () => move(-1));
   root.querySelector("[data-industry-next]")!.addEventListener("click", () => move(1));
-  toggle.addEventListener("click", () => { manualPause = !manualPause; update(); });
   root.addEventListener("pointerenter", (event) => { if (event.pointerType === "mouse") { hover = true; update(); } });
   root.addEventListener("pointerleave", (event) => { if (event.pointerType === "mouse") { hover = false; update(); } });
   root.addEventListener("focusin", (event) => {
