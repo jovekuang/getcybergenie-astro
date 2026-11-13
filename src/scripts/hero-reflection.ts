@@ -50,7 +50,7 @@ void main() {
   float refraction = fluteBand(flute, glint - 0.21, 0.078);
   float secondaryRim = fluteBand(flute, glint - 0.24, 0.018);
   vec3 reflected = (rim * 0.088 + lobe * 0.031) * vec3(1.0, 0.98, 0.86)
-    - refraction * vec3(0.062, 0.019, 0.029)
+    - refraction * vec3(0.078, 0.023, 0.040)
     + secondaryRim * vec3(0.005, 0.023, 0.024);
   color += uStrength * reflectance * reflected;
 

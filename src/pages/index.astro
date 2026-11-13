@@ -41,6 +41,7 @@ const journeyStages = [
 const evolvingApplication = membershipPlans.find((plan) => plan.slug === "evolving-website")!;
 const essentialWebsite = membershipPlans.find((plan) => plan.name === "Essential Website")!;
 const technologyPartner = membershipPlans.find((plan) => plan.name === "Technology Partner")!;
+const partnerHeadlineSentences = technologyPartnerOffer.headline.split(/(?<=\.) /);
 const serviceLinks = [
   { name: essentialWebsite.name, href: essentialWebsite.href },
   { name: evolvingApplication.name, href: evolvingApplication.href },
@@ -131,7 +132,7 @@ const technologyPartnerSchema = {
   <section class="signal-assurance-band" id="how-it-works" aria-labelledby="assurance-title">
     <div class="container">
       <div class="signal-band-intro">
-        <h2 id="assurance-title">Set up to work. Managed to keep working.</h2>
+        <h2 id="assurance-title" class="sentence-heading"><span>Set up to work.</span>{" "}<span>Managed to keep working.</span></h2>
         <p>Automation handles routine work. We configure, connect, and improve the agreed systems, with expert oversight for exceptions.</p>
       </div>
       <div class="signal-assurance-grid">
@@ -155,7 +156,9 @@ const technologyPartnerSchema = {
     <div class="container signal-offer-layout">
       <div class="signal-offer-feature">
         <p class="signal-kicker">Technology Partner</p>
-        <h2 id="offers-title">{technologyPartnerOffer.headline}</h2>
+        <h2 id="offers-title" class="sentence-heading">
+          {partnerHeadlineSentences.map((sentence, index) => <>{index > 0 && " "}<span>{sentence}</span></>)}
+        </h2>
         <p class="signal-offer-definition">{technologyPartnerOffer.supportingHeadline}</p>
         <p>We map your processes, connect agreed tools, and manage ongoing improvements.</p>
         <p class="signal-component-label">Ongoing ownership</p>
@@ -203,7 +206,7 @@ const technologyPartnerSchema = {
           </a>
         ))}
         <a class="signal-pricing-link" href="/pricing/">
-          <span aria-hidden="true">$</span><strong>Compare pricing</strong><span class="signal-arrow" aria-hidden="true">&#8594;</span>
+          <span aria-hidden="true">$</span><strong>See all offerings</strong><span class="signal-arrow" aria-hidden="true">&#8594;</span>
         </a>
       </div>
     </div>
@@ -231,7 +234,7 @@ const technologyPartnerSchema = {
   <section class="cyber-proof section" aria-labelledby="proof-title">
     <div class="container">
       <div class="cyber-section-intro">
-        <div><p class="signal-kicker">A little of our handiwork</p><h2 id="proof-title">Real businesses. Useful things, built.</h2></div>
+        <h2 id="proof-title" class="sentence-heading"><span>Real businesses.</span>{" "}<span>Useful things, built.</span></h2>
         <p>Websites and platforms shaped around the people who use them.</p>
       </div>
       <WorkCarousel />
@@ -246,7 +249,7 @@ const technologyPartnerSchema = {
         <h2>Where does the work get stuck?</h2>
       </div>
       <a class="button button-signal" href={technologyPartnerOffer.ctaHref}>
-        Talk to a Technology Partner <span aria-hidden="true">&#8599;</span>
+        Let’s talk about your business <span aria-hidden="true">&#8599;</span>
       </a>
     </div>
   </section>

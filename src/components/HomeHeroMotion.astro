@@ -75,7 +75,7 @@ const openStanceOutline = outline
   const hasHover = matchMedia("(any-hover: hover) and (any-pointer: fine)");
 
   if (stage && shell && header && canvas && character && openStance && thumbsUp && pose && face && mouth && gaze) {
-    const idleMotions = ["hop", "dash"];
+    const idleMotions = ["hop", "wink", "thumbs-up"];
     const smoothWeight = (value: number, start: number, end: number) => {
       const t = Math.max(0, Math.min(1, (value - start) / (end - start)));
       return t * t * (3 - 2 * t);
@@ -122,11 +122,14 @@ const openStanceOutline = outline
 
     const scheduleIdleMotion = (delay: number) => {
       window.clearTimeout(idleMotionTimer);
+      const wasGivingThumbsUp = character.dataset.idleMotion === "thumbs-up";
       character.removeAttribute("data-idle-motion");
+      if (wasGivingThumbsUp) renderPose();
       if (!genieInView || document.hidden || reducedMotion.matches || hoveredAction) return;
       idleMotionTimer = window.setTimeout(() => {
         character.dataset.idleMotion = idleMotions[nextIdleMotion];
         nextIdleMotion = (nextIdleMotion + 1) % idleMotions.length;
+        if (character.dataset.idleMotion === "thumbs-up") renderPose();
         scheduleRender();
       }, delay);
     };
@@ -161,21 +164,22 @@ const openStanceOutline = outline
     }, { passive: true });
 
     const renderPose = () => {
-      const outline = hoveredAction ? thumbsUp : openStance;
-      const restingHeadX = hoveredAction ? 0 : openStanceHeadX;
-      const restingHeadY = hoveredAction ? 0 : openStanceHeadY;
+      const showThumbsUp = hoveredAction || character.dataset.idleMotion === "thumbs-up";
+      const outline = showThumbsUp ? thumbsUp : openStance;
+      const restingHeadX = showThumbsUp ? 0 : openStanceHeadX;
+      const restingHeadY = showThumbsUp ? 0 : openStanceHeadY;
       const headX = 32 * x;
       const headY = 17 * y;
       face.setAttribute("transform", `translate(${restingHeadX + headX} ${restingHeadY + headY})`);
       if (x === 0 && y === 0) {
-        outline.setAttribute("d", hoveredAction ? thumbsUpPath : openStancePath);
+        outline.setAttribute("d", showThumbsUp ? thumbsUpPath : openStancePath);
         pose.removeAttribute("transform");
         mouth.removeAttribute("transform");
         gaze.removeAttribute("transform");
         return;
       }
 
-      const segments = hoveredAction ? thumbsUpSegments : openStanceSegments;
+      const segments = showThumbsUp ? thumbsUpSegments : openStanceSegments;
       const outlinePath = segments.map(({ command, points }) => {
         const moved = points.map(({ x: pointX, y: pointY, head, raisedHand, loweredHand }) => {
           const offsetX = headX * head + 11 * x * raisedHand + 15 * x * loweredHand;
@@ -306,7 +310,7 @@ const openStanceOutline = outline
     window.addEventListener("pointermove", onActivity, { passive: true });
     window.addEventListener("scroll", onActivity, { passive: true });
     character.addEventListener("animationend", event => {
-      if (event.animationName !== "hero-genie-hop" && event.animationName !== "hero-genie-dash") return;
+      if (event.animationName !== `hero-genie-${character.dataset.idleMotion}`) return;
       scheduleIdleMotion(6500);
       scheduleRender();
     });
