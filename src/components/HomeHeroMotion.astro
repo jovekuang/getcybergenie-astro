@@ -197,7 +197,7 @@ const openStanceOutline = outline
     const approach = (current: number, target: number) =>
       Math.abs(target - current) < .004 ? target : current + (target - current) * .24;
 
-    const render = () => {
+    const render = (time: number) => {
       frame = 0;
       let targetX = 0;
       let targetY = 0;
@@ -223,9 +223,9 @@ const openStanceOutline = outline
         renderPose();
       }
       light = approach(light, targetLight);
-      reflection?.draw(lastLightX, lastLightY, light);
+      const washMoving = reflection?.draw(lastLightX, lastLightY, light, time);
 
-      if (x !== targetX || y !== targetY || light !== targetLight) scheduleRender();
+      if (x !== targetX || y !== targetY || light !== targetLight || washMoving) scheduleRender();
     };
     const scheduleRender = () => {
       if (!frame) frame = requestAnimationFrame(render);
